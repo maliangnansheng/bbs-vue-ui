@@ -5,14 +5,20 @@
 [![GitHub stars](https://img.shields.io/github/stars/maliangnansheng/bbs-vue-ui.svg?style=social&label=Stars)](https://github.com/maliangnansheng/bbs-vue-ui)
 [![GitHub forks](https://img.shields.io/github/forks/maliangnansheng/bbs-vue-ui.svg?style=social&label=Fork)](https://github.com/maliangnansheng/bbs-vue-ui)
 
+> 本项目完全开源
+>
+> 如果于你有用麻烦帮忙点一次`Star`和`Fork`
+
 ## 仓库说明
 
-> 本仓库`bbs-vue-ui`是【南生论坛3.0.0】前后端分离项目的**前端项目**，对应的**后端项目**仓库移步至：[bbs-springboot](https://github.com/maliangnansheng/bbs-springboot)
+> 本仓库`bbs-vue-ui`是【南生论坛3.0.0】前后端分离项目的**前端项目**
+>
+> 对应的**后端项目**仓库移步至：[bbs-springboot](https://github.com/maliangnansheng/bbs-springboot)
 
 ## 关于项目
 
 - 南生论坛基于`SpringBoot+Vue`框架实现前后端分离，自适应手机端和电脑端，界面简洁美观，功能完善，性能高效。分为[用户系统](http://bbs.nanshengbbs.top)和[管理系统](http://manage.nanshengbbs.top)两部分
-- 该论坛适合`初学/进阶`SpringBoot+Vue的童鞋学习。主要涉及技术包括`SpringBoot、Dubbo、RocketMQ、Redis、MyBatis、MySQL、MongoDB、Shiro、七牛云（图片/视频全部存于此）、Vue、Axios、Vue Router、Ant Design of Vue、Webpack、Less、Vuex、ES6、Node.js、mavonEditor、ECharts、…`  
+- 该项目适合`初学/进阶`SpringBoot+Vue的童鞋学习。主要涉及技术包括`SpringBoot、Dubbo、RocketMQ、Redis、MyBatis、MySQL、MongoDB、Shiro、七牛云（图片/视频全部存于此）、Vue、Axios、Vue Router、Ant Design of Vue、Webpack、Less、Vuex、ES6、Node.js、mavonEditor、ECharts、…`  
 
 ## 技术栈
 
@@ -22,7 +28,12 @@
   Vue、Axios、Vue Router、Ant Design of Vue、Webpack、Less、Vuex、ES6、Node.js、mavonEditor、ECharts、...
 
 ## 项目部署教程
-去部署：[安装部署教程](https://github.com/maliangnansheng/bbs-springboot/wiki/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B)
+
+`本地部署：`
+
+[【后端】安装部署教程](https://github.com/maliangnansheng/bbs-springboot/wiki/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B)
+
+[【前端】安装部署教程](https://github.com/maliangnansheng/bbs-springboot/wiki/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B)
 
 ## 在线演示
 

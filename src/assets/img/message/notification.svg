@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+        "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg t="1625668776091" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1113"
+     xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32">
+    <defs>
+        <style type="text/css"></style>
+    </defs>
+    <path d="M512 512m-33.2 0a33.2 33.2 0 1 0 66.4 0 33.2 33.2 0 1 0-66.4 0Z" fill="#de6700" p-id="1114"
+          data-spm-anchor-id="a313x.7781069.0.i11" class="selected"></path>
+    <path d="M648.6 512m-33.2 0a33.2 33.2 0 1 0 66.4 0 33.2 33.2 0 1 0-66.4 0Z" fill="#de6700" p-id="1115"
+          data-spm-anchor-id="a313x.7781069.0.i10" class="selected"></path>
+    <path d="M375.4 512m-33.2 0a33.2 33.2 0 1 0 66.4 0 33.2 33.2 0 1 0-66.4 0Z" fill="#de6700" p-id="1116"
+          data-spm-anchor-id="a313x.7781069.0.i12" class="selected"></path>
+    <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m0 721.2c-48.7 0.1-96.6-12.9-138.6-37.7l-115.1 18.2 18.2-115.1c-24-40.6-37.7-88-37.7-138.6 0-150.9 122.3-273.2 273.2-273.2 150.9 0 273.2 122.3 273.2 273.2S662.9 785.2 512 785.2z"
+          fill="#de6700" p-id="1117" data-spm-anchor-id="a313x.7781069.0.i6" class="selected"></path>
+</svg>

@@ -1,0 +1,359 @@
+{
+  "id": "2533087",
+  "name": "ns-manage-ui",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "19297036",
+      "name": "菱形宝石",
+      "font_class": "Lv6",
+      "unicode": "e774",
+      "unicode_decimal": 59252
+    },
+    {
+      "icon_id": "19297023",
+      "name": "锥形宝石",
+      "font_class": "Lv4",
+      "unicode": "e76f",
+      "unicode_decimal": 59247
+    },
+    {
+      "icon_id": "19297028",
+      "name": "四角宝石",
+      "font_class": "Lv3",
+      "unicode": "e770",
+      "unicode_decimal": 59248
+    },
+    {
+      "icon_id": "19297031",
+      "name": "水滴宝石",
+      "font_class": "Lv1",
+      "unicode": "e772",
+      "unicode_decimal": 59250
+    },
+    {
+      "icon_id": "19297032",
+      "name": "切割宝石",
+      "font_class": "Lv2",
+      "unicode": "e773",
+      "unicode_decimal": 59251
+    },
+    {
+      "icon_id": "19297040",
+      "name": "爱心宝石",
+      "font_class": "Lv5",
+      "unicode": "e775",
+      "unicode_decimal": 59253
+    },
+    {
+      "icon_id": "5288597",
+      "name": "问号",
+      "font_class": "about",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "925316",
+      "name": "设置",
+      "font_class": "setUp",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "1409628",
+      "name": "28退出",
+      "font_class": "quit",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "1658875",
+      "name": "我的主页",
+      "font_class": "user-picture",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "7410082",
+      "name": "提问",
+      "font_class": "writeArticle",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "9869812",
+      "name": "关注",
+      "font_class": "follow",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
+      "icon_id": "1114",
+      "name": "网络",
+      "font_class": "personal-center",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "6282771",
+      "name": "身份信息",
+      "font_class": "intro",
+      "unicode": "e6b8",
+      "unicode_decimal": 59064
+    },
+    {
+      "icon_id": "18166121",
+      "name": "公文包,工具箱,手提包,行李包",
+      "font_class": "office",
+      "unicode": "e8b7",
+      "unicode_decimal": 59575
+    },
+    {
+      "icon_id": "18986691",
+      "name": "GitHub",
+      "font_class": "GitHub",
+      "unicode": "e8c6",
+      "unicode_decimal": 59590
+    },
+    {
+      "icon_id": "15391396",
+      "name": "成就",
+      "font_class": "achievement",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "19742232",
+      "name": "上升",
+      "font_class": "rise",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "23949513",
+      "name": "文章",
+      "font_class": "relat-article",
+      "unicode": "ec64",
+      "unicode_decimal": 60516
+    },
+    {
+      "icon_id": "22756952",
+      "name": "eye",
+      "font_class": "eye",
+      "unicode": "e68f",
+      "unicode_decimal": 59023
+    },
+    {
+      "icon_id": "6237086",
+      "name": "评论",
+      "font_class": "comment",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "9688351",
+      "name": "点赞",
+      "font_class": "like",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "21255535",
+      "name": "回到顶部",
+      "font_class": "backTop",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    },
+    {
+      "icon_id": "669748",
+      "name": "reject",
+      "font_class": "reject",
+      "unicode": "e67c",
+      "unicode_decimal": 59004
+    },
+    {
+      "icon_id": "986819",
+      "name": "反馈",
+      "font_class": "feed-back",
+      "unicode": "e699",
+      "unicode_decimal": 59033
+    },
+    {
+      "icon_id": "7468253",
+      "name": "Confirm Resolved",
+      "font_class": "resolve",
+      "unicode": "e696",
+      "unicode_decimal": 59030
+    },
+    {
+      "icon_id": "20435637",
+      "name": "反馈",
+      "font_class": "feedbacks",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "21308559",
+      "name": "全屏",
+      "font_class": "fullscreen",
+      "unicode": "e6e5",
+      "unicode_decimal": 59109
+    },
+    {
+      "icon_id": "16064071",
+      "name": "访问记录",
+      "font_class": "visitRecord",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "18457597",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "8056773",
+      "name": "packup",
+      "font_class": "packUp",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "15888873",
+      "name": "属性调色盘",
+      "font_class": "theme",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    },
+    {
+      "icon_id": "10491998",
+      "name": "退出登录",
+      "font_class": "logOut",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "12987198",
+      "name": "个人中心",
+      "font_class": "profile",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "16077580",
+      "name": "铃铛",
+      "font_class": "bell",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "20223349",
+      "name": "message",
+      "font_class": "message",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "2755551",
+      "name": "禁用",
+      "font_class": "disable",
+      "unicode": "e663",
+      "unicode_decimal": 58979
+    },
+    {
+      "icon_id": "10095991",
+      "name": "启用",
+      "font_class": "enable",
+      "unicode": "e69e",
+      "unicode_decimal": 59038
+    },
+    {
+      "icon_id": "6151292",
+      "name": "minus",
+      "font_class": "minus1",
+      "unicode": "e828",
+      "unicode_decimal": 59432
+    },
+    {
+      "icon_id": "7685335",
+      "name": "user_role",
+      "font_class": "role",
+      "unicode": "e74e",
+      "unicode_decimal": 59214
+    },
+    {
+      "icon_id": "10793034",
+      "name": "add",
+      "font_class": "add",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "11741024",
+      "name": "delete",
+      "font_class": "delete",
+      "unicode": "e684",
+      "unicode_decimal": 59012
+    },
+    {
+      "icon_id": "15014204",
+      "name": "权限",
+      "font_class": "rights",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "15177859",
+      "name": "full-screen",
+      "font_class": "expand",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    },
+    {
+      "icon_id": "18986664",
+      "name": "edit",
+      "font_class": "edit",
+      "unicode": "e8c3",
+      "unicode_decimal": 59587
+    },
+    {
+      "icon_id": "5635075",
+      "name": "user",
+      "font_class": "user",
+      "unicode": "f2dc",
+      "unicode_decimal": 62172
+    },
+    {
+      "icon_id": "8159853",
+      "name": "权限管理",
+      "font_class": "rightsRole",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
+      "icon_id": "10043883",
+      "name": "Organization",
+      "font_class": "organization",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "11215392",
+      "name": "dashboard",
+      "font_class": "dashboard",
+      "unicode": "e714",
+      "unicode_decimal": 59156
+    },
+    {
+      "icon_id": "18858650",
+      "name": "项目管理",
+      "font_class": "projectManage",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    }
+  ]
+}

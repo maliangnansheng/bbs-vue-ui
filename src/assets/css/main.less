@@ -1,0 +1,60 @@
+// 引入antd的less文件，然后最后只需在入口文件里面引入当前文件即可
+@import "~ant-design-vue/dist/antd.less";
+
+@colors: #fa541c #3eaf7c #13c2c2 #1869ff #722ed1 #eb2f96;
+#home,
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: @primary-color !important;
+}
+
+.feedback-icon-container,
+.components-back-top-demo-custom .ant-back-top-inner {
+  background: @primary-color;
+}
+
+.ant-tree li .ant-tree-node-content-wrapper:hover .org-tree-title {
+  background: fade(@primary-color, 50%);
+}
+
+.dashboard-user-map .icon-fullscreen,
+.map-popup-count,
+.selected-stastics .anticon {
+  color: @primary-color !important;
+}
+
+//声明map-icons为6 int map-icons = 6
+.map-icons(6);
+//循环 for(int i = 1; i <= n; i++)
+.map-icons(@n, @i:1) when (@i <= @n) {
+  //.map-icon1{}
+  //.map-icon2{}
+  // ...
+  .map-icon@{i} {
+    //background-color 从@colors数组中取第i位的值，然后用fade方法淡化至50%
+    background-color: fade(extract(@colors, @i), 50%);
+  }
+  .map-icons(@n, (@i + 1));
+}
+
+.map-icon {
+  .text-container {
+    background-color: @primary-color;
+  }
+}
+
+.selected-stastics {
+  background-color: fade(@primary-color, 20%);
+  border: 1px solid fade(@primary-color, 50%);
+  margin-bottom: 10px;
+}
+
+.ant-dropdown-menu-item,
+.ant-dropdown-menu-submenu-title {
+  color: @primary-color !important;
+}
+
+.org-container {
+  .iconfont {
+    color: @primary-color;
+  }
+}

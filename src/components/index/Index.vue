@@ -41,6 +41,11 @@
             <a-row>
               <a-col :span="24" style="height: 10px;"/>
             </a-row>
+            <!-- 友情捐赠 -->
+            <FriendDonate style="background: #fff;"/>
+            <a-row>
+              <a-col :span="24" style="height: 10px;"/>
+            </a-row>
             <!-- 备案信息 -->
             <FilingInfo/>
           </a-col>
@@ -62,6 +67,7 @@ import FilingInfo from "@/components/right/FilingInfo";
 import FooterButtons from "@/components/utils/FooterButtons";
 import CustomEmpty from "@/components/utils/CustomEmpty";
 import LatestComment from "@/components/right/LatestComment";
+import FriendDonate from "@/components/right/FriendDonate";
 
 export default {
   components: {
@@ -73,7 +79,8 @@ export default {
     AuthorsList,
     FilingInfo,
     CustomEmpty,
-    LatestComment
+    LatestComment,
+    FriendDonate
   },
   data() {
     return {
@@ -83,7 +90,7 @@ export default {
       listData: [],
       hasNext: true,
       finish: false,
-      params: {currentPage: 1, pageSize: 10},
+      params: {currentPage: 1, pageSize: 12},
       searchContent: '',
     };
   },

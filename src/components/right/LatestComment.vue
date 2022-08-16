@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       data: [],
-      params: {currentPage: 1, pageSize: 8},
+      params: {currentPage: 1, pageSize: 6},
     };
   },
 

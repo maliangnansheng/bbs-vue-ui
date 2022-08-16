@@ -5,6 +5,7 @@ export default {
     visit: "访客",
     authorList: "作者榜",
     latestComment: "最新评论",
+    friendDonate: "友情捐赠",
     fullList: "完整榜单",
     taskNotify: "任务提醒",
     message: "公告通知",

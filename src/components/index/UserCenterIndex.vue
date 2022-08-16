@@ -31,6 +31,11 @@
             <a-row>
               <a-col :span="24" style="height: 10px;"/>
             </a-row>
+            <!-- 友情捐赠 -->
+            <FriendDonate style="background: #fff;"/>
+            <a-row>
+              <a-col :span="24" style="height: 10px;"/>
+            </a-row>
             <!-- 备案信息 -->
             <FilingInfo/>
           </a-col>
@@ -50,10 +55,11 @@ import PersonalInfoDisplay from "@/components/user/PersonalInfoDisplay";
 import UserTabs from "@/components/user/UserTabs";
 import FooterButtons from "@/components/utils/FooterButtons";
 import userService from "@/service/userService";
+import FriendDonate from "@/components/right/FriendDonate";
 
 export default {
   name: "",
-  components: {IndexHeader, PersonalAchievement, FilingInfo, FollowCount, PersonalInfoDisplay, UserTabs, FooterButtons},
+  components: {IndexHeader, PersonalAchievement, FilingInfo, FollowCount, PersonalInfoDisplay, UserTabs, FooterButtons, FriendDonate},
 
   data() {
     return {

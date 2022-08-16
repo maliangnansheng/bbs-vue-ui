@@ -5,6 +5,7 @@ export default {
     visit: "Visit",
     authorList: "Author list",
     latestComment: "Latest Comment",
+    friendDonate: "Friend Donate",
     fullList: "Full list",
     taskNotify: "Notifications",
     message: "Messages",

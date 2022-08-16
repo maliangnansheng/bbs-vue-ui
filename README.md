@@ -7,7 +7,7 @@
 
 > 本项目完全开源
 >
-> 如果于你有用麻烦帮忙点一次`Star`和`Fork`
+> 如果觉得不错麻烦帮忙点一次`Star⭐️`
 
 ## 仓库说明
 
@@ -18,6 +18,7 @@
 ## 关于项目
 
 - 南生论坛基于`SpringBoot+Vue`框架实现前后端分离，自适应手机端和电脑端，界面简洁美观，功能完善，性能高效。分为[用户系统](http://bbs.nanshengbbs.top)和[管理系统](http://manage.nanshengbbs.top)两部分
+- 代码简介、高效无冗余；注释详细易阅读；大厂架构设计
 - 该项目适合`初学/进阶`SpringBoot+Vue的童鞋学习。主要涉及技术包括`SpringBoot、Dubbo、RocketMQ、Redis、MyBatis、MySQL、MongoDB、Shiro、七牛云（图片/视频全部存于此）、Vue、Axios、Vue Router、Ant Design of Vue、Webpack、Less、Vuex、ES6、Node.js、mavonEditor、ECharts、…`  
 
 ## 技术栈
@@ -27,13 +28,19 @@
 - **前端：**
   Vue、Axios、Vue Router、Ant Design of Vue、Webpack、Less、Vuex、ES6、Node.js、mavonEditor、ECharts、...
 
+## 联系作者
+> **商用** or **毕设** 需要联系作者授权
+1. 在线联系作者：去 [南生闲聊](http://chat.nanshengbbs.top/)（`使用南生论坛注册的账号密码即可登录`） 聊天，问题反馈在“南生论坛”群聊或者加“马亮南生”私聊都行
+2. 加作者QQ：924818949
+3. 加作者微信：maliangnansheng
+
 ## 项目部署教程
 
 `本地部署：`
 
-[【后端】安装部署教程](https://github.com/maliangnansheng/bbs-springboot/wiki/%E3%80%90%E5%90%8E%E7%AB%AF%E3%80%91%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B)
+[【后端】安装部署教程](http://bbs.nanshengbbs.top/detail/44)
 
-[【前端】安装部署教程](https://github.com/maliangnansheng/bbs-springboot/wiki/%E3%80%90%E5%89%8D%E7%AB%AF%E3%80%91%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B)
+[【前端】安装部署教程](http://bbs.nanshengbbs.top/detail/45)
 
 ## 在线演示
 
@@ -96,9 +103,13 @@
 
   ![image](http://76.nanshengbbs.top/ns-bbs-article.png)
 
-- **标签**
+- **标签（`管理员视角`）**
 
   ![](http://76.nanshengbbs.top/ns-bbs-label.png)
+ 
+- **资源导航（`管理员视角`）**
+
+  ![](http://76.nanshengbbs.top/ns-bbs-resource.png)
 
 - **个人主页**
 

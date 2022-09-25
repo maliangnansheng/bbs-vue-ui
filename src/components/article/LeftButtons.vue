@@ -79,7 +79,7 @@ export default {
 <style lang="less">
 #left-buttons {
   position: fixed;
-  z-index: 999;
+  z-index: 888;
 
   .like-icon-container {
     border-radius: 50%;

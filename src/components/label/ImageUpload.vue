@@ -48,6 +48,13 @@
     methods: {
       // 标签logo上传
       uploadLabelLogo(info) {
+        // 校验图片大小（不能超过5M）
+        if (info.file.size > 5 * 1024 * 1024) {
+          this.$message.warning(this.$t("common.avatarSizeTip"));
+          this.$refs.md.$img2Url(pos, null);
+          return;
+        }
+
         const data = new FormData();
         data.append("logo", info.file);
 

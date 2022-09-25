@@ -19,7 +19,7 @@
             <FrontPageArticle
                 :finish="finish"
                 :hasNext="hasNext"
-                :data="{ list: listData }"
+                :data="listData"
                 @refresh="refresh"/>
           </div>
         </div>

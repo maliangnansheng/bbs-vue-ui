@@ -1,10 +1,5 @@
 <template>
-  <div @click="showLoginModal">
-    <div class="options">
-      <a-button style="border: 1px solid rgba(30,128,255,.3); background: rgba(30,128,255,.05); color: #007fff;">
-        {{ $t("common.login") }}
-      </a-button>
-    </div>
+  <div>
     <a-modal v-model="$store.state.loginVisible" @ok="handleOk" :footer="null" :width="'320px'">
       <a-form id="login-form-content"
               :form="form"
@@ -30,9 +25,9 @@
           <a-checkbox v-decorator="[ 'remember', { valuePropName: 'checked', initialValue: true, }, ]">
             {{ $t("common.rememberMe") }}
           </a-checkbox>
-          <span class="login-form-forgot">
+          <A class="login-form-forgot" @click="mobileResetPassword">
             {{ $t("common.forgotPassword") }}
-          </span>
+          </A>
           <a-button type="primary" html-type="submit" class="login-form-button" size="large">
             {{ $t("common.login") }}
           </a-button>
@@ -55,11 +50,6 @@
     },
 
     methods: {
-      // 显示登录框
-      showLoginModal() {
-        this.$store.state.loginVisible = true;
-      },
-
       // 隐藏登录框
       handleOk() {
         this.$store.state.loginVisible = false;
@@ -71,15 +61,8 @@
           if (!err) {
             loginService.login(values)
                 .then(res => {
-                  // 登录用户id
-                  this.$store.state.userId = res.data.userId;
-                  // 用户是否已经登录
-                  this.$store.state.isLogin = true;
-                  // 关闭登录modal
-                  this.$store.state.loginVisible = false;
-                  // 刷新
-                  this.$emit("refresh");
-                  this.$message.success(this.$t('common.loginSuccess'));
+                  // 刷新当前页面
+                  this.$router.go(0);
                 })
                 .catch(err => {
                   this.$message.error(err.desc);
@@ -91,6 +74,11 @@
       register() {
         this.$store.state.loginVisible = false;
         this.$store.state.registerVisible = true;
+      },
+
+      mobileResetPassword() {
+        this.$store.state.loginVisible = false;
+        this.$store.state.mobileResetPasswordVisible = true;
       },
 
     },

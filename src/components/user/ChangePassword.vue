@@ -112,7 +112,7 @@
                 return;
               }
               if (newPassword !== newPasswordAgain) {
-                this.$message.error(this.$t("common.passwordNotMatch"));
+                this.$message.warning(this.$t("common.passwordNotMatch"));
                 return;
               }
               userService.updatePassword({oldPassword, newPassword})

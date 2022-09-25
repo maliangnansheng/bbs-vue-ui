@@ -15,10 +15,15 @@
                   v-text="$route.params.id ? $t('common.update') : $t('common.release')"></a-button>
       </a-popover>
       <a-icon class="write-item" type="swap"/>
-      <div style="cursor: pointer;" @click="routerUserCenter($store.state.userId)">
-        <a-avatar :size="46" slot="avatar" class="write-item"
-                  :src="$store.state.picture ? $store.state.picture : require('@/assets/img/default_avatar.png')"/>
-      </div>
+      <a-tooltip placement="bottom">
+        <template slot="title">
+          {{ $t("common.homePage") }}
+        </template>
+        <div style="cursor: pointer;" @click="routerUserCenter($store.state.userId)">
+          <a-avatar :size="46" slot="avatar" class="write-item"
+                    :src="$store.state.picture ? $store.state.picture : require('@/assets/img/default_avatar.png')"/>
+        </div>
+      </a-tooltip>
     </div>
     <div class="right">
       <mavon-editor ref=md @imgAdd="imgAdd" @change="markdownChange" v-model="markdownCode"
@@ -29,15 +34,21 @@
                     :placeholder="$t('common.startEditing')"></mavon-editor>
     </div>
 
+    <!-- 登录Model -->
+    <Login />
+    <!-- 注册Model -->
+    <Register />
   </div>
 </template>
 
 <script>
 import articleService from "@/service/articleService";
 import ArticleBasicInfo from "@/components/article/ArticleBasicInfo";
+import Login from "@/components/login/Login";
+import Register from "@/components/login/Register";
 
 export default {
-  components: {ArticleBasicInfo},
+  components: {ArticleBasicInfo, Login, Register},
 
   data() {
     return {
@@ -121,6 +132,12 @@ export default {
   methods: {
     // 绑定@imgAdd event
     imgAdd(pos, $file) {
+      // 校验图片大小（不能超过5M）
+      if ($file.size > 5 * 1024 * 1024) {
+        this.$message.warning(this.$t("common.avatarSizeTip"));
+        this.$refs.md.$img2Url(pos, null);
+        return;
+      }
       // 第一步.将图片上传到服务器.
       const formData = new FormData();
       formData.append('picture', $file);
@@ -167,8 +184,12 @@ export default {
 
     // 路由到用户中心页面
     routerUserCenter(userId) {
-      let routeData = this.$router.resolve("/user/" + userId);
-      window.open(routeData.href, '_blank');
+      if (this.$store.state.isLogin) {
+        let routeData = this.$router.resolve("/user/" + userId);
+        window.open(routeData.href, '_blank');
+      } else {
+        this.$store.state.loginVisible = true;
+      }
     }
   },
 
@@ -225,5 +246,10 @@ export default {
 /* markdown */
 #write-article .v-note-wrapper {
   z-index: 900;
+}
+
+/* markdown */
+#write-article .v-note-wrapper.markdown-body.shadow {
+  z-index: 0!important;
 }
 </style>

@@ -3,7 +3,7 @@
     <a-tabs default-active-key="followed" @change="changeTab">
       <a-tab-pane key="followed">
         <span slot="tab">
-          {{ $t("common.followed") + ' ' + followedTotal }}
+          {{ $t("common.follow") + ' ' + followedTotal }}
         </span>
         <FollowAuthorsListContent
             :getBigCow="getBigCow"
@@ -15,7 +15,7 @@
       </a-tab-pane>
       <a-tab-pane key="fan">
       <span slot="tab">
-        {{ $t("common.followMe") + ' ' + fanTotal }}
+        {{ $t("common.fan") + ' ' + fanTotal }}
       </span>
         <FollowAuthorsListContent
             :getBigCow="getBigCow"

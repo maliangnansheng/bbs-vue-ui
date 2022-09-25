@@ -9,6 +9,38 @@ export default {
                 .catch((err) => reject(err));
         });
     },
+    // 获取个人发布的文章（所有）
+    getPersonalArticles(params) {
+        return new Promise((resolve, reject) => {
+            axios.get("/api/bbs/article/getPersonalArticles", {params})
+                .then((res) => resolve(res))
+                .catch((err) => reject(err));
+        });
+    },
+    // 获取待审核的文章
+    getPendingReviewArticles(params) {
+        return new Promise((resolve, reject) => {
+            axios.get("/api/bbs/article/getPendingReviewArticles", {params})
+                .then((res) => resolve(res))
+                .catch((err) => reject(err));
+        });
+    },
+    // 获取禁用的文章
+    getDisabledArticles(params) {
+        return new Promise((resolve, reject) => {
+            axios.get("/api/bbs/article/getDisabledArticles", {params})
+                .then((res) => resolve(res))
+                .catch((err) => reject(err));
+        });
+    },
+    // 修改文章审批状态
+    updateState(data) {
+        return new Promise((resolve, reject) => {
+            axios.post("/api/bbs/article/updateState", data)
+                .then((res) => resolve(res))
+                .catch((err) => reject(err));
+        });
+    },
     // 获取点赞过的文章
     getLikesArticle(params) {
         return new Promise((resolve, reject) => {

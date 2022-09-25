@@ -79,41 +79,41 @@
         <span>{{ $t("common.getBadge") + ' ' + (getBadgeCount(data.points) === undefined ? '' : getBadgeCount(data.points)) }}</span>
       </div>
       <div>
-        <a-tooltip placement="top">
+        <a-tooltip placement="top" v-if="data.points >= 0">
           <template slot="title">
             新手
           </template>
-          <img v-if="data.points >= 0" src="@/assets/img/level/badge-Lv1.svg" alt="" style="margin-left: 8px;cursor: pointer" @click="routerBook"/>
+          <img src="@/assets/img/level/badge-Lv1.svg" alt="" style="margin-left: 8px;cursor: pointer" @click="routerBook"/>
         </a-tooltip>
-        <a-tooltip placement="top">
+        <a-tooltip placement="top" v-if="data.points >= 100">
           <template slot="title">
             麒麟儿
           </template>
-          <img v-if="data.points >= 100" src="@/assets/img/level/badge-Lv2.svg" alt="" style="margin-left: 8px;cursor: pointer" @click="routerBook"/>
+          <img src="@/assets/img/level/badge-Lv2.svg" alt="" style="margin-left: 8px;cursor: pointer" @click="routerBook"/>
         </a-tooltip>
-        <a-tooltip placement="top">
+        <a-tooltip placement="top" v-if="data.points >= 300">
           <template slot="title">
             三好学生
           </template>
-          <img v-if="data.points >= 300" src="@/assets/img/level/badge-Lv3.svg" alt="" style="margin-left: 8px;cursor: pointer" @click="routerBook"/>
+          <img src="@/assets/img/level/badge-Lv3.svg" alt="" style="margin-left: 8px;cursor: pointer" @click="routerBook"/>
         </a-tooltip>
-        <a-tooltip placement="top">
+        <a-tooltip placement="top" v-if="data.points >= 600">
           <template slot="title">
             技术贡献者
           </template>
-          <img v-if="data.points >= 600" src="@/assets/img/level/badge-Lv4.svg" alt="" style="margin-left: 8px;cursor: pointer" @click="routerBook"/>
+          <img src="@/assets/img/level/badge-Lv4.svg" alt="" style="margin-left: 8px;cursor: pointer" @click="routerBook"/>
         </a-tooltip>
-        <a-tooltip placement="top">
+        <a-tooltip placement="top" v-if="data.points >= 1000">
           <template slot="title">
             优秀作者
           </template>
-          <img v-if="data.points >= 1000" src="@/assets/img/level/badge-Lv5.svg" alt="" style="margin-left: 8px;cursor: pointer" @click="routerBook"/>
+          <img src="@/assets/img/level/badge-Lv5.svg" alt="" style="margin-left: 8px;cursor: pointer" @click="routerBook"/>
         </a-tooltip>
-        <a-tooltip placement="top">
+        <a-tooltip placement="top" v-if="data.points >= 1500">
           <template slot="title">
             共建者
           </template>
-          <img v-if="data.points >= 1500" src="@/assets/img/level/badge-Lv6.svg" alt="" style="margin-left: 8px;cursor: pointer" @click="routerBook"/>
+          <img src="@/assets/img/level/badge-Lv6.svg" alt="" style="margin-left: 8px;cursor: pointer" @click="routerBook"/>
         </a-tooltip>
       </div>
     </div>

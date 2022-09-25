@@ -73,9 +73,19 @@ const routes = [
         ]
     },
     {
+        path: "/resource",
+        name: "resource",
+        component: () => import("@/components/index/ResourceIndex"),
+    },
+    {
         path: "/book",
         name: "book",
         component: () => import("@/components/index/Book"),
+    },
+    {
+        path: "/about",
+        name: "about",
+        component: () => import("@/components/index/About"),
     },
     {
         path: "/500",

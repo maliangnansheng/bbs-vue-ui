@@ -11,8 +11,10 @@
             v-if="isArticleTab"
             :finish="finish"
             :hasNext="hasNext"
-            :data="{ list: articleData }"
+            :data="articleData"
             :service="articleService"
+            :isUserCenter="true"
+            :userId="userId"
             @refresh="articleRefresh"
             style="background: #fff;"/>
       </a-tab-pane>
@@ -39,7 +41,7 @@
             v-if="isLikeTab"
             :finish="finish"
             :hasNext="hasNext"
-            :data="{ list: likeData }"
+            :data="likeData"
             :service="articleService"
             @refresh="likeRefresh"
             style="background: #fff;"/>
@@ -99,19 +101,24 @@ export default {
         this.getLikesArticle(this.params, true);
       }
       if (this.isArticleTab) {
-        this.getArticleList(this.params, true);
+        this.getPersonalArticles(this.params, true);
       }
     },
 
-    // 获取文章列表信息
-    getArticleList(params, isLoadMore) {
+    // 获取个人发布的文章（所有）
+    getPersonalArticles(params, isLoadMore) {
       if (!isLoadMore) {
         this.params.currentPage = 1;
       }
       this.finish = false;
       params.createUser = this.userId;
       this.$delete(params, 'likeUser');
-      articleService.getArticleList(params)
+      // 不是管理员
+      if (!this.$store.state.isManage) {
+        // 只看启用的文章
+        params.articleStateEnum = "enable";
+      }
+      articleService.getPersonalArticles(params)
           .then(res => {
             if (isLoadMore) {
               this.articleData = this.articleData.concat(res.data.list);
@@ -168,7 +175,7 @@ export default {
     // 刷新列表
     articleRefresh() {
       this.params = {currentPage: 1, pageSize: 10};
-      this.getArticleList(this.params);
+      this.getPersonalArticles(this.params);
       this.getLikesArticle(this.params);
     },
     likeRefresh() {
@@ -183,7 +190,7 @@ export default {
         this.isLikeTab = false;
         this.isFollowTab = false;
         this.hasNext = true;
-        this.getArticleList(this.params);
+        this.getPersonalArticles(this.params);
         // 监听滚动，做滚动加载
         this.$utils.scroll.call(this, document.querySelector('#app'));
       }
@@ -205,7 +212,7 @@ export default {
   },
 
   mounted() {
-    this.getArticleList(this.params);
+    this.getPersonalArticles(this.params);
     this.getLikesArticle(this.params);
     this.getFollowCount();
     // 监听滚动，做滚动加载

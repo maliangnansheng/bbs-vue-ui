@@ -1,10 +1,9 @@
 <template>
-  <a-layout id="label-index">
+  <a-layout id="resource-index">
     <IndexHeader class="header"/>
     <a-layout-content>
       <main class="content">
-        <LabelContent v-if="finish"
-                      :searchContent="searchContent"
+        <ResourceContent v-if="finish"
                       :data="listData"
                       @refresh="refresh"/>
       </main>
@@ -17,19 +16,17 @@
   import IndexHeader from "@/components/index/head/IndexHeader";
   import FooterButtons from "@/components/utils/FooterButtons";
   import CustomEmpty from "@/components/utils/CustomEmpty";
-  import LabelContent from "@/components/label/LabelContent";
-  import labelService from "@/service/labelService";
+  import resourceService from "@/service/resourceService";
+  import ResourceContent from "@/components/resource/ResourceContent";
 
   export default {
-    components: {IndexHeader, LabelContent, FooterButtons, CustomEmpty},
+    components: {IndexHeader, ResourceContent, FooterButtons, CustomEmpty},
     data() {
       return {
         listData: [],
-        // 子组件搜索框内容
-        searchContent: '',
         hasNext: false,
         finish: false,
-        params: {currentPage: 1, pageSize: 25},
+        params: {currentPage: 1, pageSize: 32},
       };
     },
 
@@ -37,15 +34,15 @@
       //加载更多（滚动加载）
       loadMore() {
         this.params.currentPage++;
-        this.getLabelList(this.params, true);
+        this.getResourceList(this.params, true);
       },
 
-      // 获取标签
-      getLabelList(params, isLoadMore) {
+      // 获取资源导航
+      getResourceList(params, isLoadMore) {
         if (!isLoadMore) {
           this.params.currentPage = 1;
         }
-        labelService.getLabelList(params)
+        resourceService.getResourceList(params)
             .then(res => {
               if (isLoadMore) {
                 this.listData = this.listData.concat(res.data.list);
@@ -62,18 +59,17 @@
       },
 
       // 刷新列表
-      refresh(labelName) {
-        this.searchContent = labelName;
-        this.params = {currentPage: 1, pageSize: 25};
-        if (labelName) {
-          this.params.labelName = labelName;
+      refresh(category) {
+        this.params = {currentPage: 1, pageSize: 32};
+        if (category) {
+          this.params.category = category;
         }
-        this.getLabelList(this.params);
+        this.getResourceList(this.params);
       },
     },
 
     mounted() {
-      this.getLabelList(this.params);
+      this.getResourceList(this.params);
       // 监听滚动，做滚动加载
       this.$utils.scroll.call(this, document.querySelector('#app'));
     },
@@ -83,7 +79,7 @@
 
 
 <style>
-  #label-index .header {
+  #resource-index .header {
     position: fixed;
     z-index: 999;
     width: 100%;
@@ -91,18 +87,18 @@
     border-bottom: 1px solid #00000021;
   }
 
-  #label-index .content {
+  #resource-index .content {
     margin-top: 64px;
-    width: 900px;
+    width: 1100px;
   }
 
-  #label-index .ant-layout-header, .ant-layout-content {
+  #resource-index .ant-layout-header, .ant-layout-content {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  #label-index .ant-layout-header {
+  #resource-index .ant-layout-header {
     background: #fff;
     height: auto;
     line-height: 2.3;

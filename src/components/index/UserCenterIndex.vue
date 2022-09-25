@@ -51,11 +51,11 @@ import IndexHeader from "@/components/index/head/IndexHeader";
 import FilingInfo from "@/components/right/FilingInfo";
 import PersonalAchievement from "@/components/right/PersonalAchievement";
 import FollowCount from "@/components/right/FollowCount";
+import FriendDonate from "@/components/right/FriendDonate";
 import PersonalInfoDisplay from "@/components/user/PersonalInfoDisplay";
 import UserTabs from "@/components/user/UserTabs";
 import FooterButtons from "@/components/utils/FooterButtons";
 import userService from "@/service/userService";
-import FriendDonate from "@/components/right/FriendDonate";
 
 export default {
   name: "",

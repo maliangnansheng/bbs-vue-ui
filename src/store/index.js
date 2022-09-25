@@ -17,16 +17,24 @@ export default new Vuex.Store({
         loginVisible: false,
         // 注册modal是否可见
         registerVisible: false,
+        // 手机找回密码modal是否可见
+        mobileResetPasswordVisible: false,
+        // 邮箱找回密码modal是否可见
+        emailResetPasswordVisible: false,
         // 登录用户id
         userId: "",
         // 用户头像
         picture: "",
+        // 判断用户是否是管理员
+        isManage: false,
         // 用户名称长度限制
         userMaxLength: 10,
         // 主题色
-        colorOptions: ["#fa541c", "#3eaf7c", "#13c2c2", "#1869ff", "#722ed1", "#eb2f96"],
+        colorOptions: ["#000000", "#3eaf7c", "#13c2c2", "#1869ff", "#722ed1", "#eb2f96"],
         // 当前使能的主题色
         themeColor: "#13c2c2",
+        // 是否启用跑马灯（1：启用，0：禁止）
+        isCarousel: 1,
         // 菜单是否收缩
         collapsed: false,
         // 用户屏幕宽度

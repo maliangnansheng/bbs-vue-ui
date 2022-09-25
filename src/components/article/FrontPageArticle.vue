@@ -1,6 +1,6 @@
 <template>
   <div id="main-article-content">
-    <a-list item-layout="vertical" size="large" :data-source="data.list">
+    <a-list item-layout="vertical" size="large" :data-source="tempData">
       <a-list-item slot="renderItem" key="item.title" slot-scope="item, index" style="cursor: pointer;"
                    @click="routerArticleDetail(item.id)">
         <!-- 浏览量/点赞/评论 -->
@@ -41,11 +41,40 @@
         </div>
         <!-- 用户/标题 -->
         <a-list-item-meta :description="item.title">
-          <a-avatar slot="avatar" :src="item.picture" @click.stop="routerUserCenter(item.createUser)"/>
-          <a slot="title" class="username" :href="item.href" @click.stop="routerUserCenter(item.createUser)">
-            <span slot="title" style="padding-right: 2px;"> {{ item.createUserName }} </span>
-            <img :src="require('@/assets/img/level/' + item.level + '.svg')" alt=""/>
-            <small style="color: #b5b9b9; padding-left: 10px" v-text="$utils.showtime(item.createTime)"></small>
+          <a-avatar slot="avatar" :src="item.picture ? item.picture : require('@/assets/img/default_avatar.png')"
+                    @click.stop="routerUserCenter(item.createUser)"/>
+          <a slot="title" class="username" @click.stop="routerUserCenter(item.createUser)">
+            <div class="left">
+              <span slot="title" style="padding-right: 2px;"> {{ item.createUserName }} </span>
+              <img :src="require('@/assets/img/level/' + item.level + '.svg')" alt="" @click.stop="routerBook"/>
+              <small style="color: #b5b9b9; padding-left: 10px" v-text="$utils.showtime(item.createTime)"></small>
+              <!-- 用户中心 -->
+              <div v-if="isUserCenter && ($store.state.userId === userId || $store.state.isManage)">
+                <small style="color: #faad14; padding-left: 10px" v-if="item.state === -1">{{$t("common.pendingReview") }}</small>
+                <small style="color: red; padding-left: 10px" v-if="item.state === 0">{{$t("common.reviewRejected") }}</small>
+                <small style="color: #3eaf7c; padding-left: 10px"  v-if="item.state === 1">{{$t("common.approved") }}</small>
+              </div>
+              <!-- 文章审核 -->
+              <div v-if="$store.state.isManage && isAdminAudit">
+                <a-button type="primary" size="small" style="margin-left: 5px" @click.stop="updateState(item.id, item.state, 1)"
+                          v-if="item.state === -1 || item.state !== 1">
+                  {{ $t("common.pass") }}
+                </a-button>
+                <a-button type="danger" size="small" style="margin-left: 5px" @click.stop="updateState(item.id, item.state, 0)"
+                          v-if="item.state === -1 || item.state !== 0">
+                  {{ $t("common.reject") }}
+                </a-button>
+              </div>
+            </div>
+            <!-- 置顶图标 -->
+            <a-tooltip placement="left">
+              <template slot="title">
+                {{ $t("common.top") }}
+              </template>
+              <a-icon type="fire" :style="{color: $store.state.themeColor}" v-if="item.top" />
+<!--              <a-icon type="thunderbolt" :style="{color: $store.state.themeColor}" v-if="item.top" />-->
+<!--              <i class="iconfont icon-right-triangle" :style="{color: $store.state.themeColor}" v-if="item.top"></i>-->
+            </a-tooltip>
           </a>
         </a-list-item-meta>
         <div class="article-content">
@@ -61,17 +90,22 @@
 </template>
 <script>
 import userService from "@/service/userService";
+import articleService from "@/service/articleService";
 
 export default {
   props: {
-    data: {type: Object, default: () => ({})},
+    data: {type: Array, default: []},
     pageSize: {type: Number, default: 0},
     current: {type: Number, default: 1},
     finish: {type: Boolean, default: false},
     hasNext: {type: Boolean, default: false},
+    isUserCenter: {type: Boolean, default: false},
+    userId: {type: Boolean, default: false},
+    isAdminAudit: {type: Boolean, default: false},
   },
   data() {
     return {
+      tempData : this.data,
       actions: [
         {type: 'eye', text: '156'},
         {type: 'like-o', text: '156'},
@@ -92,14 +126,14 @@ export default {
         userService.updateLikeState({articleId: articleId})
             .then(() => {
               // this.$emit("refresh");
-              let isLike = this.data.list[index].articleCountDTO.isLike;
+              let isLike = this.tempData[index].articleCountDTO.isLike;
               // 取消点赞操作
               if (isLike) {
-                this.data.list[index].articleCountDTO.likeCount--;
+                this.tempData[index].articleCountDTO.likeCount--;
               } else {
-                this.data.list[index].articleCountDTO.likeCount++;
+                this.tempData[index].articleCountDTO.likeCount++;
               }
-              this.data.list[index].articleCountDTO.isLike = !isLike;
+              this.tempData[index].articleCountDTO.isLike = !isLike;
             })
             .catch(err => {
               this.$message.error(err.desc);
@@ -128,15 +162,92 @@ export default {
       let routeData = this.$router.resolve("/label/" + labelId);
       window.open(routeData.href, '_blank');
     },
+
+    // 路由到Book说明页面
+    routerBook() {
+      let routeData = this.$router.resolve("/book");
+      window.open(routeData.href, '_blank');
+    },
+
+    // 修改文章审批状态
+    updateState(articleId, state, toState) {
+      this.$confirm({
+        centered: true,
+        title: this.$t("common.confirmReject"),
+        onOk: () => {
+          articleService.updateState({id: articleId, state: toState})
+              .then(() => {
+                this.tempData = this.tempData.filter(article => article.id !== articleId);
+                // 待审核
+                if (state === -1) {
+                  this.$emit("updatePendingReviewData", this.tempData);
+                  // 通过
+                  if (toState === 1) {
+                    this.$emit("updatePendingReviewTotal", -1)
+                    this.$emit("updateTotal", 1)
+                    this.$emit("updateReviewRejectedTotal", -1)
+                  }
+                  // 拒绝
+                  if (toState === 0) {
+                    this.$emit("updatePendingReviewTotal", -1)
+                    this.$emit("updateTotal", -1)
+                    this.$emit("updateReviewRejectedTotal", 1)
+                  }
+                }
+                // 审核拒绝
+                if (state === 0) {
+                  this.$emit("updateReviewRejectedData", this.tempData);
+                  // 通过
+                  if (toState === 1) {
+                    this.$emit("updateTotal", 1)
+                    this.$emit("updateReviewRejectedTotal", -1)
+                  }
+                  // 拒绝
+                  if (toState === 0) {
+                    this.$emit("updateTotal", -1)
+                    this.$emit("updateReviewRejectedTotal", 1)
+                  }
+                }
+                // 审核通过
+                if (state === 1) {
+                  this.$emit("updateData", this.tempData);
+                  // 通过
+                  if (toState === 1) {
+                    this.$emit("updateTotal", 1)
+                    this.$emit("updateReviewRejectedTotal", -1)
+                  }
+                  // 拒绝
+                  if (toState === 0) {
+                    this.$emit("updateTotal", -1)
+                    this.$emit("updateReviewRejectedTotal", 1)
+                  }
+                }
+                this.$message.success(this.$t("common.approvalSuccessed"));
+              })
+              .catch(err => {
+                this.$message.error(err.desc);
+              });
+        },
+      });
+    }
   },
 
   mounted() {
   },
 
+  watch: {
+    // data值改变时触发
+    data: {
+      handler(newVal, oldVal) {
+        this.tempData = newVal;
+      }
+    }
+  }
+
 };
 </script>
 
-<style>
+<style lang="less">
 #main-article-content .label-titleMap {
   display: flex;
   flex-direction: column;
@@ -154,7 +265,12 @@ export default {
 
 #main-article-content .username {
   display: flex;
-  align-items: baseline;
+  justify-content: space-between;
+
+  .left {
+    display: flex;
+    align-items: baseline;
+  }
 }
 
 #main-article-content .ant-list-item-meta-description {

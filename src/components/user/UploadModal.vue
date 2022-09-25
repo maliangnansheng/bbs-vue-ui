@@ -77,7 +77,7 @@
         }
         // 校验图片大小（不能超过5M）
         if (this.file.size > 5 * 1024 * 1024) {
-          this.$message.error(this.$t("common.avatarSizeTip"));
+          this.$message.warning(this.$t("common.avatarSizeTip"));
           return;
         }
         const file = new FormData();

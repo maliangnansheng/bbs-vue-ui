@@ -22,7 +22,8 @@
 
 <style scoped>
   #components-back-top-demo-custom .ant-back-top {
-    bottom: 100px;
+    /* 44px */
+    bottom: 184px;
   }
   #components-back-top-demo-custom .ant-back-top-inner {
     height: 34px;

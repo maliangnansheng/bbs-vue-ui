@@ -2,15 +2,16 @@
   <div id="authors-block" v-if="data.length !== 0">
     <div class="user" @click="routerUserCenter(data.id)">
       <div>
-        <a-avatar :size="46" class="avatar" :src="data.picture"/>
+        <a-avatar :size="46" class="avatar"
+                  :src="data.picture ? data.picture : require('@/assets/img/default_avatar.png')"/>
       </div>
       <div class="intro">
         <span class="name" style="font-size: 17px;">{{ data.name }} </span>
         <img :src="require('@/assets/img/level/' + data.level + '.svg')" alt=""/>
-        <p>{{ data.intro }}</p>
+        <div v-if="data.intro">{{ data.intro }}</div>
       </div>
     </div>
-    <a-divider style="margin: 0 0 10px 0;"/>
+    <a-divider style="margin: 20px 0 10px 0;"/>
     <div class="like">
       <div :style="{ background: $store.state.themeColor}">
         <i class="iconfont icon-like" style="color: #fff; font-size: 12px;"></i>

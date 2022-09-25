@@ -3,31 +3,20 @@
     <a-row>
       <a-tooltip placement="bottom">
         <template slot="title">
-          {{ $t("common.inDevelopment") }}
+          {{ $t("common.getTheWord") }}
         </template>
-        <a-col class="user_agreement" :span="6">用户协议</a-col>
+        <a-col class="user_agreement" :span="6">{{ $t("common.designDocument") }}</a-col>
       </a-tooltip>
-      <a-tooltip placement="bottom">
-        <template slot="title">
-          {{ $t("common.inDevelopment") }}
-        </template>
-        <a-col class="user_guidance" :span="6">使用指南</a-col>
-      </a-tooltip>
-      <a-tooltip placement="bottom">
-        <template slot="title">
-          {{ $t("common.inDevelopment") }}
-        </template>
-        <a-col class="links" :span="6">友情链接</a-col>
-      </a-tooltip>
-      <a-tooltip placement="bottom">
-        <template slot="title">
-          {{ $t("common.inDevelopment") }}
-        </template>
-        <a-col class="about_us" :span="6">关于我们</a-col>
-      </a-tooltip>
+      <a-col class="user_guidance" :span="6">
+        <a href="https://www.bilibili.com/video/BV1he4y1C7rk?spm_id_from=333.999.0.0&vd_source=d0a5d07985a7fbbfb889c874632343c6" target="_blank">{{ $t("common.userGuidance") }}</a>
+      </a-col>
+      <a-col class="links" :span="6">
+        <a href="https://juejin.cn/" target="_blank">{{ $t("common.links") }}</a>
+      </a-col>
+      <a-col class="about_us" :span="6" @click="routerAbout">{{ $t("common.about") }}</a-col>
     </a-row>
     <a-row>
-      版权 © <a href="#" target="_blank"> 南生论坛 </a>丨
+      版权 © <a href="/" target="_blank"> 南生论坛 </a>丨
       <a href="https://beian.miit.gov.cn" target="_blank">蜀ICP备19014736号-1 </a>
     </a-row>
   </div>
@@ -35,7 +24,20 @@
 
 <script>
 export default {
-  name: "FilingInfo"
+  name: "FilingInfo",
+
+  methods: {
+
+    // 路由到Book说明页面
+    routerBook() {
+      window.open('/book', '_blank');
+    },
+
+    // 点击跳转到 关于我们 页面
+    routerAbout() {
+      window.open('/about', '_blank');
+    }
+  }
 }
 </script>
 

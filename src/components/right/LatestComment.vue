@@ -70,6 +70,8 @@ export default {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  /* 实现长英文字母自动换行*/
+  word-break: break-all;
 }
 
 #latest-comment .ant-list-item-meta-description {

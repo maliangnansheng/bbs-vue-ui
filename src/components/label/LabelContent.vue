@@ -18,15 +18,16 @@
         </div>
       </a-popover>
       <a-button class="add-item" type="primary" style="height: 30px;" v-text="$t('common.add')"
-                @click="labelAddCheck"></a-button>
+                @click="labelAddCheck" v-if="$store.state.isManage"></a-button>
     </div>
     <a-empty v-if="data.length === 0"/>
     <div>
       <div class="tag">
         <a-badge class="info-box"
-                 :style="$store.state.collapsed ? 'width:100%;' : 'width:25%;border-right: 20px solid #f0f2f5;'"
+                 :style="$store.state.collapsed ? 'width:100%;' : 'width:20%;border-right: 20px solid #f0f2f5;'"
                  v-for="item of data" :key="item.id">
-          <a-icon slot="count" type="close-circle" style="color: red; cursor: pointer" @click="labelDelete(item.id)"/>
+          <a-icon slot="count" type="close-circle" style="color: red; cursor: pointer" @click="labelDelete(item.id)"
+                  v-if="$store.state.isManage"/>
           <div>
             <a-avatar class="avatar" :size="60" :src="item.logo" @click="routerLabelToArticle(item.id)"/>
           </div>
@@ -44,7 +45,7 @@
             </div>
           </a-popover>
           <a-button class="edit" type="primary" style="height: 30px;" v-text="$t('common.edit')"
-                    @click="labelUpdateCheck(item.id)"></a-button>
+                    @click="labelUpdateCheck(item.id)" v-if="$store.state.isManage"></a-button>
         </a-badge>
 
       </div>

@@ -12,25 +12,20 @@
           <a-menu v-if="!$store.state.collapsed" v-model="current" mode="horizontal">
             <a-menu-item key="frontPage" @click="refresh">{{ $t("common.home") }}</a-menu-item>
             <a-menu-item key="boilingPoint" @click="routerLabel">{{ $t("common.label") }}</a-menu-item>
+            <a-menu-item key="liveStreaming" @click="routerResource">{{ $t("common.resource") }}</a-menu-item>
             <a-tooltip placement="bottom">
               <template slot="title">
                 {{ $t("common.inDevelopment") }}
               </template>
               <a-menu-item key="course">{{ $t("common.course") }}</a-menu-item>
             </a-tooltip>
-            <a-tooltip placement="bottom">
-              <template slot="title">
-                {{ $t("common.inDevelopment") }}
-              </template>
-              <a-menu-item key="liveStreaming">{{ $t("common.news") }}</a-menu-item>
-            </a-tooltip>
           </a-menu>
           <a-select class="phone-frontPage" v-if="$store.state.collapsed" :default-value="current"
                     @change="handleChange" style="min-width: 90px; width: 100%">
             <a-select-option value="frontPage" @click="refresh">{{ $t("common.home") }}</a-select-option>
             <a-select-option value="boilingPoint" @click="routerLabel">{{ $t("common.label") }}</a-select-option>
+            <a-select-option value="liveStreaming" @click="routerResource">{{ $t("common.resource") }}</a-select-option>
             <a-select-option value="course">{{ $t("common.course") }}</a-select-option>
-            <a-select-option value="liveStreaming">{{ $t("common.news") }}</a-select-option>
           </a-select>
         </div>
       </div>
@@ -150,11 +145,22 @@
 
         <!-- 登录 -->
         <div class="header-item-login" v-if="!$store.state.isLogin">
+          <div class="options" @click="showLoginModal">
+            <a-button style="border: 1px solid rgba(30,128,255,.3); background: rgba(30,128,255,.05); color: #007fff;">
+              {{ $t("common.login") }}
+            </a-button>
+          </div>
           <!-- 登录Model -->
           <Login
               @refresh="refresh"/>
           <!-- 注册Model -->
           <Register
+              @refresh="refresh"/>
+          <!-- 手机重置密码Model -->
+          <MobileResetPassword
+              @refresh="refresh"/>
+          <!-- 邮箱重置密码Model -->
+          <EmailResetPassword
               @refresh="refresh"/>
         </div>
       </div>
@@ -169,9 +175,11 @@ import Login from "@/components/login/Login";
 import MessageBox from "@/components/index/messages/MessageBox";
 import store from "@/store";
 import Register from "@/components/login/Register";
+import MobileResetPassword from "@/components/login/MobileResetPassword";
+import EmailResetPassword from "@/components/login/EmailResetPassword";
 
 export default {
-  components: {MessageBox, Login, Register},
+  components: {MessageBox, Login, Register, MobileResetPassword, EmailResetPassword},
 
   props: {
     searchContent: {type: String, default: ""},
@@ -221,7 +229,7 @@ export default {
         this.routerSetUp();
       }
       if (key === 'about') {
-        this.$message.warning(this.$t("common.inDevelopment"));
+        this.routerAbout();
       }
       if (key === 'management') {
         this.routerManage();
@@ -231,12 +239,17 @@ export default {
       }
     },
 
+    // 显示登录框
+    showLoginModal() {
+      this.$store.state.loginVisible = true;
+    },
+
     // 退出登录
     logout() {
       loginService.logout()
           .then(res => {
-            store.state.isLogin = false;
-            this.refresh();
+            // 刷新当前页面
+            this.$router.go(0);
           })
           .catch(err => {
             this.$message.error(err.desc);
@@ -280,9 +293,19 @@ export default {
       this.$router.push("/label");
     },
 
+    // 路由到资源导航页面
+    routerResource() {
+      this.$router.push("/resource");
+    },
+
     // 路由到设置页面
     routerSetUp() {
       this.$router.push("/settings/profile");
+    },
+
+    // 点击跳转到 关于我们 页面
+    routerAbout() {
+      window.open('/about', '_blank');
     },
 
     // 路由到管理端
@@ -305,6 +328,11 @@ export default {
     if (name === 'label') {
       // 添加新值
       this.current.push('boilingPoint');
+    }
+    // 资源导航
+    if (name === 'resource') {
+      // 添加新值
+      this.current.push('liveStreaming');
     }
   },
 

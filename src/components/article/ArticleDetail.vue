@@ -4,10 +4,15 @@
     <div v-if="finish">
       <div class="article-title">
         <h1>{{ data.title }}</h1>
+        <!-- 待审核 -->
+        <span class="iconfont icon-pendingReview" v-if="data.state === -1" style="color: #faad14; font-size: 38px;"></span>
+        <!-- 审核拒绝 -->
+        <span class="iconfont icon-reviewRejected" v-if="data.state === 0" style="color: red; font-size: 38px;"></span>
       </div>
       <div class="article-user">
         <div class="author-info-box">
-          <a-avatar class="avatar" :src="data.picture" :size="46" @click="routerUserCenter(data.createUser)"/>
+          <a-avatar class="avatar" :src="data.picture ? data.picture : require('@/assets/img/default_avatar.png')"
+                    :size="46" @click="routerUserCenter(data.createUser)"/>
           <div class="author-name-meta" style="padding-left: 10px;">
             <div class="author-name">
               <a target="_blank" class="username" @click="routerUserCenter(data.createUser)">
@@ -129,12 +134,22 @@
   }
 </script>
 
-<style>
-  #article-detail .article-title > h1 {
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1.31;
-    color: #252933;
+<style lang="less">
+  #article-detail .article-title {
+    display: flex;
+    //align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.31;
+      color: #252933;
+    }
+
+    h2 {
+      font-weight: 700;
+    }
   }
 
   #article-detail .article-user {

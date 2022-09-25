@@ -6,7 +6,23 @@
         {{ $t("common.feedback") }}
       </template>
       <div @click="createFeedback" class="feedback-icon-container" :style="{background: $store.state.themeColor}">
-        <i class="iconfont icon-feed-back"></i>
+        <i class="iconfont icon-bug"></i>
+      </div>
+    </a-tooltip>
+    <a-tooltip placement="left">
+      <template slot="title">
+        {{ $t("common.chat") }}
+      </template>
+      <div @click="routerChat" class="chat-icon-container" :style="{background: $store.state.themeColor}">
+        <i class="iconfont icon-chat"></i>
+      </div>
+    </a-tooltip>
+    <a-tooltip placement="left">
+      <template slot="title">
+        {{ $t("common.githubCode") }}
+      </template>
+      <div @click="routerGithub" class="github-icon-container" :style="{background: $store.state.themeColor}">
+        <i class="iconfont icon-GitHub"></i>
       </div>
     </a-tooltip>
   </div>
@@ -25,6 +41,16 @@ export default {
       } else {
         this.$store.state.loginVisible = true;
       }
+    },
+
+    // 点击底部按钮跳转到闲聊页面
+    routerChat() {
+      window.open('http://chat.nanshengbbs.top', '_blank');
+    },
+
+    // 点击底部按钮跳转到源码页面
+    routerGithub() {
+      window.open('https://github.com/maliangnansheng/bbs-springboot', '_blank');
     }
   }
 };
@@ -35,9 +61,9 @@ export default {
   position: fixed;
   bottom: 3.6rem;
   right: 6.6rem;
-  z-index: 999;
+  z-index: 888;
 
-  .feedback-icon-container {
+  .feedback-icon-container, .github-icon-container, .chat-icon-container {
     border-radius: 50%;
     width: 34px;
     height: 34px;
@@ -48,6 +74,10 @@ export default {
       line-height: 34px;
       color: white;
     }
+  }
+
+  .chat-icon-container, .github-icon-container {
+    margin-top: 10px;
   }
 }
 </style>

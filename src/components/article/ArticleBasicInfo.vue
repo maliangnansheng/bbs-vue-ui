@@ -1,29 +1,31 @@
 <template>
-  <a-form :form="form" :label-col="{ span: 5 }" :wrapper-col="{ span: 17 }" @submit="handleSubmit">
-    <!-- 添加标签 -->
-    <a-form-item :label="$t('common.addLabel')">
-      <a-select mode="multiple"
-                v-decorator="['lableId', validatorRules.label]"
-                :placeholder="$t('common.selectLabel')"
-                @change="handleSelectChange">
-        <a-select-option v-for="item of listData" :key="item.id">
-          {{ item.labelName }}
-        </a-select-option>
-      </a-select>
-    </a-form-item>
-    <!-- 文章封面 -->
-    <a-form-item :label="$t('common.articleCover')">
-      <UploadImage
-          :articleTitleMap="articleTitleMap"
-          @titleMap="titleMap"/>
-    </a-form-item>
-    <a-divider style="margin: 10px 0;"></a-divider>
-    <a-form-item class="form-item-submit">
-      <a-button type="primary" html-type="submit">
-        {{ $route.params.id ? $t('common.sureAndUpdate') : $t('common.sureAndRelease') }}
-      </a-button>
-    </a-form-item>
-  </a-form>
+  <div id="article-basic-info">
+    <a-form :form="form" :label-col="{ span: 5 }" :wrapper-col="{ span: 17 }" @submit="handleSubmit">
+      <!-- 添加标签 -->
+      <a-form-item :label="$t('common.addLabel')">
+        <a-select mode="multiple"
+                  v-decorator="['lableId', validatorRules.label]"
+                  :placeholder="$t('common.selectLabel')"
+                  @change="handleSelectChange">
+          <a-select-option v-for="item of listData" :key="item.id">
+            {{ item.labelName }}
+          </a-select-option>
+        </a-select>
+      </a-form-item>
+      <!-- 文章封面 -->
+      <a-form-item :label="$t('common.articleCover')">
+        <UploadImage
+            :articleTitleMap="articleTitleMap"
+            @titleMap="titleMap"/>
+      </a-form-item>
+      <a-divider style="margin: 10px 0;"></a-divider>
+      <a-form-item class="form-item-submit">
+        <a-button type="primary" html-type="submit">
+          {{ $route.params.id ? $t('common.sureAndUpdate') : $t('common.sureAndRelease') }}
+        </a-button>
+      </a-form-item>
+    </a-form>
+  </div>
 </template>
 
 <script>
@@ -81,6 +83,12 @@ export default {
         return;
       }
 
+      // 校验图片大小（不能超过5M）
+      if (this.articleFile !== null && this.articleFile.size > 5 * 1024 * 1024) {
+        this.$message.warning(this.$t("common.avatarSizeTip"));
+        return;
+      }
+
       this.form.validateFields((err, values) => {
         if (!err) {
           const data = new FormData();
@@ -122,7 +130,7 @@ export default {
     articleCreate(data) {
       articleService.articleCreate(data)
           .then(res => {
-            this.$router.push("/");
+            this.$router.push("/user/" + this.$store.state.userId);
           })
           .catch(err => {
             this.$message.error(err.desc);
@@ -147,6 +155,7 @@ export default {
   },
 
   mounted() {
+    this.params.pageSize = 100;
     this.getLabelList(this.params);
     // v-mode和v-decorator冲突问题解决方案
     this.form.setFieldsValue({
@@ -156,9 +165,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 /* 提交按钮样式 */
-.form-item-submit {
+#article-basic-info .form-item-submit {
   display: flex;
   text-align: right;
   justify-content: right;

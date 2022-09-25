@@ -6,6 +6,55 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "10299108",
+      "name": "待审核",
+      "font_class": "pendingReview",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "10299097",
+      "name": "已拒绝",
+      "font_class": "reviewRejected",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "15825166",
+      "name": "铜钱",
+      "font_class": "donate",
+      "unicode": "e657",
+      "unicode_decimal": 58967
+    },
+    {
+      "icon_id": "8766119",
+      "name": "钱币",
+      "font_class": "qianbi",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "755615",
+      "name": "直角三角形",
+      "font_class": "right-triangle",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
+      "icon_id": "6598313",
+      "name": "bug-fill",
+      "font_class": "bug",
+      "unicode": "e8e8",
+      "unicode_decimal": 59624
+    },
+    {
+      "icon_id": "10091553",
+      "name": "聊天",
+      "font_class": "chat",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
       "icon_id": "19297036",
       "name": "菱形宝石",
       "font_class": "Lv6",

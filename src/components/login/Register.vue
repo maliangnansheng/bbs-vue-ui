@@ -114,15 +114,8 @@
           if (valid) {
             loginService.register({name:this.ruleForm.username, password: this.ruleForm.password})
                 .then(res => {
-                  // 登录用户id
-                  this.$store.state.userId = res.data.userId;
-                  // 用户是否已经登录
-                  this.$store.state.isLogin = true;
-                  // 关闭注册modal
-                  this.$store.state.registerVisible = false;
-                  // 刷新
-                  this.$emit("refresh");
-                  this.$message.success(this.$t('common.registerSuccess'));
+                  // 刷新当前页面
+                  this.$router.go(0);
                 })
                 .catch(err => {
                   this.$message.error(err.desc);

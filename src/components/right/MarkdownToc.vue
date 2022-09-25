@@ -1,5 +1,5 @@
 <template>
-  <div id="markdown-toc" :style="top ? 'position: fixed; z-index: 999;top: 64px;width: 275px;' : ''">
+  <div id="markdown-toc" :style="top ? 'position: fixed; z-index: 888;top: 64px;width: 275px;' : ''">
     <header class="article-toc-header">
       {{ $t("common.toc") }}
     </header>

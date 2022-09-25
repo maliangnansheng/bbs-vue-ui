@@ -1,12 +1,12 @@
 <template>
   <div id="follow-count">
     <div class="follow">
-      <span>{{ $t("common.followed") }}</span>
+      <span>{{ $t("common.follow") }}</span>
       <b>{{ data.followCount }}</b>
     </div>
     <a-divider type="vertical"/>
     <div class="fan">
-      <span>{{ $t("common.followMe") }}</span>
+      <span>{{ $t("common.fan") }}</span>
       <b>{{ data.fanCount }}</b>
     </div>
   </div>

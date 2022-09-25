@@ -161,4 +161,36 @@ export default {
                 .catch((err) => reject(err));
         });
     },
+    // 判断手机是否已经绑定
+    isPhoneExist(data) {
+        return new Promise((resolve, reject) => {
+            axios.post("/api/bbs/user/isPhoneExist/" + data)
+                .then((res) => resolve(res))
+                .catch((err) => reject(err));
+        });
+    },
+    // 判断email是否已经绑定
+    isEmailExist(data) {
+        return new Promise((resolve, reject) => {
+            axios.post("/api/bbs/user/isEmailExist/" + data)
+                .then((res) => resolve(res))
+                .catch((err) => reject(err));
+        });
+    },
+    // 手机重置密码
+    phoneResetPassword(data) {
+        return new Promise((resolve, reject) => {
+            axios.post("/api/bbs/user/phoneResetPassword", data)
+                .then((res) => resolve(res))
+                .catch((err) => reject(err));
+        });
+    },
+    // 邮箱重置密码
+    emailResetPassword(data) {
+        return new Promise((resolve, reject) => {
+            axios.post("/api/bbs/user/emailResetPassword", data)
+                .then((res) => resolve(res))
+                .catch((err) => reject(err));
+        });
+    },
 };

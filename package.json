@@ -9,16 +9,11 @@
   "dependencies": {
     "ant-design-vue": "^1.7.0",
     "axios": "^0.21.0",
-    "compression-webpack-plugin": "5.0.0",
     "core-js": "^3.6.5",
     "echarts": "^5.1.2",
-    "less": "2.7.2",
-    "less-loader": "^7.0.2",
     "mavon-editor": "^2.10.4",
     "moment": "^2.29.1",
     "qs": "^6.10.3",
-    "serve": "^11.3.2",
-    "uglifyjs-webpack-plugin": "^2.2.0",
     "vue": "^2.6.11",
     "vue-i18n": "^8.22.1",
     "vue-router": "^3.2.0",
@@ -32,7 +27,11 @@
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-plugin-import": "^1.13.3",
-    "vue-template-compiler": "^2.6.11"
+    "compression-webpack-plugin": "5.0.0",
+    "less": "2.7.2",
+    "less-loader": "^7.0.2",
+    "vue-template-compiler": "^2.6.11",
+    "serve": "^11.3.2"
   },
   "browserslist": [
     "> 1%",

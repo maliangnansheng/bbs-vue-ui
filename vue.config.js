@@ -23,14 +23,7 @@ const vueConfig = {
     productionSourceMap: false,
     // configureWebpack里面是webpack配置项
     configureWebpack: {
-        optimization: {
-            minimizer: [
-                // 压缩js文件
-                new UglyfyJsPlugin({
-                    test: /\.js(\?.*)?$/i
-                })
-            ]
-        },
+        optimization: {},
         plugins: [
             // 使用gzip压缩
             new CompressionPlugin({

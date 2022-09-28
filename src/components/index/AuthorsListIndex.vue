@@ -1,32 +1,27 @@
 <template>
   <a-layout id="authors-list-index">
-    <IndexHeader class="header"/>
+    <index-header class="header" />
     <a-layout-content>
       <main class="content">
         <a-col :span="$store.state.collapsed ? 24 : 16" :offset="$store.state.collapsed ? 0 : 4">
-          <CustomEmpty v-if="spinning"/>
-          <AuthorsListContent v-else
-                              :finish="finish"
-                              :hasNext="hasNext"
-                              :data="{ list: listData }"
-                              @refresh="refresh"
-                              style="background: #fff;"/>
+          <custom-empty v-if="spinning" />
+          <authors-list-content v-else :finish="finish" :has-next="hasNext" :data="{ list: listData }" @refresh="refresh" style="background: #fff;" />
         </a-col>
       </main>
     </a-layout-content>
-    <FooterButtons v-if="!$store.state.collapsed"/>
+    <footer-buttons v-if="!$store.state.collapsed" />
   </a-layout>
 </template>
 
 <script>
-import IndexHeader from "@/components/index/head/IndexHeader";
-import AuthorsListContent from "@/components/user/AuthorsListContent";
-import userService from "@/service/userService";
-import FooterButtons from "@/components/utils/FooterButtons";
-import CustomEmpty from "@/components/utils/CustomEmpty";
+import IndexHeader from '@/components/index/head/IndexHeader';
+import AuthorsListContent from '@/components/user/AuthorsListContent';
+import userService from '@/service/userService';
+import FooterButtons from '@/components/utils/FooterButtons';
+import CustomEmpty from '@/components/utils/CustomEmpty';
 
 export default {
-  components: {IndexHeader, AuthorsListContent, FooterButtons, CustomEmpty},
+  components: { IndexHeader, AuthorsListContent, FooterButtons, CustomEmpty },
   data() {
     return {
       // 加载中...
@@ -35,7 +30,7 @@ export default {
       listData: [],
       hasNext: false,
       finish: false,
-      params: {currentPage: 1, pageSize: 10},
+      params: { currentPage: 1, pageSize: 10 },
     };
   },
 
@@ -52,26 +47,27 @@ export default {
         this.params.currentPage = 1;
       }
       this.finish = false;
-      userService.getHotAuthorsList(params)
-          .then(res => {
-            if (isLoadMore) {
-              this.listData = this.listData.concat(res.data.list);
-            } else {
-              this.listData = res.data.list;
-            }
-            this.spinning = false;
-            this.finish = true;
-            this.hasNext = res.data.list.length !== 0;
-          })
-          .catch(err => {
-            this.finish = true;
-            this.$message.error(err.desc);
-          });
+      userService
+        .getHotAuthorsList(params)
+        .then(res => {
+          if (isLoadMore) {
+            this.listData = this.listData.concat(res.data.list);
+          } else {
+            this.listData = res.data.list;
+          }
+          this.spinning = false;
+          this.finish = true;
+          this.hasNext = res.data.list.length !== 0;
+        })
+        .catch(err => {
+          this.finish = true;
+          this.$message.error(err.desc);
+        });
     },
 
     // 刷新列表
     refresh() {
-      this.params = {currentPage: 1, pageSize: 10};
+      this.params = { currentPage: 1, pageSize: 10 };
       this.getHotAuthorsList(this.params);
     },
   },
@@ -81,10 +77,8 @@ export default {
     // 监听滚动，做滚动加载
     this.$utils.scroll.call(this, document.querySelector('#app'));
   },
-
 };
 </script>
-
 
 <style>
 #authors-list-index .header {
@@ -100,7 +94,8 @@ export default {
   width: 1100px;
 }
 
-#authors-list-index .ant-layout-header, .ant-layout-content {
+#authors-list-index .ant-layout-header,
+.ant-layout-content {
   display: flex;
   align-items: center;
   justify-content: center;

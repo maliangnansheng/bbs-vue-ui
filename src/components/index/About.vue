@@ -1,7 +1,7 @@
 <template>
   <a-layout>
     <a-layout id="about-index">
-      <IndexHeader class="header"/>
+      <index-header class="header" />
       <a-layout-content>
         <main class="content" :style="$store.state.collapsed ? 'width: 100%;' : 'width: 800px;'">
           <div style="background: #fff">
@@ -14,8 +14,8 @@
                 <div class="vision-content">
                   <div class="title">我们的愿景</div>
                   <div class="sub">
-                    让所有迷失方向的同学找到前进的小路<br>
-                    让需要提升技术的同学能有所收获<br>
+                    让所有迷失方向的同学找到前进的小路<br />
+                    让需要提升技术的同学能有所收获<br />
                     让同学们有一个学习知识、分享技术的地方
                   </div>
                 </div>
@@ -34,7 +34,7 @@
             </section>
           </div>
           <a-row>
-            <a-col :span="24" style="height: 10px;"/>
+            <a-col :span="24" style="height: 10px;" />
           </a-row>
         </main>
       </a-layout-content>
@@ -43,14 +43,13 @@
 </template>
 
 <script>
-import IndexHeader from "@/components/index/head/IndexHeader";
+import IndexHeader from '@/components/index/head/IndexHeader';
 
 export default {
-  name: "About",
-  components: {IndexHeader},
+  name: 'About',
+  components: { IndexHeader },
 };
 </script>
-
 
 <style lang="less">
 #about-index {
@@ -66,7 +65,8 @@ export default {
     margin-top: 64px;
   }
 
-  .ant-layout-header, .ant-layout-content {
+  .ant-layout-header,
+  .ant-layout-content {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,5 +94,4 @@ export default {
     }
   }
 }
-
 </style>

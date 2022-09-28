@@ -9,8 +9,10 @@
             v-decorator="['content', validatorRules.comment]"
             :placeholder="$t('common.commentPlaceholder')"
             :auto-size="{ minRows: 3, maxRows: 10 }"
+            :auto-focus="autoFocus"
+            @blur="handleBlur"
           />
-          <a-button class="button" type="primary" html-type="submit" style="float: right;">
+          <a-button class="button" type="primary" html-type="submit" style="float: right">
             {{ $t('common.postComment') }}
           </a-button>
         </a-form-item>
@@ -28,6 +30,7 @@ export default {
 
   props: {
     preId: { type: Number, default: 0 },
+    autoFocus: { type: Boolean, default: false },
   },
 
   data() {
@@ -52,6 +55,14 @@ export default {
     keyDown(e) {
       if (e.ctrlKey && e.keyCode === 13) {
         this.handleSubmit(e);
+      }
+    },
+
+    // 失焦判断是否为空，为空则隐藏
+    handleBlur() {
+      const val = this.form.getFieldsValue().content;
+      if (!val) {
+        this.$emit('hidden');
       }
     },
 

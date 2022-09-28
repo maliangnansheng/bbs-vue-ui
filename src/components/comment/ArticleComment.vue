@@ -1,5 +1,5 @@
 <template>
-  <div id="article-comment" :style="$store.state.collapsed ? 'padding: 10px' : 'padding: 20px;'">
+  <div id="article-comment" :style="`padding: ${$store.state.collapsed ? '60px 10px 10px' : '60px 20px 20px'};margin-top: -60px`">
     <p class="text">{{ $t('common.comment') }}</p>
     <create-comment @refresh="refresh" />
     <p class="text">{{ $t('common.hotComment') }}</p>

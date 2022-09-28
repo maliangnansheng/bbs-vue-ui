@@ -1,9 +1,11 @@
 const CompressionPlugin = require('compression-webpack-plugin');
 const createThemeColorReplacerPlugin = require('./src/config/config');
+
+const env = process.env;
 const vueConfig = {
   // 开发环境的跨域配置
   devServer: {
-    proxy: 'http://bbs.localhost.com',
+    proxy: env.VUE_APP_PROXY_URL || 'http://bbs.localhost.com',
     disableHostCheck: true,
     port: 8082,
   },

@@ -8,17 +8,17 @@ if (process.env.NODE_ENV === 'production') {
 export default (() => {
   // 每次请求前处理
   axios.interceptors.request.use(
-    function(config) {
+    function (config) {
       return config;
     },
-    function(error) {
+    function (error) {
       return Promise.reject(error);
     },
   );
 
   // 每次请求回来的处理
   axios.interceptors.response.use(
-    function(response) {
+    function (response) {
       // 后台会在响应头带上用户头像链接，每次和存在store中的比较，不同就替换，实现头像更新
       if (response.headers['x-user-picture']) {
         store.state.picture = response.headers['x-user-picture'];
@@ -53,7 +53,7 @@ export default (() => {
         return Promise.reject(response);
       }
     },
-    function(error) {
+    function (error) {
       return Promise.reject(error);
     },
   );

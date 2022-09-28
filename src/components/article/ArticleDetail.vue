@@ -4,17 +4,17 @@
       <div class="article-title">
         <h1>{{ data.title }}</h1>
         <!-- 待审核 -->
-        <span class="iconfont icon-pendingReview" v-if="data.state === -1" style="color: #faad14; font-size: 38px;"></span>
+        <span class="iconfont icon-pendingReview" v-if="data.state === -1" style="color: #faad14; font-size: 38px"></span>
         <!-- 审核拒绝 -->
-        <span class="iconfont icon-reviewRejected" v-if="data.state === 0" style="color: red; font-size: 38px;"></span>
+        <span class="iconfont icon-reviewRejected" v-if="data.state === 0" style="color: red; font-size: 38px"></span>
       </div>
       <div class="article-user">
         <div class="author-info-box">
           <a-avatar class="avatar" :src="data.picture ? data.picture : require('@/assets/img/default_avatar.png')" :size="46" @click="routerUserCenter(data.createUser)" />
-          <div class="author-name-meta" style="padding-left: 10px;">
+          <div class="author-name-meta" style="padding-left: 10px">
             <div class="author-name">
               <a target="_blank" class="username" @click="routerUserCenter(data.createUser)">
-                <span class="name" style="font-size: 17px;">{{ data.createUserName }} </span>
+                <span class="name" style="font-size: 17px">{{ data.createUserName }} </span>
                 <img :src="require('@/assets/img/level/' + data.articleCountDTO.level + '.svg')" alt="" />
               </a>
             </div>
@@ -55,7 +55,7 @@
         </div>
       </div>
       <div class="article-titleMap" v-if="data.titleMap">
-        <img :src="data.titleMap" style="width: 100%;" />
+        <img :src="data.titleMap" style="width: 100%" />
       </div>
       <div class="article-content" style="width: 100%" v-if="data.markdown">
         <mavon-editor
@@ -178,6 +178,12 @@ export default {
 }
 #article-detail .article-content {
   padding-top: 20px;
+
+  h2 > a,
+  h3 > a {
+    margin-top: -60px;
+    padding-top: 60px;
+  }
 }
 
 /* 关注按钮--start */

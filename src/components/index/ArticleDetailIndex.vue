@@ -11,34 +11,34 @@
           </div>
           <a-col :span="$store.state.collapsed ? 24 : 18" :style="$store.state.collapsed ? '' : 'border-right: 20px solid #f0f2f5'">
             <!-- 文章详情 -->
-            <article-detail @initLabelIds="initLabelIds" style="background: #fff;" />
+            <article-detail @initLabelIds="initLabelIds" style="background: #fff" />
             <br />
             <!-- 文章评论 -->
             <article-comment @refresh="refresh" style="background: #fff" />
             <a-row>
-              <a-col :span="24" style="height: 10px;" />
+              <a-col :span="24" style="height: 10px" />
             </a-row>
           </a-col>
           <a-col v-if="!$store.state.collapsed" :span="6">
             <!-- 作者板块 -->
-            <author-block v-if="finishArticleDetail" :user-id="userId" style="background: #fff;" />
+            <author-block v-if="finishArticleDetail" :user-id="userId" style="background: #fff" />
             <a-row>
-              <a-col :span="24" style="height: 10px;" />
+              <a-col :span="24" style="height: 10px" />
             </a-row>
             <!-- 相关文章 -->
-            <relat-article v-if="finishArticleDetail" :label-ids="labelIds" style="background: #fff;" />
+            <relat-article v-if="finishArticleDetail" :label-ids="labelIds" style="background: #fff" />
             <a-row>
-              <a-col :span="24" style="height: 10px;" />
+              <a-col :span="24" style="height: 10px" />
             </a-row>
             <!-- 作者榜 -->
-            <authors-list style="background: #fff;" />
+            <authors-list style="background: #fff" />
             <a-row>
-              <a-col :span="24" style="height: 10px;" />
+              <a-col :span="24" style="height: 10px" />
             </a-row>
             <!-- 目录 -->
-            <toc v-if="articleHtml" :article-html="articleHtml" style="background: #fff;" />
+            <toc v-if="articleHtml" :article-html="articleHtml" style="background: #fff" />
             <a-row>
-              <a-col :span="24" style="height: 10px;" />
+              <a-col :span="24" style="height: 10px" />
             </a-row>
             <!-- 备案信息 -->
             <filing-info />
@@ -85,6 +85,10 @@ export default {
     };
   },
 
+  mounted() {
+    this.handleAnchor();
+  },
+
   methods: {
     // 初始化标签等
     initLabelIds(labelIds, finishArticleDetail, userId, articleHtml) {
@@ -92,6 +96,20 @@ export default {
       this.finishArticleDetail = finishArticleDetail;
       this.userId = userId;
       this.articleHtml = articleHtml;
+    },
+
+    // 刷新后判断是否有锚点，有则跳转到锚点
+    handleAnchor() {
+      const hash = location.hash;
+      if (hash && hash.startsWith('#')) {
+        const timer = setInterval(() => {
+          const anchor = document.getElementById(hash.slice(1));
+          if (anchor) {
+            anchor.scrollIntoView(true);
+            clearInterval(timer);
+          }
+        }, 1200);
+      }
     },
 
     refresh() {

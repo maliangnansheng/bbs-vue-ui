@@ -4,7 +4,9 @@
     <create-comment @refresh="refresh" />
     <p class="text">{{ $t('common.hotComment') }}</p>
     <a-empty :description="false" v-if="comments.length === 0" />
-    <child-comment v-else v-for="(item, index) of comments" :data="item" :key="index" @getCommentByArticleId="getCommentByArticleId" />
+    <template v-else>
+      <child-comment v-for="(item, index) of comments" :data="item" :key="index" @getCommentByArticleId="getCommentByArticleId" />
+    </template>
   </div>
 </template>
 

@@ -18,17 +18,18 @@
           </i>
         </a>
         <a class="operate comment-comment" v-if="data.depth < 2" @click="isShowFn(data.id)">
-          <i class="iconfont icon-comment" style="color: #8a919f;">
+          <i class="iconfont icon-comment" style="color: #8a919f">
             <small v-if="isShow"> {{ $t('common.cancelReply') }}</small>
             <small v-else> {{ $t('common.reply') }}</small>
             <small> {{ data.repliesCount }}</small>
           </i>
         </a>
       </span>
-      <create-comment v-show="isShow" :pre-id="preId" @refresh="getCommentByArticleId" />
-      <template v-if="data.depth < 2">
-        <child-comment v-for="(item, index) of data.child" :data="item" :key="index" @getCommentByArticleId="getCommentByArticleId" />
-      </template>
+      <create-comment v-if="isShow" :pre-id="preId" auto-focus @refresh="getCommentByArticleId" @hidden="isShow = false" />
+      <div v-if="data.depth < 2 && childComment.length" class="sub-comment">
+        <child-comment v-for="(item, index) of childComment" :data="item" :key="index" @getCommentByArticleId="getCommentByArticleId" />
+        <span v-if="showMore" class="load-more" @click="handleLoadMore">{{ loading ? '加载中…' : '加载更多' }}</span>
+      </div>
     </a-comment>
   </div>
 </template>
@@ -52,7 +53,20 @@ export default {
     return {
       isShow: false,
       preId: 0,
+      showMore: false,
+      childComment: [],
+      loading: false,
     };
+  },
+
+  created() {
+    // 二级评论超过两条则折叠
+    if (this.data.child?.length > 2) {
+      this.showMore = true;
+      this.childComment = this.data.child.slice(0, 2);
+    } else {
+      this.childComment = this.data.child || [];
+    }
   },
 
   methods: {
@@ -71,6 +85,18 @@ export default {
     // 刷新评论数据
     getCommentByArticleId() {
       this.$emit('getCommentByArticleId');
+    },
+
+    // 加载更多
+    handleLoadMore() {
+      if (this.loading) return;
+      this.loading = true;
+      const timer = setTimeout(() => {
+        this.showMore = false;
+        this.loading = false;
+        this.childComment = this.childComment.concat(this.data.child.slice(2));
+        clearTimeout(timer);
+      }, parseInt(Math.random() * 500 + 200));
     },
 
     // 评论回复 的显示与否
@@ -146,5 +172,16 @@ export default {
 
 #child-comment .ant-comment-inner {
   padding: 5px 0;
+}
+
+.sub-comment {
+  background: #f7f8fab3;
+  padding: 1em 1em 0.5em 1em;
+  margin: 0.5em 0;
+  border-radius: 4px;
+
+  .load-more {
+    cursor: pointer;
+  }
 }
 </style>

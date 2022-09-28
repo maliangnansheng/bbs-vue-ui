@@ -35,6 +35,15 @@ module.exports = {
     'vue/v-bind-style': ['error', 'shorthand'], // v-bin统一使用缩写
     'vue/v-on-style': ['error', 'shorthand'], // v-on统一使用缩写
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    'space-before-function-paren': [
+      'error',
+      {
+        // 函数定义时括号前面要不要有空格
+        anonymous: 'ignore',
+        named: 'ignore',
+        asyncArrow: 'always',
+      },
+    ],
   },
 
   parserOptions: {

@@ -1,27 +1,20 @@
 <template>
   <div class="clearfix">
-    <a-upload
-        list-type="picture-card"
-        :file-list="fileList"
-        :customRequest="uploadResourceLogo"
-        :remove="remove"
-        @preview="handlePreview"
-        @change="handleChange"
-    >
+    <a-upload list-type="picture-card" :file-list="fileList" :custom-request="uploadResourceLogo" :remove="remove" @preview="handlePreview" @change="handleChange">
       <div v-if="fileList.length < 1">
-        <a-icon type="plus"/>
+        <a-icon type="plus" />
         <div class="ant-upload-text">
           Upload
         </div>
       </div>
     </a-upload>
     <a-modal :footer="null" @cancel="handleCancel">
-      <img alt="example" style="width: 100%" :src="previewImage"/>
+      <img alt="example" style="width: 100%" :src="previewImage" />
     </a-modal>
   </div>
 </template>
 <script>
-import resourceService from "@/service/resourceService";
+import resourceService from '@/service/resourceService';
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -35,7 +28,7 @@ function getBase64(file) {
 export default {
   props: {
     // 资源导航logo
-    resourceLogo: {type: String, default: null},
+    resourceLogo: { type: String, default: null },
   },
 
   data() {
@@ -51,24 +44,26 @@ export default {
     uploadResourceLogo(info) {
       // 校验图片大小（不能超过5M）
       if (info.file.size > 5 * 1024 * 1024) {
-        this.$message.warning(this.$t("common.avatarSizeTip"));
-        this.$refs.md.$img2Url(pos, null);
+        this.$message.warning(this.$t('common.avatarSizeTip'));
+        // TODO: Bug, unknown refs.md
+        // this.$refs.md.$img2Url(pos, null);
         return;
       }
 
       const data = new FormData();
-      data.append("logo", info.file);
+      data.append('logo', info.file);
 
-      resourceService.uploadResourceLogo(data)
-          .then(res => {
-            this.fileList[0].status = 'done';
-            this.fileList[0].url = res.data;
-            this.$emit("resourceLogoFn", res.data);
-          })
-          .catch(err => {
-            this.fileList[0].status = 'error';
-            this.$message.error(err.desc);
-          });
+      resourceService
+        .uploadResourceLogo(data)
+        .then(res => {
+          this.fileList[0].status = 'done';
+          this.fileList[0].url = res.data;
+          this.$emit('resourceLogoFn', res.data);
+        })
+        .catch(err => {
+          this.fileList[0].status = 'error';
+          this.$message.error(err.desc);
+        });
     },
 
     handleCancel() {
@@ -82,12 +77,12 @@ export default {
       this.previewVisible = true;
     },
 
-    handleChange({fileList}) {
+    handleChange({ fileList }) {
       this.fileList = fileList;
     },
 
     remove() {
-      this.$emit("resourceLogoFn", null);
+      this.$emit('resourceLogoFn', null);
     },
 
     // 清空fileList
@@ -105,11 +100,10 @@ export default {
           name: 'image.png',
           status: 'done',
           url: this.resourceLogo,
-        }
+        },
       ];
     }
-  }
-
+  },
 };
 </script>
 <style>

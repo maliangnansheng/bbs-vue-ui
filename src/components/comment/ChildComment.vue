@@ -3,79 +3,74 @@
     <a-comment>
       <a class="username" slot="author">
         {{ data.commentUserName }}
-        <img :src="require('@/assets/img/level/' + data.level + '.svg')" alt=""/>
+        <img :src="require('@/assets/img/level/' + data.level + '.svg')" alt="" />
         <small class="time" slot="title" style="color: #b5b9b9" v-text="$utils.showtime(data.createTime)"></small>
       </a>
-      <a-avatar slot="avatar" :src="data.picture ? data.picture : require('@/assets/img/default_avatar.png')"/>
+      <a-avatar slot="avatar" :src="data.picture ? data.picture : require('@/assets/img/default_avatar.png')" />
       <p class="comment-content" slot="content">
         <span>{{ data.content }}</span>
-        <span class="del" v-if="data.commentUser === $store.state.userId"
-              @click="deleteComment(data.id)">{{ $t("common.delete") }}</span>
+        <span class="del" v-if="data.commentUser === $store.state.userId" @click="deleteComment(data.id)">{{ $t('common.delete') }}</span>
       </p>
       <span slot="content">
         <a class="operate comment-like">
-          <i class="iconfont icon-like" @click="likeCommentAction(data.id)"
-             :style="data.isLike ? 'color:' + $store.state.themeColor : 'color: #8a919f;'">
+          <i class="iconfont icon-like" @click="likeCommentAction(data.id)" :style="data.isLike ? 'color:' + $store.state.themeColor : 'color: #8a919f;'">
             <small> {{ data.likeCount === 0 ? '' : data.likeCount }}</small>
           </i>
         </a>
         <a class="operate comment-comment" v-if="data.depth < 2" @click="isShowFn(data.id)">
           <i class="iconfont icon-comment" style="color: #8a919f;">
-            <small v-if="isShow"> {{ $t("common.cancelReply") }}</small>
-            <small v-else> {{ $t("common.reply") }}</small>
+            <small v-if="isShow"> {{ $t('common.cancelReply') }}</small>
+            <small v-else> {{ $t('common.reply') }}</small>
             <small> {{ data.repliesCount }}</small>
           </i>
         </a>
       </span>
-      <CreateComment v-show="isShow"
-                     :preId="preId"
-                     @refresh="getCommentByArticleId"/>
-      <ChildComment v-if="data.depth < 2"
-                    v-for="(item, index) of data.child"
-                    :data="item"
-                    :key="index"
-                    @getCommentByArticleId="getCommentByArticleId"/>
+      <create-comment v-show="isShow" :pre-id="preId" @refresh="getCommentByArticleId" />
+      <template v-if="data.depth < 2">
+        <child-comment v-for="(item, index) of data.child" :data="item" :key="index" @getCommentByArticleId="getCommentByArticleId" />
+      </template>
     </a-comment>
   </div>
 </template>
 
 <script>
-import userService from "@/service/userService";
-import CreateComment from "@/components/comment/CreateComment";
-import store from "@/store";
-import commentService from "@/service/commentService";
+import userService from '@/service/userService';
+import CreateComment from '@/components/comment/CreateComment';
+import store from '@/store';
+import commentService from '@/service/commentService';
 
 export default {
   name: 'ChildComment',
 
-  components: {CreateComment},
+  components: { CreateComment },
 
   props: {
-    data: {type: Object, default: () => ({})},
+    data: { type: Object, default: () => ({}) },
   },
 
   data() {
     return {
       isShow: false,
       preId: 0,
-    }
+    };
   },
 
   methods: {
     // 点赞/取消点赞
     likeCommentAction(commentId) {
-      userService.updateLikeCommentState({commentId: commentId})
-          .then(() => {
-            this.$emit("getCommentByArticleId");
-          })
-          .catch(err => {
-            this.$message.error(err.desc);
-          });
+      userService
+        .updateLikeCommentState({ commentId: commentId })
+        .then(() => {
+          this.$emit('getCommentByArticleId');
+        })
+        .catch(err => {
+          this.$message.error(err.desc);
+        });
     },
 
     // 刷新评论数据
     getCommentByArticleId() {
-      this.$emit("getCommentByArticleId");
+      this.$emit('getCommentByArticleId');
     },
 
     // 评论回复 的显示与否
@@ -92,22 +87,22 @@ export default {
     deleteComment(commentId) {
       this.$confirm({
         centered: true,
-        title: this.$t("common.deleteCommentTitle"),
-        content: this.$t("common.deletePrompt"),
+        title: this.$t('common.deleteCommentTitle'),
+        content: this.$t('common.deletePrompt'),
         onOk: () => {
-          commentService.deleteComment(commentId)
-              .then(() => {
-                this.$emit("getCommentByArticleId");
-              })
-              .catch((err) => {
-                this.$message.error(err.desc);
-              });
+          commentService
+            .deleteComment(commentId)
+            .then(() => {
+              this.$emit('getCommentByArticleId');
+            })
+            .catch(err => {
+              this.$message.error(err.desc);
+            });
         },
       });
     },
-
   },
-}
+};
 </script>
 
 <style lang="less">
@@ -122,7 +117,6 @@ export default {
     float: right;
     cursor: auto;
   }
-
 }
 
 #child-comment .operate .iconfont:hover {
@@ -153,5 +147,4 @@ export default {
 #child-comment .ant-comment-inner {
   padding: 5px 0;
 }
-
 </style>

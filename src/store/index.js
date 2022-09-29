@@ -11,6 +11,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    // 导航栏是否显示
+    headerVisible: true,
     // 判断用户是否已经登录
     isLogin: false,
     // 登录modal是否可见
@@ -104,6 +106,10 @@ export default new Vuex.Store({
       utils.updateTheme(color);
       window.localStorage.themeColor = color;
       state.themeColor = color;
+    },
+    // 导航栏显示/隐藏
+    setHeaderVisible(state, visible) {
+      state.headerVisible = visible;
     },
   },
   actions: {},

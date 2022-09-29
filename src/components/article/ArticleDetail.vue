@@ -103,11 +103,100 @@ export default {
             labelIds.push(label.id);
           });
           this.$emit('initLabelIds', labelIds, this.finish, res.data.createUser, this.$utils.toToc(res.data.html));
+
+          if (res.data.html) {
+            const timer = setTimeout(() => {
+              this.monitorScrollForTopicHighlight();
+            }, 800);
+          }
         })
         .catch(err => {
           this.finish = true;
           this.$message.error(err.desc);
         });
+    },
+
+    // 设置标题目录追踪滚动高亮当前标题
+    monitorScrollForTopicHighlight() {
+      const toc = document.querySelector('#markdown-toc');
+      if (!toc) return;
+      const app = document.getElementById('app');
+      const articleContent = document.querySelector('.article-content');
+      const topics = articleContent.querySelectorAll('h1,h2,h3,h4,h5,h6'); // 标题
+      const lis = toc.querySelectorAll('li'); // 目录-标题项
+
+      const removeActive = () => {
+        for (let i = 0; i < lis.length; i++) {
+          lis[i].classList.remove('active');
+        }
+      };
+
+      // 处理标题内容少，导致高度不足以进入检测区域时，无法高亮的问题
+      const tocClickEventCB = ev => {
+        if (ev.target.nodeName === 'A') {
+          const parentNode = ev.target.parentNode;
+          if (parentNode && parentNode.nodeName === 'LI') {
+            removeActive();
+            parentNode.classList.add('active');
+          }
+        }
+      };
+      toc.addEventListener('click', tocClickEventCB);
+
+      // 处理带锚点进入页面，底部高度不足以进入检测区域时，无法高亮的问题
+      const hash = location.hash;
+      if (hash) {
+        const activeAnchor = toc.querySelector(`a[href="${hash}"]`);
+        const activeAnchorParent = activeAnchor.parentNode;
+        if (activeAnchor) {
+          removeActive();
+          activeAnchorParent.classList.add('active');
+        }
+      } else {
+        // 解决首次加载时第一个标题和文章title间距太大，未到达预定高度时，目录高亮不正确的问题
+        lis[0].classList.add('active');
+      }
+
+      // 监听滚动事件，检测标题是否进入/退出检测区域
+      const observer = new IntersectionObserver(
+        entries => {
+          for (const entry of entries) {
+            if (entry.intersectionRatio > 0) {
+              const anchor = entry.target.firstElementChild;
+
+              if (!anchor) return;
+              const id = anchor.getAttribute('id');
+              const activeAnchor = toc.querySelector(`a[href="#${id}"]`);
+              const activeAnchorParent = activeAnchor.parentNode;
+              if (activeAnchor) {
+                removeActive();
+                // 处理上划页面时标题退出检测区域，高亮上一个标题
+                if (!entry.isIntersecting && entry.intersectionRect.top > 0) {
+                  const preTopic = activeAnchorParent.previousSibling;
+                  if (preTopic) {
+                    preTopic.classList.add('active');
+                    break;
+                  }
+                }
+                activeAnchorParent.classList.add('active');
+              }
+              // 避免标题高度太小，导致多个标题出现在检测区域，只高亮第一个
+              break;
+            }
+          }
+        },
+        {
+          rootMargin: '0% 0% -90% 0%', // 把检测区域缩小到顶部的一点点范围(高度的10%)
+          threshold: 0.6,
+        },
+      );
+      Array.prototype.forEach.call(topics, target => {
+        observer.observe(target);
+      });
+      this.$once('hook:beforeDestroy', () => {
+        observer.disconnect();
+        toc.removeEventListener('click', tocClickEventCB);
+      });
     },
 
     // 更新关注状态
@@ -179,8 +268,10 @@ export default {
 #article-detail .article-content {
   padding-top: 20px;
 
+  h1 > a,
   h2 > a,
-  h3 > a {
+  h3 > a,
+  h4 > a {
     margin-top: -60px;
     padding-top: 60px;
   }

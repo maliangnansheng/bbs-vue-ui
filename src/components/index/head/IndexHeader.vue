@@ -124,7 +124,7 @@
         <!-- 登录 -->
         <div class="header-item-login" v-if="!$store.state.isLogin">
           <div class="options" @click="showLoginModal">
-            <a-button style="border: 1px solid rgba(30,128,255,.3); background: rgba(30,128,255,.05); color: #007fff;">
+            <a-button style="border: 1px solid rgba(30, 128, 255, 0.3); background: rgba(30, 128, 255, 0.05); color: #007fff">
               {{ $t('common.login') }}
             </a-button>
           </div>

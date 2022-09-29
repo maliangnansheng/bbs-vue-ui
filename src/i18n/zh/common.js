@@ -167,7 +167,7 @@ export default {
   fillInYour7788: '填写职业技能、擅长的事情、喜欢的事情等',
   accountSettings: '账号设置',
   themeColor: '主体颜色',
-  toc: '目录（持续优化中...）',
+  toc: '目录',
   donateContent1: '无论捐赠金额多少都足够表达您这份心意，非常感谢 ：）',
   donateContent2: '你的捐赠将用于项目后期的维护和更新...',
   approved: '审核通过',

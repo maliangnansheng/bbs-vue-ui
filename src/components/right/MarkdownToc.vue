@@ -1,11 +1,13 @@
 <template>
-  <div id="markdown-toc" :style="top ? 'position: fixed; z-index: 888;top: 64px;width: 275px;' : ''">
-    <header class="article-toc-header">
-      {{ $t('common.toc') }}
-    </header>
-    <a-divider style="margin: 10px 0 0 0;" />
-    <div class="toc-content" v-html="articleHtml"></div>
-  </div>
+  <a-affix :offset-top="70" :target="getAppEl">
+    <div id="markdown-toc">
+      <header class="article-toc-header" :style="`transition:all 0.2s;margin: 0;margin-top:${$store.state.headerVisible ? '0' : '-60'}px`">
+        {{ $t('common.toc') }}
+      </header>
+      <a-divider style="margin: 10px 0 0 0" />
+      <div class="toc-content" v-html="articleHtml"></div>
+    </div>
+  </a-affix>
 </template>
 
 <script>
@@ -16,38 +18,10 @@ export default {
     articleHtml: { type: String, default: '' },
   },
 
-  data() {
-    return {
-      top: false,
-    };
-  },
-
   methods: {
-    handleScroll(el) {
-      el.onscroll = ({ target }) => {
-        /**
-         * scrollTop:滚动条滚动距离;
-         * scrollHeight:文档内容实际高度（包括超出视窗的溢出部分）;
-         * clientHeight:窗口可视范围高度
-         */
-        const { scrollTop, scrollHeight, clientHeight } = target;
-        /**
-         * @property hasNext 列表是否还有没加载完的（是否已经加载完最后一项），是后台返回的结果
-         * @property finish 上个请求是否完成，完成后才可以进行下个请求
-         * @function loadMore 加载下一页的方法
-         */
-        if (scrollTop > 850) {
-          this.top = true;
-        } else {
-          this.top = false;
-        }
-      };
+    getAppEl() {
+      return document.getElementById('app');
     },
-  },
-
-  mounted() {
-    // 监听滚动
-    this.handleScroll.call(this, document.querySelector('#app'));
   },
 };
 </script>
@@ -55,6 +29,7 @@ export default {
 <style lang="less" scoped>
 #markdown-toc {
   padding-bottom: 10px;
+  background-color: #fff;
 
   .toc-content {
     max-height: 700px;
@@ -116,6 +91,15 @@ export default {
         background-color: #8b87870a;
       }
     }
+  }
+}
+</style>
+
+<style lang="less">
+#markdown-toc {
+  .active,
+  .active > a {
+    color: #0366d6 !important;
   }
 }
 </style>

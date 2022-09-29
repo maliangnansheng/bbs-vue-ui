@@ -1,7 +1,7 @@
 <template>
   <a-layout>
     <a-layout id="article-detail-index">
-      <index-header class="header" />
+      <index-header class="header" :class="{ 'header-visible': $store.state.headerVisible }" />
       <a-layout-content>
         <!-- 解决手机端mavonEditor代码块code布局问题 -->
         <main class="content" :style="$store.state.collapsed ? 'width: 100%;' : 'width: 1100px;'">
@@ -36,7 +36,7 @@
               <a-col :span="24" style="height: 10px" />
             </a-row>
             <!-- 目录 -->
-            <toc v-if="articleHtml" :article-html="articleHtml" style="background: #fff" />
+            <toc v-if="articleHtml" :article-html="articleHtml" />
             <a-row>
               <a-col :span="24" style="height: 10px" />
             </a-row>
@@ -87,6 +87,7 @@ export default {
 
   mounted() {
     this.handleAnchor();
+    this.handleHeaderAnimation();
   },
 
   methods: {
@@ -112,6 +113,28 @@ export default {
       }
     },
 
+    // 处理文章顶部导航栏页面下滑时隐藏
+    handleHeaderAnimation() {
+      let delta = 0;
+      const app = document.getElementById('app');
+      const scrollEventCB = ev => {
+        const scrollTop = ev.target.scrollTop;
+        if (delta === 0) {
+          delta = scrollTop;
+          return;
+        }
+        if (scrollTop - delta > 20) {
+          this.$store.commit('setHeaderVisible', false);
+        } else {
+          this.$store.commit('setHeaderVisible', true);
+        }
+      };
+      app.addEventListener('scroll', scrollEventCB);
+      this.$once('hook:beforeDestroy', () => {
+        app.removeEventListener('scroll', scrollEventCB);
+      });
+    },
+
     refresh() {
       // 获取文章一些统计数据
       this.$refs.child.getArticleCountById();
@@ -127,6 +150,12 @@ export default {
   z-index: 999;
   background: #fff;
   border-bottom: 1px solid #00000021;
+  transition: all 0.2s;
+  transform: translate3d(0, -100%, 0);
+}
+
+#article-detail-index .header-visible {
+  transform: translate3d(0, 0, 0);
 }
 
 #article-detail-index .content {

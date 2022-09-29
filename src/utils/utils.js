@@ -52,7 +52,7 @@ export default {
     if (!isValidDate) {
       window.console.error('不是有效日期格式');
     }
-    const formatDate = function(date) {
+    const formatDate = function (date) {
       const today = new Date(date);
       const year = today.getFullYear();
       const month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -92,16 +92,16 @@ export default {
     }
     const levelStack = [];
     let result = '';
-    const addStartUL = function() {
+    const addStartUL = function () {
       result += '<ul class="catalog-list">';
     };
-    const addEndUL = function() {
+    const addEndUL = function () {
       result += '</ul>\n';
     };
-    const addLI = function(index, itemText) {
+    const addLI = function (index, itemText) {
       result += '<li><a class="toc-link' + '-#' + index + '" href="#' + index + '">' + itemText + '</a></li>\n';
     };
-    data.forEach(function(item, index) {
+    data.forEach(function (item, index) {
       // 获取a标签的id值
       const a_id = item.replace(/<a id="(.*?)"([^[]*)/g, '$1').replace(/<[hH][1-6]>/g, '');
       // 匹配h标签的文字
@@ -138,4 +138,17 @@ export default {
     // 去掉回车换行
     return result.replace(/\r?\n|\r/g, '');
   },
+};
+
+// 节流函数
+export const throttle = (fn, delay) => {
+  let timer = null;
+  return function () {
+    if (!timer) {
+      timer = setTimeout(() => {
+        fn.apply(this, arguments);
+        timer = null;
+      }, delay);
+    }
+  };
 };

@@ -10,10 +10,10 @@
               <!-- 轮播图 -->
               <slide-show v-if="!$store.state.collapsed && $store.state.isCarousel" />
               <a-row v-if="!$store.state.collapsed && $store.state.isCarousel">
-                <a-col :span="24" style="height: 2px;" />
+                <a-col :span="24" style="height: 2px" />
               </a-row>
               <!-- 管理员才需要 -->
-              <a-tabs default-active-key="approved" @change="changeTab" style="background: #fff;" v-if="$store.state.isManage">
+              <a-tabs default-active-key="approved" @change="changeTab" style="background: #fff" v-if="$store.state.isManage">
                 <a-tab-pane key="approved">
                   <span slot="tab">
                     {{ $t('common.approved') + '(' + total + ')' }}
@@ -30,7 +30,7 @@
                     @updateTotal="updateTotal"
                     @updateReviewRejectedTotal="updateReviewRejectedTotal"
                     @refresh="refresh"
-                    style="background: #fff;"
+                    style="background: #fff"
                   />
                 </a-tab-pane>
                 <a-tab-pane key="pendingReview">
@@ -50,7 +50,7 @@
                     @updateTotal="updateTotal"
                     @updateReviewRejectedTotal="updateReviewRejectedTotal"
                     @refresh="refresh"
-                    style="background: #fff;"
+                    style="background: #fff"
                   />
                 </a-tab-pane>
                 <a-tab-pane key="reviewRejected">
@@ -69,7 +69,7 @@
                     @updateTotal="updateTotal"
                     @updateReviewRejectedTotal="updateReviewRejectedTotal"
                     @refresh="refresh"
-                    style="background: #fff;"
+                    style="background: #fff"
                   />
                 </a-tab-pane>
               </a-tabs>
@@ -81,30 +81,30 @@
                 :data="listData"
                 :service="articleService"
                 @refresh="refresh"
-                style="background: #fff;"
+                style="background: #fff"
               />
             </div>
           </a-col>
           <a-col v-if="!$store.state.collapsed" :span="6">
             <!-- 系统简介 -->
-            <project-intro style="background: #fff;" />
+            <project-intro style="background: #fff" />
             <a-row>
-              <a-col :span="24" style="height: 10px;" />
+              <a-col :span="24" style="height: 10px" />
             </a-row>
             <!-- 作者榜 -->
-            <authors-list style="background: #fff;" />
+            <authors-list style="background: #fff" />
             <a-row>
-              <a-col :span="24" style="height: 10px;" />
+              <a-col :span="24" style="height: 10px" />
             </a-row>
             <!-- 最新评论 -->
-            <latest-comment style="background: #fff;" />
+            <latest-comment style="background: #fff" />
             <a-row>
-              <a-col :span="24" style="height: 10px;" />
+              <a-col :span="24" style="height: 10px" />
             </a-row>
             <!-- 友情捐赠 -->
-            <friend-donate style="background: #fff;" />
+            <friend-donate style="background: #fff" />
             <a-row>
-              <a-col :span="24" style="height: 10px;" />
+              <a-col :span="24" style="height: 10px" />
             </a-row>
             <!-- 备案信息 -->
             <filing-info />

@@ -5,7 +5,13 @@ const env = process.env;
 const vueConfig = {
   // 开发环境的跨域配置
   devServer: {
-    proxy: env.VUE_APP_PROXY_URL || 'http://bbs.localhost.com',
+    proxy: {
+      '/api': {
+        target: env.VUE_APP_PROXY_URL || 'http://bbs.localhost.com',
+        changeOrigin: true,
+        logLevel: 'debug',
+      },
+    },
     disableHostCheck: true,
     port: 8082,
   },

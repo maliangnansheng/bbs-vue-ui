@@ -1,12 +1,12 @@
 <template>
   <div id="main-article-content">
     <a-list item-layout="vertical" size="large" :data-source="tempData">
-      <a-list-item slot="renderItem" key="item.title" slot-scope="item, index" style="cursor: pointer;" @click="routerArticleDetail(item.id)">
+      <a-list-item slot="renderItem" key="item.title" slot-scope="item, index" style="cursor: pointer" @click="routerArticleDetail(item.id)">
         <!-- 浏览量/点赞/评论 -->
         <template v-for="{ type } in actions" slot="actions">
           <span class="collectLikeComment" :key="type">
             <span v-if="type === 'eye'">
-              <a-icon :type="type" style="margin-right: 8px;" />
+              <a-icon :type="type" style="margin-right: 8px" />
               <span v-text="item.pv"></span>
             </span>
             <span v-if="type === 'like-o'" @click.stop="pageViewsLikeComment(type, item.id, index)">
@@ -20,7 +20,7 @@
               </span>
             </span>
             <span v-if="type === 'message'">
-              <a-icon :type="type" style="margin-right: 8px;" />
+              <a-icon :type="type" style="margin-right: 8px" />
               <span v-text="item.articleCountDTO.commentCount"></span>
             </span>
           </span>
@@ -34,7 +34,7 @@
             </a>
           </div>
           <div>
-            <img style="padding-top: 10px" :width="$store.state.collapsed ? 80 : 150" alt="logo" v-if="item.titleMap" :src="item.titleMap" />
+            <img style="padding-top: 10px; max-height: 100px" :width="$store.state.collapsed ? 80 : 150" alt="logo" v-if="item.titleMap" :src="item.titleMap" />
           </div>
         </div>
         <!-- 用户/标题 -->
@@ -42,7 +42,7 @@
           <a-avatar slot="avatar" :src="item.picture ? item.picture : require('@/assets/img/default_avatar.png')" @click.stop="routerUserCenter(item.createUser)" />
           <a slot="title" class="username" @click.stop="routerUserCenter(item.createUser)">
             <div class="left">
-              <span slot="title" style="padding-right: 2px;"> {{ item.createUserName }} </span>
+              <span slot="title" style="padding-right: 2px"> {{ item.createUserName }} </span>
               <img :src="require('@/assets/img/level/' + item.level + '.svg')" alt="" @click.stop="routerBook" />
               <small style="color: #b5b9b9; padding-left: 10px" v-text="$utils.showtime(item.createTime)"></small>
               <!-- 用户中心 -->
@@ -77,7 +77,7 @@
         </div>
       </a-list-item>
     </a-list>
-    <div style="text-align: center; padding-bottom: 20px;" v-if="!hasNext && finish">
+    <div style="text-align: center; padding-bottom: 20px" v-if="!hasNext && finish">
       <a-divider />
       {{ $t('common.noAgain') }}
     </div>
@@ -247,7 +247,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
 }
 
 #main-article-content .label-name {

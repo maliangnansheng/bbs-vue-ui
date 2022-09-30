@@ -1,13 +1,13 @@
 <template>
   <a-layout id="label-to-article-index">
-    <index-header class="header" />
+    <IndexHeader class="header"/>
     <a-layout-content>
       <main class="content">
-        <!--        <CustomEmpty v-if="spinning"/>-->
+<!--        <CustomEmpty v-if="spinning"/>-->
         <div v-if="!spinning">
           <div class="top">
             <div class="left">
-              <a-avatar class="avatar" :size="100" :src="labelData.logo" />
+              <a-avatar class="avatar" :size="100" :src="labelData.logo"/>
             </div>
             <div class="right">
               <div class="title">{{ labelData.labelName }}</div>
@@ -16,24 +16,29 @@
           </div>
           <div class="bottom">
             <!-- 文章列表 -->
-            <front-page-article :finish="finish" :has-next="hasNext" :data="listData" @refresh="refresh" />
+            <FrontPageArticle
+                :finish="finish"
+                :hasNext="hasNext"
+                :data="listData"
+                @refresh="refresh"/>
           </div>
         </div>
       </main>
     </a-layout-content>
-    <footer-buttons v-if="!$store.state.collapsed" />
+    <FooterButtons v-if="!$store.state.collapsed"/>
   </a-layout>
 </template>
 
 <script>
-import IndexHeader from '@/components/index/head/IndexHeader';
-import FooterButtons from '@/components/utils/FooterButtons';
-import articleService from '@/service/articleService';
-import FrontPageArticle from '@/components/article/FrontPageArticle';
-import labelService from '@/service/labelService';
+import IndexHeader from "@/components/index/head/IndexHeader";
+import FooterButtons from "@/components/utils/FooterButtons";
+import CustomEmpty from "@/components/utils/CustomEmpty";
+import articleService from "@/service/articleService";
+import FrontPageArticle from "@/components/article/FrontPageArticle";
+import labelService from "@/service/labelService";
 
 export default {
-  components: { IndexHeader, FrontPageArticle, FooterButtons },
+  components: {IndexHeader, FrontPageArticle, FooterButtons, CustomEmpty},
   data() {
     return {
       labelId: this.$route.params.id,
@@ -42,7 +47,7 @@ export default {
       listData: [],
       hasNext: true,
       finish: false,
-      params: { currentPage: 1, pageSize: 10 },
+      params: {currentPage: 1, pageSize: 10},
       labelData: {},
     };
   },
@@ -61,39 +66,37 @@ export default {
       }
       this.finish = false;
       params.labelIds = this.labelId;
-      articleService
-        .getArticleList(params)
-        .then(res => {
-          if (isLoadMore) {
-            this.listData = this.listData.concat(res.data.list);
-            this.hasNext = res.data.list.length !== 0;
-          } else {
-            this.listData = res.data.list;
-          }
-          this.spinning = false;
-          this.finish = true;
-        })
-        .catch(err => {
-          this.finish = true;
-          this.$message.error(err.desc);
-        });
+      articleService.getArticleList(params)
+          .then(res => {
+            if (isLoadMore) {
+              this.listData = this.listData.concat(res.data.list);
+              this.hasNext = res.data.list.length !== 0;
+            } else {
+              this.listData = res.data.list;
+            }
+            this.spinning = false;
+            this.finish = true;
+          })
+          .catch(err => {
+            this.finish = true;
+            this.$message.error(err.desc);
+          });
     },
 
     // 获取标签
     getLabelList() {
-      labelService
-        .getLabelList({ id: this.labelId, currentPage: 1, pageSize: 10 })
-        .then(res => {
-          this.labelData = res.data.list[0];
-        })
-        .catch(err => {
-          this.$message.error(err.desc);
-        });
+      labelService.getLabelList({id: this.labelId, currentPage: 1, pageSize: 10})
+          .then(res => {
+            this.labelData = res.data.list[0];
+          })
+          .catch(err => {
+            this.$message.error(err.desc);
+          });
     },
 
     // 刷新列表
     refresh() {
-      this.params = { currentPage: 1, pageSize: 10 };
+      this.params = {currentPage: 1, pageSize: 10};
       this.getArticleList(this.params);
     },
   },
@@ -104,8 +107,10 @@ export default {
     // 监听滚动，做滚动加载
     this.$utils.scroll.call(this, document.querySelector('#app'));
   },
+
 };
 </script>
+
 
 <style lang="less">
 #label-to-article-index .header {
@@ -122,8 +127,7 @@ export default {
   background: #fff;
 }
 
-#label-to-article-index .ant-layout-header,
-.ant-layout-content {
+#label-to-article-index .ant-layout-header, .ant-layout-content {
   display: flex;
   align-items: center;
   justify-content: center;

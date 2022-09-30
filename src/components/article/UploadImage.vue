@@ -1,10 +1,21 @@
 <template>
   <div class="img-container">
     <label for="avatarFile">
-      <img v-if="!articlePicture" style="width: 100%" src="@/assets/img/avatar-bg.png" alt="" />
-      <img v-else style="width: 100%;" :src="articlePicture" alt="" />
+      <img v-if="!articlePicture"
+           style="width: 100%"
+           src="@/assets/img/avatar-bg.png"
+           alt=""
+      />
+      <img v-else style="width: 100%;" :src="articlePicture" alt=""/>
     </label>
-    <input style="display: none" accept=".jpg, .jpeg, .png" @change="onFileChange" type="file" name="avatarFile" id="avatarFile" />
+    <input
+        style="display: none"
+        accept=".jpg, .jpeg, .png"
+        @change="onFileChange"
+        type="file"
+        name="avatarFile"
+        id="avatarFile"
+    />
   </div>
 </template>
 
@@ -12,7 +23,7 @@
 export default {
   props: {
     // 题图
-    articleTitleMap: { type: String, default: '' },
+    articleTitleMap: {type: String, default: ""},
   },
 
   data() {
@@ -23,7 +34,7 @@ export default {
   methods: {
     // 用户选择图片的回调
     onFileChange(e) {
-      const file = e.target.files[0];
+      let file = e.target.files[0];
       this.$emit('titleMap', file);
       this.articlePicture = window.URL.createObjectURL(file);
     },
@@ -38,5 +49,6 @@ export default {
   img {
     cursor: pointer;
   }
+
 }
 </style>

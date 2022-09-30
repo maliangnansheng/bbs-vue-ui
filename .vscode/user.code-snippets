@@ -1,8 +1,0 @@
-{
-  "console.log": {
-    "scope": "typescript,javascript,javascriptreact",
-    "description": "console.log",
-    "prefix": "clog",
-    "body": ["console.log('$1', $2)"]
-  }
-}

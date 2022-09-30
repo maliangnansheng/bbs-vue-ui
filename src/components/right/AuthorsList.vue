@@ -1,69 +1,70 @@
 <template>
   <div id="authors-list" v-if="data.length !== 0">
-    <header class="user-block-header">🎖️ {{ $t('common.authorList') }}</header>
-    <a-divider style="margin: 10px 0 0 0;" />
+    <header class="user-block-header">🎖️ {{ $t("common.authorList") }}</header>
+    <a-divider style="margin: 10px 0 0 0;"/>
     <a-list item-layout="horizontal" :data-source="data" :split="false">
-      <a-list-item slot="renderItem" slot-scope="item" @click="routerUserCenter(item.id)">
+      <a-list-item slot="renderItem" slot-scope="item, index" @click="routerUserCenter(item.id)">
         <a-list-item-meta :description="item.intro">
           <span class="username" slot="title">
             <span style="padding-right: 2px;">{{ item.name }}</span>
-            <img :src="require('@/assets/img/level/' + item.level + '.svg')" alt="" />
+            <img :src="require('@/assets/img/level/' + item.level + '.svg')" alt=""/>
           </span>
-          <a-avatar slot="avatar" :src="item.picture ? item.picture : require('@/assets/img/default-avatar.png')" />
+          <a-avatar slot="avatar"
+                    :src="item.picture ? item.picture : require('@/assets/img/default-avatar.png')"/>
         </a-list-item-meta>
       </a-list-item>
     </a-list>
-    <a-divider style="margin: 0;" />
+    <a-divider style="margin: 0;"/>
     <div class="full-list" @click="recommended" style="text-align: center; padding: 10px 0;">
       <a>
-        <span>{{ $t('common.fullList') }}</span>
-        <a-icon type="right" />
+        <span>{{ $t("common.fullList") }}</span>
+        <a-icon type="right"/>
       </a>
     </div>
   </div>
 </template>
 
 <script>
-import userService from '@/service/userService';
+import userService from "@/service/userService";
 
 export default {
   data() {
     return {
       data: [],
-      params: { currentPage: 1, pageSize: 3 },
+      params: {currentPage: 1, pageSize: 3},
       finish: false,
     };
   },
 
   methods: {
     getHotAuthorsList(params) {
-      userService
-        .getHotAuthorsList(params)
-        .then(res => {
-          this.data = res.data.list;
-          this.finish = true;
-        })
-        .catch(err => {
-          this.finish = true;
-          this.$message.error(err.desc);
-        });
+      userService.getHotAuthorsList(params)
+          .then(res => {
+            this.data = res.data.list;
+            this.finish = true;
+          })
+          .catch(err => {
+            this.finish = true;
+            this.$message.error(err.desc);
+          });
     },
 
     recommended() {
-      const routeData = this.$router.resolve('/recommended');
+      let routeData = this.$router.resolve("/recommended");
       window.open(routeData.href, '_blank');
     },
 
     // 路由到用户中心页面
     routerUserCenter(userId) {
-      const routeData = this.$router.resolve('/user/' + userId);
+      let routeData = this.$router.resolve("/user/" + userId);
       window.open(routeData.href, '_blank');
-    },
+    }
   },
 
   mounted() {
     this.getHotAuthorsList(this.params);
   },
+
 };
 </script>
 
@@ -83,8 +84,7 @@ export default {
   padding: 0 15px;
 }
 
-#authors-list .ant-list-item-meta-title > a,
-.ant-list-item-meta-description {
+#authors-list .ant-list-item-meta-title > a, .ant-list-item-meta-description {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -99,8 +99,7 @@ export default {
   line-height: 22px;
 }
 
-#authors-list .ant-list-item,
-.full-list {
+#authors-list .ant-list-item, .full-list {
   cursor: pointer;
 }
 

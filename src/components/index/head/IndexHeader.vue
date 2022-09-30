@@ -4,27 +4,28 @@
       <div class="header-left-content">
         <!-- logo -->
         <div @click="refresh" class="header-item-logo">
-          <img slot="avatar" src="@/assets/img/logo-lanse.png" alt="默认图片" style="height: 100%" />
+          <img slot="avatar" src="@/assets/img/logo-lanse.png" alt="默认图片" style="height: 100%"/>
         </div>
 
         <!-- 首页 -->
         <div>
           <a-menu v-if="!$store.state.collapsed" v-model="current" mode="horizontal">
-            <a-menu-item key="frontPage" @click="refresh">{{ $t('common.home') }}</a-menu-item>
-            <a-menu-item key="boilingPoint" @click="routerLabel">{{ $t('common.label') }}</a-menu-item>
-            <a-menu-item key="liveStreaming" @click="routerResource">{{ $t('common.resource') }}</a-menu-item>
+            <a-menu-item key="frontPage" @click="refresh">{{ $t("common.home") }}</a-menu-item>
+            <a-menu-item key="boilingPoint" @click="routerLabel">{{ $t("common.label") }}</a-menu-item>
+            <a-menu-item key="liveStreaming" @click="routerResource">{{ $t("common.resource") }}</a-menu-item>
             <a-tooltip placement="bottom">
               <template slot="title">
-                {{ $t('common.inDevelopment') }}
+                {{ $t("common.inDevelopment") }}
               </template>
-              <a-menu-item key="course">{{ $t('common.course') }}</a-menu-item>
+              <a-menu-item key="course">{{ $t("common.course") }}</a-menu-item>
             </a-tooltip>
           </a-menu>
-          <a-select class="phone-frontPage" v-if="$store.state.collapsed" :default-value="current" @change="handleChange" style="min-width: 90px; width: 100%">
-            <a-select-option value="frontPage" @click="refresh">{{ $t('common.home') }}</a-select-option>
-            <a-select-option value="boilingPoint" @click="routerLabel">{{ $t('common.label') }}</a-select-option>
-            <a-select-option value="liveStreaming" @click="routerResource">{{ $t('common.resource') }}</a-select-option>
-            <a-select-option value="course">{{ $t('common.course') }}</a-select-option>
+          <a-select class="phone-frontPage" v-if="$store.state.collapsed" :default-value="current"
+                    @change="handleChange" style="min-width: 90px; width: 100%">
+            <a-select-option value="frontPage" @click="refresh">{{ $t("common.home") }}</a-select-option>
+            <a-select-option value="boilingPoint" @click="routerLabel">{{ $t("common.label") }}</a-select-option>
+            <a-select-option value="liveStreaming" @click="routerResource">{{ $t("common.resource") }}</a-select-option>
+            <a-select-option value="course">{{ $t("common.course") }}</a-select-option>
           </a-select>
         </div>
       </div>
@@ -33,32 +34,37 @@
         <!-- 搜索框 -->
         <div class="header-search">
           <a-space direction="vertical">
-            <a-input-search v-model="searchContentTemp" :placeholder="$t('common.searchPlaceholder')" style="min-width: 100px; width: 100%" @search="onSearch" />
+            <a-input-search v-model="searchContentTemp" :placeholder="$t('common.searchPlaceholder')"
+                            style="min-width: 100px; width: 100%"
+                            @search="onSearch"
+            />
           </a-space>
         </div>
 
         <!-- 写文章 -->
         <div v-if="!$store.state.collapsed" class="header-item" @click="routerWrite">
           <div class="options">
-            <span>{{ $t('common.writeArticle') }}</span>
+            <span>{{ $t("common.writeArticle") }}</span>
           </div>
         </div>
 
         <!-- 管理端 -->
         <div v-if="!$store.state.isLogin && !$store.state.collapsed" class="header-item" @click="routerManage">
           <div class="options">
-            <span>{{ $t('common.management') }}</span>
+            <span>{{ $t("common.management") }}</span>
           </div>
         </div>
 
         <!-- 主题色 -->
         <div class="header-item">
-          <a-dropdown overlay-class-name="header-theme-color-config" :placement="'bottomRight'" :trigger="['click']">
+          <a-dropdown overlayClassName="header-theme-color-config" :placement="'bottomRight'"
+                      :trigger="['click']">
             <div class="ant-dropdown-menu" slot="overlay">
-              <p>{{ $t('common.themeColor') }}</p>
+              <p>{{ $t("common.themeColor") }}</p>
               <div class="color-options">
-                <div @click="changeColor(color)" v-for="color of colorOptions" :key="color" :style="'background: ' + color">
-                  <a-icon v-if="themeColor === color" style="color: white" type="check" />
+                <div @click="changeColor(color)" v-for="color of colorOptions" :key="color"
+                     :style="'background: ' + color">
+                  <a-icon v-if="themeColor === color" style="color: white" type="check"/>
                 </div>
               </div>
             </div>
@@ -70,12 +76,15 @@
 
         <!-- 消息通知 -->
         <div class="header-item badge-container" v-if="$store.state.isLogin">
-          <a-dropdown class="dropdown" v-model="visible" overlay-class-name="header-message-box" :placement="'bottomRight'" :trigger="['click']">
+          <a-dropdown class="dropdown" v-model="visible" overlayClassName="header-message-box"
+                      :placement="'bottomRight'" :trigger="['click']">
             <div class="ant-dropdown-menu" slot="overlay">
-              <message-box :visible.sync="visible" />
+              <MessageBox :visible.sync="visible"/>
             </div>
             <div class="options">
-              <a-badge class="badge" :count="$store.state.isLogin ? messageNumbers : 0" :overflow-count="99"> <i class="iconfont icon-bell"></i></a-badge>
+              <a-badge class="badge" :count="$store.state.isLogin ? messageNumbers : 0" :overflow-count="99">
+                <i
+                    class="iconfont icon-bell"></i></a-badge>
             </div>
           </a-dropdown>
         </div>
@@ -84,19 +93,32 @@
         <div class="header-item avatar-container" v-if="$store.state.isLogin">
           <a-dropdown :placement="'bottomRight'" :trigger="['click']">
             <a-menu @click="handleClick" slot="overlay">
-              <a-menu-item key="writeArticle"> <i class="iconfont icon-writeArticle"></i>{{ ' ' + $t('common.writeArticle') }} </a-menu-item>
-              <a-menu-item key="PROFILE"> <i class="iconfont icon-user-picture"></i>{{ ' ' + $t('common.profile') }} </a-menu-item>
-              <a-divider style="margin: 3px 0 3px 0" />
-              <a-menu-item key="setUp"> <i class="iconfont icon-setUp"></i>{{ ' ' + $t('common.setUp') }} </a-menu-item>
-              <a-menu-item key="about"> <i class="iconfont icon-about"></i>{{ ' ' + $t('common.about') }} </a-menu-item>
-              <a-divider style="margin: 3px 0 3px 0" />
-              <a-menu-item key="management"> <i class="iconfont icon-setUp"></i>{{ ' ' + $t('common.management') }} </a-menu-item>
-              <a-divider style="margin: 3px 0 3px 0" />
-              <a-menu-item key="LOG_OUT"> <i class="iconfont icon-quit"></i>{{ ' ' + $t('common.logOut') }} </a-menu-item>
+              <a-menu-item key="writeArticle">
+                <i class="iconfont icon-writeArticle"></i>{{ ' ' + $t("common.writeArticle") }}
+              </a-menu-item>
+              <a-menu-item key="PROFILE">
+                <i class="iconfont icon-user-picture"></i>{{ ' ' + $t("common.profile") }}
+              </a-menu-item>
+              <a-divider style="margin: 3px 0 3px 0"/>
+              <a-menu-item key="setUp">
+                <i class="iconfont icon-setUp"></i>{{ ' ' + $t("common.setUp") }}
+              </a-menu-item>
+              <a-menu-item key="about">
+                <i class="iconfont icon-about"></i>{{ ' ' + $t("common.about") }}
+              </a-menu-item>
+              <a-divider style="margin: 3px 0 3px 0"/>
+              <a-menu-item key="management">
+                <i class="iconfont icon-setUp"></i>{{ ' ' + $t("common.management") }}
+              </a-menu-item>
+              <a-divider style="margin: 3px 0 3px 0"/>
+              <a-menu-item key="LOG_OUT">
+                <i class="iconfont icon-quit"></i>{{ ' ' + $t("common.logOut") }}
+              </a-menu-item>
             </a-menu>
             <div class="options">
-              <a-avatar class="avatar" v-if="$store.state.picture" :src="$store.state.picture" />
-              <img v-else src="@/assets/img/default_avatar.png" class="default-avatar" width="32" />
+              <a-avatar class="avatar" v-if="$store.state.picture"
+                        :src="$store.state.picture"/>
+              <img v-else src="@/assets/img/default_avatar.png" class="default-avatar" width="32"/>
             </div>
           </a-dropdown>
         </div>
@@ -115,7 +137,7 @@
               </a-menu-item>
             </a-menu>
             <div class="options">
-              <a-icon type="global" />
+              <a-icon type="global"/>
               <span style="padding-left: 6px">{{ languageTitle }}</span>
             </div>
           </a-dropdown>
@@ -124,18 +146,22 @@
         <!-- 登录 -->
         <div class="header-item-login" v-if="!$store.state.isLogin">
           <div class="options" @click="showLoginModal">
-            <a-button style="border: 1px solid rgba(30, 128, 255, 0.3); background: rgba(30, 128, 255, 0.05); color: #007fff">
-              {{ $t('common.login') }}
+            <a-button style="border: 1px solid rgba(30,128,255,.3); background: rgba(30,128,255,.05); color: #007fff;">
+              {{ $t("common.login") }}
             </a-button>
           </div>
           <!-- 登录Model -->
-          <login @refresh="refresh" />
+          <Login
+              @refresh="refresh"/>
           <!-- 注册Model -->
-          <register @refresh="refresh" />
+          <Register
+              @refresh="refresh"/>
           <!-- 手机重置密码Model -->
-          <mobile-reset-password @refresh="refresh" />
+          <MobileResetPassword
+              @refresh="refresh"/>
           <!-- 邮箱重置密码Model -->
-          <email-reset-password @refresh="refresh" />
+          <EmailResetPassword
+              @refresh="refresh"/>
         </div>
       </div>
     </div>
@@ -143,56 +169,56 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex';
-import loginService from '@/service/loginService';
-import Login from '@/components/login/Login';
-import MessageBox from '@/components/index/messages/MessageBox';
-import store from '@/store';
-import Register from '@/components/login/Register';
-import MobileResetPassword from '@/components/login/MobileResetPassword';
-import EmailResetPassword from '@/components/login/EmailResetPassword';
+import {mapMutations, mapState} from "vuex";
+import loginService from "@/service/loginService";
+import Login from "@/components/login/Login";
+import MessageBox from "@/components/index/messages/MessageBox";
+import store from "@/store";
+import Register from "@/components/login/Register";
+import MobileResetPassword from "@/components/login/MobileResetPassword";
+import EmailResetPassword from "@/components/login/EmailResetPassword";
 
 export default {
-  components: { MessageBox, Login, Register, MobileResetPassword, EmailResetPassword },
+  components: {MessageBox, Login, Register, MobileResetPassword, EmailResetPassword},
 
   props: {
-    searchContent: { type: String, default: '' },
+    searchContent: {type: String, default: ""},
   },
 
   data() {
     return {
       visible: false,
-      params: { currentPage: 1, pageSize: 10 },
+      params: {currentPage: 1, pageSize: 10},
       // 如果不用watch监听searchContent值的变化,只会在该组件被创建时赋值一次
       searchContentTemp: this.searchContent,
       current: ['frontPage'],
-    };
+    }
   },
 
   computed: {
-    ...mapState(['userInfo', 'locale', 'themeColor', 'colorOptions', 'systemNotifyCount', 'taskNotifyCount']),
+    ...mapState(["userInfo", "locale", "themeColor", "colorOptions", "systemNotifyCount", "taskNotifyCount"]),
     // 总消息数量
     messageNumbers() {
       return Number(this.systemNotifyCount) + Number(this.taskNotifyCount);
     },
     languageTitle() {
-      if (this.locale === 'zh_CN') {
-        return '中文';
+      if (this.locale === "zh_CN") {
+        return "中文";
       }
-      return 'English';
-    },
+      return "English";
+    }
   },
 
   methods: {
-    ...mapMutations(['changeColor']),
+    ...mapMutations(["changeColor"]),
     // 设置语言
-    changeLanguage({ key }) {
+    changeLanguage({key}) {
       this.$store.state.locale = key;
       localStorage.language = key;
     },
 
     // 点击菜单根据点击的key做出相应
-    handleClick({ key }) {
+    handleClick({key}) {
       if (key === 'writeArticle') {
         this.routerWrite();
       }
@@ -208,7 +234,7 @@ export default {
       if (key === 'management') {
         this.routerManage();
       }
-      if (key === 'LOG_OUT') {
+      if (key === "LOG_OUT") {
         this.logout();
       }
     },
@@ -220,20 +246,19 @@ export default {
 
     // 退出登录
     logout() {
-      loginService
-        .logout()
-        .then(res => {
-          // 刷新当前页面
-          this.$router.go(0);
-        })
-        .catch(err => {
-          this.$message.error(err.desc);
-        });
+      loginService.logout()
+          .then(res => {
+            // 刷新当前页面
+            this.$router.go(0);
+          })
+          .catch(err => {
+            this.$message.error(err.desc);
+          });
     },
 
     // 搜索
     onSearch(value) {
-      this.$router.push({ path: '/search', query: { query: value } });
+      this.$router.push({path: "/search", query: {query: value}});
     },
 
     // 刷新
@@ -241,7 +266,7 @@ export default {
       // 跳转到首页
       this.$router.push('/');
       // 刷新首页数据（登录后需要）
-      this.$emit('refresh');
+      this.$emit("refresh");
     },
 
     handleChange(value) {
@@ -253,29 +278,29 @@ export default {
 
     // 路由到用户中心页面
     routerUserCenter(userId) {
-      const routeData = this.$router.resolve('/user/' + userId);
+      let routeData = this.$router.resolve("/user/" + userId);
       window.open(routeData.href, '_self');
       // this.$router.push("/user/" + userId);
     },
 
     // 路由到写文章页面
     routerWrite() {
-      this.$router.push('/write');
+      this.$router.push("/write");
     },
 
     // 路由到标签页面
     routerLabel() {
-      this.$router.push('/label');
+      this.$router.push("/label");
     },
 
     // 路由到资源导航页面
     routerResource() {
-      this.$router.push('/resource');
+      this.$router.push("/resource");
     },
 
     // 路由到设置页面
     routerSetUp() {
-      this.$router.push('/settings/profile');
+      this.$router.push("/settings/profile");
     },
 
     // 点击跳转到 关于我们 页面
@@ -290,7 +315,7 @@ export default {
   },
 
   mounted() {
-    const name = this.$route.name;
+    let name = this.$route.name;
 
     // 清空数组
     this.current.pop();
@@ -316,9 +341,9 @@ export default {
     searchContent: {
       handler(newVal, oldVal) {
         this.searchContentTemp = newVal;
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>
 
@@ -349,9 +374,7 @@ export default {
   align-items: center;
   justify-content: flex-end;
 
-  .header-search,
-  .header-item,
-  .header-item-login {
+  .header-search, .header-item, .header-item-login {
     padding: 0 12px;
   }
 
@@ -436,9 +459,7 @@ export default {
   }
 
   .header-right-content {
-    .header-search,
-    .header-item,
-    .header-item-login {
+    .header-search, .header-item, .header-item-login {
       padding: 0 8px;
     }
   }
@@ -479,20 +500,12 @@ export default {
   border-bottom: 0;
 }
 
-.ant-menu-horizontal > .ant-menu-item-active,
-.ant-menu-horizontal > .ant-menu-item-open,
-.ant-menu-horizontal > .ant-menu-item-selected,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover,
-.ant-menu-horizontal > .ant-menu-submenu-active,
-.ant-menu-horizontal > .ant-menu-submenu-open,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu {
+.ant-menu-horizontal > .ant-menu-item-active, .ant-menu-horizontal > .ant-menu-item-open, .ant-menu-horizontal > .ant-menu-item-selected, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover, .ant-menu-horizontal > .ant-menu-submenu-active, .ant-menu-horizontal > .ant-menu-submenu-open, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu {
   border-bottom: 2px solid transparent;
 }
 
 /* 调整a-menu-item的padding */
-.ant-menu-item,
-.ant-menu-submenu-title {
+.ant-menu-item, .ant-menu-submenu-title {
   padding: 0 16px;
 }
 </style>

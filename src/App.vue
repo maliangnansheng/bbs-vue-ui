@@ -1,50 +1,49 @@
 <template>
   <a-config-provider :locale="lang[$store.state.locale]">
     <div v-if="$store.state.width" id="app">
-      <router-view />
+      <router-view/>
     </div>
   </a-config-provider>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-import userService from './service/userService';
-import zh_CN from 'ant-design-vue/lib/locale-provider/zh_CN';
-import en_US from 'ant-design-vue/lib/locale-provider/en_US';
+import {mapMutations} from "vuex";
+import userService from "./service/userService";
+import zh_CN from "ant-design-vue/lib/locale-provider/zh_CN";
+import en_US from "ant-design-vue/lib/locale-provider/en_US";
 
 export default {
   data() {
     return {
       lang: {
         zh_CN: zh_CN,
-        en_US: en_US,
-      },
+        en_US: en_US
+      }
     };
   },
   methods: {
-    ...mapMutations(['changeColor']),
+    ...mapMutations(["changeColor"]),
     // 初始化获取用户权限状态
     getAccess() {
-      userService
-        .getCurrentUserAccess()
-        .then(res => {
-          /**
-           * @function checkErrorPage 判断当前是否在500页面刷新，如果是，刷新后如果返回{code: 200},则跳转到首页
-           */
-          this.checkErrorPage(res);
-          if (res.code === 0) {
-            this.$store.state.userId = res.data.userId;
-            this.$store.state.isLogin = true;
-            res.data.roles.forEach(data => {
-              if (data.code === 'bbs-admin') {
-                this.$store.state.isManage = true;
-              }
-            });
-          }
-        })
-        .catch(err => {
-          // this.$message.error(err.desc);
-        });
+      userService.getCurrentUserAccess()
+          .then(res => {
+            /**
+             * @function checkErrorPage 判断当前是否在500页面刷新，如果是，刷新后如果返回{code: 200},则跳转到首页
+             */
+            this.checkErrorPage(res);
+            if (res.code === 0) {
+              this.$store.state.userId = res.data.userId;
+              this.$store.state.isLogin = true;
+              res.data.roles.forEach(data => {
+                if (data.code === 'bbs-admin') {
+                  this.$store.state.isManage = true;
+                }
+              })
+            }
+          })
+          .catch((err) => {
+            // this.$message.error(err.desc);
+          });
     },
     // 初始化页面。获取屏幕尺寸以及监听屏幕尺寸
     initDom() {
@@ -63,8 +62,8 @@ export default {
     },
     checkErrorPage() {
       // 如果当前是服务器错误（500页面），刷新后自动跳转到首页
-      if (this.$route.path === '/500') {
-        this.$router.push({ path: '/' });
+      if (this.$route.path === "/500") {
+        this.$router.push({path: "/"});
       }
     },
     /**
@@ -72,13 +71,13 @@ export default {
      */
     setLanguageAndTheme() {
       let navLanguage;
-      if (navigator.language === 'zh-CN') {
-        navLanguage = 'zh_CN';
+      if (navigator.language === "zh-CN") {
+        navLanguage = "zh_CN";
       } else {
-        navLanguage = 'en_US';
+        navLanguage = "en_US";
       }
       this.$store.state.locale = localStorage.language ? localStorage.language : navLanguage;
-      this.changeColor(localStorage.themeColor || '#13c2c2');
+      this.changeColor(localStorage.themeColor || "#13c2c2");
     },
     setIsCarousel() {
       // 禁用
@@ -87,7 +86,7 @@ export default {
       } else {
         this.$store.state.isCarousel = 1;
       }
-    },
+    }
   },
   created() {
     this.setLanguageAndTheme();
@@ -98,7 +97,7 @@ export default {
     this.initDom();
     // 获取用户权限，判断用户是否是登录状态
     this.getAccess();
-  },
+  }
 };
 </script>
 

@@ -1,27 +1,27 @@
 <template>
   <div class="footer-buttons">
-    <back-top />
+    <BackTop/>
     <a-tooltip placement="left">
       <template slot="title">
-        {{ $t('common.feedback') }}
+        {{ $t("common.feedback") }}
       </template>
-      <div @click="createFeedback" class="feedback-icon-container" :style="{ background: $store.state.themeColor }">
+      <div @click="createFeedback" class="feedback-icon-container" :style="{background: $store.state.themeColor}">
         <i class="iconfont icon-bug"></i>
       </div>
     </a-tooltip>
     <a-tooltip placement="left">
       <template slot="title">
-        {{ $t('common.chat') }}
+        {{ $t("common.chat") }}
       </template>
-      <div @click="routerChat" class="chat-icon-container" :style="{ background: $store.state.themeColor }">
+      <div @click="routerChat" class="chat-icon-container" :style="{background: $store.state.themeColor}">
         <i class="iconfont icon-chat"></i>
       </div>
     </a-tooltip>
     <a-tooltip placement="left">
       <template slot="title">
-        {{ $t('common.githubCode') }}
+        {{ $t("common.githubCode") }}
       </template>
-      <div @click="routerGithub" class="github-icon-container" :style="{ background: $store.state.themeColor }">
+      <div @click="routerGithub" class="github-icon-container" :style="{background: $store.state.themeColor}">
         <i class="iconfont icon-GitHub"></i>
       </div>
     </a-tooltip>
@@ -29,10 +29,10 @@
 </template>
 
 <script>
-import BackTop from '@/components/utils/BackTop';
+import BackTop from "@/components/utils/BackTop";
 
 export default {
-  components: { BackTop },
+  components: {BackTop},
   methods: {
     // 点击底部按钮跳转到创建反馈的页面
     createFeedback() {
@@ -51,8 +51,8 @@ export default {
     // 点击底部按钮跳转到源码页面
     routerGithub() {
       window.open('https://github.com/maliangnansheng/bbs-springboot', '_blank');
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -63,9 +63,7 @@ export default {
   right: 6.6rem;
   z-index: 888;
 
-  .feedback-icon-container,
-  .github-icon-container,
-  .chat-icon-container {
+  .feedback-icon-container, .github-icon-container, .chat-icon-container {
     border-radius: 50%;
     width: 34px;
     height: 34px;
@@ -78,8 +76,7 @@ export default {
     }
   }
 
-  .chat-icon-container,
-  .github-icon-container {
+  .chat-icon-container, .github-icon-container {
     margin-top: 10px;
   }
 }

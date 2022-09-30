@@ -3,17 +3,17 @@
     <a-row>
       <a-tooltip placement="bottom">
         <template slot="title">
-          {{ $t('common.getTheWord') }}
+          {{ $t("common.getTheWord") }}
         </template>
-        <a-col class="user_agreement" :span="6">{{ $t('common.designDocument') }}</a-col>
+        <a-col class="user_agreement" :span="6">{{ $t("common.designDocument") }}</a-col>
       </a-tooltip>
       <a-col class="user_guidance" :span="6">
-        <a href="https://www.bilibili.com/video/BV1he4y1C7rk?spm_id_from=333.999.0.0&vd_source=d0a5d07985a7fbbfb889c874632343c6" target="_blank">{{ $t('common.userGuidance') }}</a>
+        <a href="https://www.bilibili.com/video/BV1he4y1C7rk?spm_id_from=333.999.0.0&vd_source=d0a5d07985a7fbbfb889c874632343c6" target="_blank">{{ $t("common.userGuidance") }}</a>
       </a-col>
       <a-col class="links" :span="6">
-        <a href="https://juejin.cn/" target="_blank">{{ $t('common.links') }}</a>
+        <a href="https://juejin.cn/" target="_blank">{{ $t("common.links") }}</a>
       </a-col>
-      <a-col class="about_us" :span="6" @click="routerAbout">{{ $t('common.about') }}</a-col>
+      <a-col class="about_us" :span="6" @click="routerAbout">{{ $t("common.about") }}</a-col>
     </a-row>
     <a-row>
       版权 © <a href="/" target="_blank"> 南生论坛 </a>丨
@@ -24,9 +24,10 @@
 
 <script>
 export default {
-  name: 'FilingInfo',
+  name: "FilingInfo",
 
   methods: {
+
     // 路由到Book说明页面
     routerBook() {
       window.open('/book', '_blank');
@@ -35,25 +36,21 @@ export default {
     // 点击跳转到 关于我们 页面
     routerAbout() {
       window.open('/about', '_blank');
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped>
-.div-content,
-a {
+.div-content, a {
   font-size: 12px;
   line-height: 2;
   color: #909090;
   cursor: pointer;
 }
 
-.user_agreement:hover,
-.user_guidance:hover,
-.links:hover,
-.about_us:hover,
-a:hover {
+.user_agreement:hover, .user_guidance:hover, .links:hover, .about_us:hover, a:hover {
   color: #13c2c2;
 }
+
 </style>

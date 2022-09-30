@@ -1,55 +1,65 @@
 <template>
   <a-layout>
     <a-layout id="article-detail-index">
-      <index-header class="header" />
+      <IndexHeader class="header"/>
       <a-layout-content>
         <main class="content">
-          <a-col :span="$store.state.collapsed ? 24 : 18" :style="$store.state.collapsed ? '' : 'border-right: 20px solid #f0f2f5'">
-            <personal-info-display :data="data" @refresh="getAuthorBlockList" style="background: #fff;" />
+          <a-col :span="$store.state.collapsed ? 24 : 18"
+                 :style="$store.state.collapsed ? '' : 'border-right: 20px solid #f0f2f5'">
+            <PersonalInfoDisplay
+                :data="data"
+                @refresh="getAuthorBlockList"
+                style="background: #fff;"/>
             <a-row>
-              <a-col :span="24" style="height: 10px;" />
+              <a-col :span="24" style="height: 10px;"/>
             </a-row>
-            <user-tabs :user-id="userId" style="background: #fff;" />
+            <UserTabs
+                :userId="userId"
+                style="background: #fff;"/>
           </a-col>
           <a-col v-if="!$store.state.collapsed" :span="6">
             <!-- 作者板块 -->
-            <personal-achievement :data="data" style="background: #fff;" />
+            <PersonalAchievement
+                :data="data"
+                style="background: #fff;"/>
             <a-row>
-              <a-col :span="24" style="height: 10px;" />
+              <a-col :span="24" style="height: 10px;"/>
             </a-row>
-            <follow-count :user-id="userId" style="background: #fff;" />
+            <FollowCount
+                :userId="userId"
+                style="background: #fff;"/>
             <a-row>
-              <a-col :span="24" style="height: 10px;" />
+              <a-col :span="24" style="height: 10px;"/>
             </a-row>
             <!-- 友情捐赠 -->
-            <friend-donate style="background: #fff;" />
+            <FriendDonate style="background: #fff;"/>
             <a-row>
-              <a-col :span="24" style="height: 10px;" />
+              <a-col :span="24" style="height: 10px;"/>
             </a-row>
             <!-- 备案信息 -->
-            <filing-info />
+            <FilingInfo/>
           </a-col>
         </main>
       </a-layout-content>
-      <footer-buttons v-if="!$store.state.collapsed" />
+      <FooterButtons v-if="!$store.state.collapsed"/>
     </a-layout>
   </a-layout>
 </template>
 
 <script>
-import IndexHeader from '@/components/index/head/IndexHeader';
-import FilingInfo from '@/components/right/FilingInfo';
-import PersonalAchievement from '@/components/right/PersonalAchievement';
-import FollowCount from '@/components/right/FollowCount';
-import FriendDonate from '@/components/right/FriendDonate';
-import PersonalInfoDisplay from '@/components/user/PersonalInfoDisplay';
-import UserTabs from '@/components/user/UserTabs';
-import FooterButtons from '@/components/utils/FooterButtons';
-import userService from '@/service/userService';
+import IndexHeader from "@/components/index/head/IndexHeader";
+import FilingInfo from "@/components/right/FilingInfo";
+import PersonalAchievement from "@/components/right/PersonalAchievement";
+import FollowCount from "@/components/right/FollowCount";
+import FriendDonate from "@/components/right/FriendDonate";
+import PersonalInfoDisplay from "@/components/user/PersonalInfoDisplay";
+import UserTabs from "@/components/user/UserTabs";
+import FooterButtons from "@/components/utils/FooterButtons";
+import userService from "@/service/userService";
 
 export default {
-  name: '',
-  components: { IndexHeader, PersonalAchievement, FilingInfo, FollowCount, PersonalInfoDisplay, UserTabs, FooterButtons, FriendDonate },
+  name: "",
+  components: {IndexHeader, PersonalAchievement, FilingInfo, FollowCount, PersonalInfoDisplay, UserTabs, FooterButtons, FriendDonate},
 
   data() {
     return {
@@ -62,22 +72,23 @@ export default {
   methods: {
     // 获取用户信息
     getAuthorBlockList() {
-      userService
-        .getUserInfo({ userId: this.userId })
-        .then(res => {
-          this.data = res.data;
-        })
-        .catch(err => {
-          this.$message.error(err.desc);
-        });
+      userService.getUserInfo({userId: this.userId})
+          .then(res => {
+            this.data = res.data;
+          })
+          .catch(err => {
+            this.$message.error(err.desc);
+          });
     },
   },
 
   mounted() {
     this.getAuthorBlockList();
   },
+
 };
 </script>
+
 
 <style>
 #article-detail-index .header {

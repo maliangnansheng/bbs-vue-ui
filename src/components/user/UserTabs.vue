@@ -4,53 +4,65 @@
       <a-tab-pane key="article">
         <span slot="tab">
           <i class="iconfont icon-relat-article"></i>
-          {{ $t('common.article') + ' ' + writeArticleTotal }}
+          {{ $t("common.article") + ' ' + writeArticleTotal }}
         </span>
         <!-- 文章列表 -->
-        <front-page-article
-          v-if="isArticleTab"
-          :finish="finish"
-          :has-next="hasNext"
-          :data="articleData"
-          :service="articleService"
-          :is-user-center="true"
-          :user-id="userId"
-          @refresh="articleRefresh"
-          style="background: #fff;"
-        />
+        <FrontPageArticle
+            v-if="isArticleTab"
+            :finish="finish"
+            :hasNext="hasNext"
+            :data="articleData"
+            :service="articleService"
+            :isUserCenter="true"
+            :userId="userId"
+            @refresh="articleRefresh"
+            style="background: #fff;"/>
       </a-tab-pane>
       <a-tab-pane key="follow">
         <span slot="tab">
           <i class="iconfont icon-follow"></i>
-          {{ $t('common.follow') + ' ' + Number(followedTotal + fanTotal) }}
+          {{ $t("common.follow") + ' ' + Number(followedTotal + fanTotal) }}
         </span>
-        <follow-tabs v-if="isFollowTab" ref="child" :followed-total="followedTotal" :fan-total="fanTotal" :user-id="userId" @getFollowCount="getFollowCount" />
+        <FollowTabs
+            v-if="isFollowTab"
+            ref="child"
+            :followedTotal="followedTotal"
+            :fanTotal="fanTotal"
+            :userId="userId"
+            @getFollowCount="getFollowCount"/>
       </a-tab-pane>
       <a-tab-pane key="like">
         <span slot="tab">
           <i class="iconfont icon-like"></i>
-          {{ $t('common.like') + ' ' + likeArticleTotal }}
+          {{ $t("common.like") + ' ' + likeArticleTotal }}
         </span>
         <!-- 文章列表 -->
-        <front-page-article v-if="isLikeTab" :finish="finish" :has-next="hasNext" :data="likeData" :service="articleService" @refresh="likeRefresh" style="background: #fff;" />
+        <FrontPageArticle
+            v-if="isLikeTab"
+            :finish="finish"
+            :hasNext="hasNext"
+            :data="likeData"
+            :service="articleService"
+            @refresh="likeRefresh"
+            style="background: #fff;"/>
       </a-tab-pane>
     </a-tabs>
   </div>
 </template>
 
 <script>
-import FrontPageArticle from '@/components/article/FrontPageArticle';
-import articleService from '@/service/articleService';
-import FollowTabs from '@/components/user/FollowTabs';
-import userService from '@/service/userService';
+import FrontPageArticle from "@/components/article/FrontPageArticle";
+import articleService from "@/service/articleService";
+import FollowTabs from "@/components/user/FollowTabs";
+import userService from "@/service/userService";
 
 export default {
-  name: '',
+  name: "",
 
-  components: { FrontPageArticle, FollowTabs },
+  components: {FrontPageArticle, FollowTabs},
 
   props: {
-    userId: { type: Number, default: 0 },
+    userId: {type: Number, default: 0},
   },
 
   data() {
@@ -69,7 +81,7 @@ export default {
       // hasNext和finish名称不能改(和滚动加载相关)
       hasNext: true,
       finish: false,
-      params: { currentPage: 1, pageSize: 10 },
+      params: {currentPage: 1, pageSize: 10},
       // 发表文章总数
       writeArticleTotal: 0,
       // 点赞文章总数
@@ -104,24 +116,23 @@ export default {
       // 不是管理员
       if (!this.$store.state.isManage) {
         // 只看启用的文章
-        params.articleStateEnum = 'enable';
+        params.articleStateEnum = "enable";
       }
-      articleService
-        .getPersonalArticles(params)
-        .then(res => {
-          if (isLoadMore) {
-            this.articleData = this.articleData.concat(res.data.list);
-            this.hasNext = res.data.list.length !== 0;
-          } else {
-            this.articleData = res.data.list;
-          }
-          this.writeArticleTotal = res.data.total;
-          this.finish = true;
-        })
-        .catch(err => {
-          this.finish = true;
-          this.$message.error(err.desc);
-        });
+      articleService.getPersonalArticles(params)
+          .then(res => {
+            if (isLoadMore) {
+              this.articleData = this.articleData.concat(res.data.list);
+              this.hasNext = res.data.list.length !== 0;
+            } else {
+              this.articleData = res.data.list;
+            }
+            this.writeArticleTotal = res.data.total;
+            this.finish = true;
+          })
+          .catch(err => {
+            this.finish = true;
+            this.$message.error(err.desc);
+          });
     },
 
     // 获取点赞过的文章
@@ -132,45 +143,43 @@ export default {
       this.finish = false;
       params.likeUser = this.userId;
       this.$delete(params, 'createUser');
-      articleService
-        .getLikesArticle(params)
-        .then(res => {
-          if (isLoadMore) {
-            this.likeData = this.likeData.concat(res.data.list);
-            this.hasNext = res.data.list.length !== 0;
-          } else {
-            this.likeData = res.data.list;
-          }
-          this.likeArticleTotal = res.data.total;
-          this.finish = true;
-        })
-        .catch(err => {
-          this.finish = true;
-          this.$message.error(err.desc);
-        });
+      articleService.getLikesArticle(params)
+          .then(res => {
+            if (isLoadMore) {
+              this.likeData = this.likeData.concat(res.data.list);
+              this.hasNext = res.data.list.length !== 0;
+            } else {
+              this.likeData = res.data.list;
+            }
+            this.likeArticleTotal = res.data.total;
+            this.finish = true;
+          })
+          .catch(err => {
+            this.finish = true;
+            this.$message.error(err.desc);
+          });
     },
 
     // 获取关注/粉丝数量
     getFollowCount() {
-      userService
-        .getFollowCount({ userId: this.userId })
-        .then(res => {
-          this.followedTotal = res.data.followCount;
-          this.fanTotal = res.data.fanCount;
-        })
-        .catch(err => {
-          this.$message.error(err.desc);
-        });
+      userService.getFollowCount({userId: this.userId})
+          .then(res => {
+            this.followedTotal = res.data.followCount;
+            this.fanTotal = res.data.fanCount;
+          })
+          .catch(err => {
+            this.$message.error(err.desc);
+          });
     },
 
     // 刷新列表
     articleRefresh() {
-      this.params = { currentPage: 1, pageSize: 10 };
+      this.params = {currentPage: 1, pageSize: 10};
       this.getPersonalArticles(this.params);
       this.getLikesArticle(this.params);
     },
     likeRefresh() {
-      this.params = { currentPage: 1, pageSize: 10 };
+      this.params = {currentPage: 1, pageSize: 10};
       this.getLikesArticle(this.params);
     },
 
@@ -199,7 +208,7 @@ export default {
         this.isLikeTab = false;
         this.isFollowTab = true;
       }
-    },
+    }
   },
 
   mounted() {
@@ -209,7 +218,10 @@ export default {
     // 监听滚动，做滚动加载
     this.$utils.scroll.call(this, document.querySelector('#app'));
   },
-};
+
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

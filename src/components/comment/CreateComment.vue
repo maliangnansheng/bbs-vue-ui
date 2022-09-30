@@ -3,17 +3,12 @@
     <div class="top">
       <a-form :form="form" @submit="handleSubmit" style="width: 100%">
         <a-form-item>
-          <a-textarea
-            allow-clear
-            @keydown.enter.native="keyDown"
-            v-decorator="['content', validatorRules.comment]"
-            :placeholder="$t('common.commentPlaceholder')"
-            :auto-size="{ minRows: 3, maxRows: 10 }"
-            :auto-focus="autoFocus"
-            @blur="handleBlur"
-          />
-          <a-button class="button" type="primary" html-type="submit" style="float: right">
-            {{ $t('common.postComment') }}
+          <a-textarea allow-clear @keydown.enter.native="keyDown"
+                      v-decorator="['content', validatorRules.comment]"
+                      :placeholder="$t('common.commentPlaceholder')"
+                      :auto-size="{ minRows: 3, maxRows: 10 }"/>
+          <a-button class="button" type="primary" html-type="submit" style="float: right;">
+            {{ $t("common.postComment") }}
           </a-button>
         </a-form-item>
       </a-form>
@@ -22,31 +17,30 @@
 </template>
 
 <script>
-import commentService from '@/service/commentService';
-import store from '@/store';
+import commentService from "@/service/commentService";
+import store from "@/store";
 
 export default {
-  name: 'CreateComment',
+  name: "CreateComment",
 
   props: {
-    preId: { type: Number, default: 0 },
-    autoFocus: { type: Boolean, default: false },
+    preId: {type: Number, default: 0},
   },
 
   data() {
     return {
       data: {},
-      form: this.$form.createForm(this, { name: 'coordinated' }),
+      form: this.$form.createForm(this, {name: 'coordinated'}),
       // 表单验证
       validatorRules: {
         comment: {
           // 检验规则
           rules: [
             // 是否必须填写
-            { required: true, message: this.$t('common.pleaseEnterComment') },
-          ],
-        },
-      },
+            {required: true, message: this.$t('common.pleaseEnterComment')}
+          ]
+        }
+      }
     };
   },
 
@@ -55,14 +49,6 @@ export default {
     keyDown(e) {
       if (e.ctrlKey && e.keyCode === 13) {
         this.handleSubmit(e);
-      }
-    },
-
-    // 失焦判断是否为空，为空则隐藏
-    handleBlur() {
-      const val = this.form.getFieldsValue().content;
-      if (!val) {
-        this.$emit('hidden');
       }
     },
 
@@ -89,22 +75,23 @@ export default {
 
     // 添加评论
     createComment() {
-      commentService
-        .createComment(this.data)
-        .then(res => {
-          // 清空表单
-          this.form.resetFields();
-          this.$emit('refresh');
-        })
-        .catch(err => {
-          this.$message.error(err.desc);
-        });
-    },
+      commentService.createComment(this.data)
+          .then((res) => {
+            // 清空表单
+            this.form.resetFields();
+            this.$emit("refresh");
+          })
+          .catch(err => {
+            this.$message.error(err.desc);
+          });
+    }
   },
-};
+
+}
 </script>
 
 <style lang="less" scoped>
+
 #create-comment .top {
   display: flex;
   justify-content: center;

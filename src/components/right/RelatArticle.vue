@@ -1,13 +1,15 @@
 <template>
   <div id="relat-article" v-if="data.length !== 0">
     <header class="article-block-header">
-      <i class="iconfont icon-relat-article" :style="{ color: $store.state.themeColor }"></i>
-      {{ $t('common.relatArtilce') }}
+      <i class="iconfont icon-relat-article" :style="{ color: $store.state.themeColor}"></i>
+      {{ $t("common.relatArtilce") }}
     </header>
-    <a-divider style="margin: 10px 0 0 0;" />
+    <a-divider style="margin: 10px 0 0 0;"/>
     <a-list item-layout="horizontal" :data-source="data" :split="false">
-      <a-list-item slot="renderItem" slot-scope="item" @click="routerArticleDetail(item.id)">
-        <a-list-item-meta :description="item.articleCountDTO.likeCount + ' ' + $t('common.like') + ' · ' + item.articleCountDTO.commentCount + ' ' + $t('common.comment')">
+      <a-list-item slot="renderItem" slot-scope="item, index" @click="routerArticleDetail(item.id)">
+        <a-list-item-meta
+            :description="item.articleCountDTO.likeCount + ' ' + $t('common.like') +
+            ' · ' + item.articleCountDTO.commentCount + ' ' + $t('common.comment')">
           <span slot="title">{{ item.title }}</span>
         </a-list-item-meta>
       </a-list-item>
@@ -16,17 +18,17 @@
 </template>
 
 <script>
-import articleService from '@/service/articleService';
+import articleService from "@/service/articleService";
 
 export default {
   props: {
-    labelIds: { type: Array, default: () => [] },
+    labelIds: {type: Array, default: []},
   },
 
   data() {
     return {
       data: [],
-      params: { currentPage: 1, pageSize: 4 },
+      params: {currentPage: 1, pageSize: 4},
       finish: false,
     };
   },
@@ -36,21 +38,20 @@ export default {
     getRelatArticleList(params) {
       this.finish = false;
       params.labelIds = this.labelIds.join(',');
-      articleService
-        .getArticleList(params)
-        .then(res => {
-          this.data = res.data.list;
-          this.finish = true;
-        })
-        .catch(err => {
-          this.finish = true;
-          this.$message.error(err.desc);
-        });
+      articleService.getArticleList(params)
+          .then(res => {
+            this.data = res.data.list;
+            this.finish = true;
+          })
+          .catch(err => {
+            this.finish = true;
+            this.$message.error(err.desc);
+          });
     },
 
     // 路由到文章详情页面
     routerArticleDetail(articleId) {
-      const routeData = this.$router.resolve('/detail/' + articleId);
+      let routeData = this.$router.resolve("/detail/" + articleId);
       window.open(routeData.href, '_blank');
     },
   },
@@ -58,6 +59,7 @@ export default {
   mounted() {
     this.getRelatArticleList(this.params);
   },
+
 };
 </script>
 
@@ -80,8 +82,7 @@ export default {
   padding: 0 15px;
 }
 
-#relat-article .ant-list-item-meta-title > a,
-.ant-list-item-meta-description {
+#relat-article .ant-list-item-meta-title > a, .ant-list-item-meta-description {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -102,8 +103,7 @@ export default {
   line-height: 22px;
 }
 
-#relat-article .ant-list-item,
-.full-list {
+#relat-article .ant-list-item, .full-list {
   cursor: pointer;
 }
 

@@ -1,58 +1,54 @@
 <template>
   <div id="write-article">
     <div class="left">
-      <a-input class="write-item" v-model="articleTitle" :placeholder="$t('common.enterArticleTitle')" size="large" />
+      <a-input class="write-item" v-model="articleTitle" :placeholder="$t('common.enterArticleTitle')" size="large"/>
       <a-popover v-model="visible" :title="$t('common.releaseArticle')" trigger="click" placement="bottomRight">
         <div slot="content" style="width: 500px;">
-          <article-basic-info
-            :article-label="articleLabel"
-            :article-title-map="articleTitleMap"
-            :article-title="articleTitle"
-            :html-code="htmlCode"
-            :markdown-code="markdownCode"
-          />
+          <ArticleBasicInfo
+              :articleLabel="articleLabel"
+              :articleTitleMap="articleTitleMap"
+              :articleTitle="articleTitle"
+              :htmlCode="htmlCode"
+              :markdownCode="markdownCode"/>
         </div>
-        <a-button class="write-item" type="primary" style="height: 30px;" v-text="$route.params.id ? $t('common.update') : $t('common.release')"></a-button>
+        <a-button class="write-item" type="primary" style="height: 30px;"
+                  v-text="$route.params.id ? $t('common.update') : $t('common.release')"></a-button>
       </a-popover>
-      <a-icon class="write-item" type="swap" />
+      <a-icon class="write-item" type="swap"/>
       <a-tooltip placement="bottom">
         <template slot="title">
-          {{ $t('common.homePage') }}
+          {{ $t("common.homePage") }}
         </template>
         <div style="cursor: pointer;" @click="routerUserCenter($store.state.userId)">
-          <a-avatar :size="46" slot="avatar" class="write-item" :src="$store.state.picture ? $store.state.picture : require('@/assets/img/default_avatar.png')" />
+          <a-avatar :size="46" slot="avatar" class="write-item"
+                    :src="$store.state.picture ? $store.state.picture : require('@/assets/img/default_avatar.png')"/>
         </div>
       </a-tooltip>
     </div>
     <div class="right">
-      <mavon-editor
-        ref="md"
-        @imgAdd="imgAdd"
-        @change="markdownChange"
-        v-model="markdownCode"
-        :toolbars="toolbars"
-        toolbars-background="#f4f4f4"
-        code-style="obsidian"
-        box-shadow-style=""
-        :placeholder="$t('common.startEditing')"
-      ></mavon-editor>
+      <mavon-editor ref=md @imgAdd="imgAdd" @change="markdownChange" v-model="markdownCode"
+                    :toolbars="toolbars"
+                    toolbarsBackground="#f4f4f4"
+                    codeStyle="obsidian"
+                    boxShadowStyle=""
+                    :placeholder="$t('common.startEditing')"></mavon-editor>
     </div>
 
     <!-- 登录Model -->
-    <login />
+    <Login />
     <!-- 注册Model -->
-    <register />
+    <Register />
   </div>
 </template>
 
 <script>
-import articleService from '@/service/articleService';
-import ArticleBasicInfo from '@/components/article/ArticleBasicInfo';
-import Login from '@/components/login/Login';
-import Register from '@/components/login/Register';
+import articleService from "@/service/articleService";
+import ArticleBasicInfo from "@/components/article/ArticleBasicInfo";
+import Login from "@/components/login/Login";
+import Register from "@/components/login/Register";
 
 export default {
-  components: { ArticleBasicInfo, Login, Register },
+  components: {ArticleBasicInfo, Login, Register},
 
   data() {
     return {
@@ -129,7 +125,7 @@ export default {
         subfield: false,
         // 预览
         preview: true,
-      },
+      }
     };
   },
 
@@ -138,48 +134,46 @@ export default {
     imgAdd(pos, $file) {
       // 校验图片大小（不能超过5M）
       if ($file.size > 5 * 1024 * 1024) {
-        this.$message.warning(this.$t('common.avatarSizeTip'));
+        this.$message.warning(this.$t("common.avatarSizeTip"));
         this.$refs.md.$img2Url(pos, null);
         return;
       }
       // 第一步.将图片上传到服务器.
       const formData = new FormData();
       formData.append('picture', $file);
-      articleService
-        .uploadPicture(formData)
-        .then(res => {
-          /**
-           * $vm指为mavonEditor实例，可以通过如下两种方式获取
-           * 1、通过引入对象获取: import {mavonEditor} from ... 等方式引入后，此时$vm即为mavonEditor
-           * 2、通过$refs获取: html声明ref : <mavon-editor ref=md ></mavon-editor>， 此时$vm为 this.$refs.md`（我使用$vm反正是不行的）
-           */
-          // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
-          this.$refs.md.$img2Url(pos, res.data);
-        })
-        .catch(err => {
-          this.$message.error(err.desc);
-        });
+      articleService.uploadPicture(formData)
+          .then((res) => {
+            /**
+             * $vm指为mavonEditor实例，可以通过如下两种方式获取
+             * 1、通过引入对象获取: import {mavonEditor} from ... 等方式引入后，此时$vm即为mavonEditor
+             * 2、通过$refs获取: html声明ref : <mavon-editor ref=md ></mavon-editor>， 此时$vm为 this.$refs.md`（我使用$vm反正是不行的）
+             */
+            // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
+            this.$refs.md.$img2Url(pos, res.data);
+          })
+          .catch(err => {
+            this.$message.error(err.desc);
+          });
     },
 
     // 获取文章详细信息
     getArticleById() {
-      articleService
-        .getArticleById({ id: this.$route.params.id })
-        .then(res => {
-          // 标题
-          this.articleTitle = res.data.title;
-          // 内容
-          this.markdownCode = res.data.markdown;
-          // 标签
-          res.data.labelDTOS.forEach(item => {
-            this.articleLabel.push(item.id);
+      articleService.getArticleById({id: this.$route.params.id})
+          .then(res => {
+            // 标题
+            this.articleTitle = res.data.title;
+            // 内容
+            this.markdownCode = res.data.markdown;
+            // 标签
+            res.data.labelDTOS.forEach((item) => {
+              this.articleLabel.push(item.id);
+            })
+            // 题图
+            this.articleTitleMap = res.data.titleMap;
+          })
+          .catch(err => {
+            this.$message.error(err.desc);
           });
-          // 题图
-          this.articleTitleMap = res.data.titleMap;
-        })
-        .catch(err => {
-          this.$message.error(err.desc);
-        });
     },
 
     // markdown编辑改变事件
@@ -191,12 +185,12 @@ export default {
     // 路由到用户中心页面
     routerUserCenter(userId) {
       if (this.$store.state.isLogin) {
-        const routeData = this.$router.resolve('/user/' + userId);
+        let routeData = this.$router.resolve("/user/" + userId);
         window.open(routeData.href, '_blank');
       } else {
         this.$store.state.loginVisible = true;
       }
-    },
+    }
   },
 
   mounted() {
@@ -204,8 +198,8 @@ export default {
     if (this.$route.params.id) {
       this.getArticleById();
     }
-  },
-};
+  }
+}
 </script>
 
 <style>
@@ -238,13 +232,12 @@ export default {
 
 /* 让markdown占满 */
 #write-article .v-note-wrapper.markdown-body.shadow {
-  height: 100%;
+  height: 100%
 }
 
 /* 代码高亮部分设置样式 */
-#write-article .markdown-body .highlight pre,
-.markdown-body pre {
-  padding: 0 !important;
+#write-article .markdown-body .highlight pre, .markdown-body pre {
+  padding: 0!important;
 }
 #write-article .hljs {
   padding: 10px;
@@ -257,6 +250,6 @@ export default {
 
 /* markdown */
 #write-article .v-note-wrapper.markdown-body.shadow {
-  z-index: 0 !important;
+  z-index: 0!important;
 }
 </style>

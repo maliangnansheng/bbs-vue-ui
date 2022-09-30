@@ -82,6 +82,7 @@ export default {
       finishArticleDetail: false,
       labelIds: [],
       userId: 0,
+      delta: 0,
     };
   },
 
@@ -115,19 +116,20 @@ export default {
 
     // 处理文章顶部导航栏页面下滑时隐藏
     handleHeaderAnimation() {
-      let delta = 0;
+      const { headerVisible } = this.$store.state;
       const app = document.getElementById('app');
       const scrollEventCB = ev => {
         const scrollTop = ev.target.scrollTop;
-        if (delta === 0) {
-          delta = scrollTop;
+        if (this.delta === 0) {
+          this.delta = scrollTop;
           return;
         }
-        if (scrollTop - delta > 20) {
+        if (scrollTop > this.delta && headerVisible) {
           this.$store.commit('setHeaderVisible', false);
         } else {
           this.$store.commit('setHeaderVisible', true);
         }
+        this.delta = scrollTop;
       };
       app.addEventListener('scroll', scrollEventCB);
       this.$once('hook:beforeDestroy', () => {

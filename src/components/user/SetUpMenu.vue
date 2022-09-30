@@ -1,11 +1,6 @@
 <template>
   <div id="setup-menu">
-    <a-menu
-        style="width: 256px"
-        v-model="defaultSelectedKeys"
-        mode="inline"
-        @click="handleClick"
-    >
+    <a-menu style="width: 256px" v-model="defaultSelectedKeys" mode="inline" @click="handleClick">
       <a-menu-item key="profile">
         <a-icon type="user" />
         <span>{{ $t('common.personalInformation') }}</span>
@@ -18,52 +13,50 @@
   </div>
 </template>
 <script>
-  export default {
-    name: "SetUpMenu",
+export default {
+  name: 'SetUpMenu',
 
-    data() {
-      return {
-        defaultSelectedKeys: [],
+  data() {
+    return {
+      defaultSelectedKeys: [],
+    };
+  },
+
+  methods: {
+    handleClick(e) {
+      if (e.key === 'profile') {
+        this.routerSetUpToProfile();
+      }
+      if (e.key === 'account') {
+        this.routerSetUpToAccount();
       }
     },
 
-    methods: {
-      handleClick(e) {
-        if (e.key === 'profile') {
-          this.routerSetUpToProfile();
-        }
-        if (e.key === 'account') {
-          this.routerSetUpToAccount();
-        }
-      },
-
-      // 路由到设置页面(个人资料)
-      routerSetUpToProfile() {
-        this.$router.push("/settings/profile");
-      },
-
-      // 路由到设置页面(账号设置)
-      routerSetUpToAccount() {
-        this.$router.push("/settings/account");
-      },
+    // 路由到设置页面(个人资料)
+    routerSetUpToProfile() {
+      this.$router.push('/settings/profile');
     },
 
-    mounted() {
-      this.defaultSelectedKeys.push(this.$route.name);
+    // 路由到设置页面(账号设置)
+    routerSetUpToAccount() {
+      this.$router.push('/settings/account');
     },
+  },
 
-    watch: {
-      // 监听,当路由发生变化的时候执行
-      $route: {
-        handler(newVal, oldVal) {
-          this.defaultSelectedKeys.pop();
-          this.defaultSelectedKeys.push(newVal.name);
-        }
-      }
+  mounted() {
+    this.defaultSelectedKeys.push(this.$route.name);
+  },
+
+  watch: {
+    // 监听,当路由发生变化的时候执行
+    $route: {
+      handler(newVal, oldVal) {
+        this.defaultSelectedKeys.pop();
+        this.defaultSelectedKeys.push(newVal.name);
+      },
     },
-  };
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

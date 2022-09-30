@@ -3,68 +3,49 @@
     <!-- 搜索框 -->
     <div class="label-search">
       <a-space direction="vertical">
-        <a-input-search
-            v-model="searchContentTemp"
-            :placeholder="$t('common.searchLabel')"
-            style="min-width: 100px; width: 100%"
-            @search="onLabelSearch"
-        />
+        <a-input-search v-model="searchContentTemp" :placeholder="$t('common.searchLabel')" style="min-width: 100px; width: 100%" @search="onLabelSearch" />
       </a-space>
       <a-popover v-model="labelAddVisible" :title="$t('common.labelAdd')" trigger="click" placement="bottomRight">
         <div slot="content" style="width: 500px;">
-          <LabelCreate
-              @hideLabelVisibleFn="hideLabelVisibleFn"
-              @refresh="refresh"/>
+          <label-create @hideLabelVisibleFn="hideLabelVisibleFn" @refresh="refresh" />
         </div>
       </a-popover>
-      <a-button class="add-item" type="primary" style="height: 30px;" v-text="$t('common.add')"
-                @click="labelAddCheck" v-if="$store.state.isManage"></a-button>
+      <a-button class="add-item" type="primary" style="height: 30px;" v-text="$t('common.add')" @click="labelAddCheck" v-if="$store.state.isManage"></a-button>
     </div>
-    <a-empty v-if="data.length === 0"/>
+    <a-empty v-if="data.length === 0" />
     <div>
       <div class="tag">
-        <a-badge class="info-box"
-                 :style="$store.state.collapsed ? 'width:100%;' : 'width:20%;border-right: 20px solid #f0f2f5;'"
-                 v-for="item of data" :key="item.id">
-          <a-icon slot="count" type="close-circle" style="color: red; cursor: pointer" @click="labelDelete(item.id)"
-                  v-if="$store.state.isManage"/>
+        <a-badge class="info-box" :style="$store.state.collapsed ? 'width:100%;' : 'width:20%;border-right: 20px solid #f0f2f5;'" v-for="item of data" :key="item.id">
+          <a-icon slot="count" type="close-circle" style="color: red; cursor: pointer" @click="labelDelete(item.id)" v-if="$store.state.isManage" />
           <div>
-            <a-avatar class="avatar" :size="60" :src="item.logo" @click="routerLabelToArticle(item.id)"/>
+            <a-avatar class="avatar" :size="60" :src="item.logo" @click="routerLabelToArticle(item.id)" />
           </div>
           <div class="title" @click="routerLabelToArticle(item.id)">{{ item.labelName }}</div>
           <div class="meta-article">{{ item.articleUseCount + ' ' + $t('common.article') }}</div>
-          <a-popover v-model="labelEditVisible[item.id]" :title="$t('common.labelEdit')" trigger="click"
-                     placement="bottom">
+          <a-popover v-model="labelEditVisible[item.id]" :title="$t('common.labelEdit')" trigger="click" placement="bottom">
             <div slot="content" style="width: 500px;">
-              <LabelCreate
-                  @hideLabelVisibleFn="hideLabelVisibleFn"
-                  :labelLogoInit="item.logo"
-                  :labelId="item.id"
-                  :labelName="item.labelName"
-                  @refresh="refresh"/>
+              <label-create @hideLabelVisibleFn="hideLabelVisibleFn" :label-logo-init="item.logo" :label-id="item.id" :label-name="item.labelName" @refresh="refresh" />
             </div>
           </a-popover>
-          <a-button class="edit" type="primary" style="height: 30px;" v-text="$t('common.edit')"
-                    @click="labelUpdateCheck(item.id)" v-if="$store.state.isManage"></a-button>
+          <a-button class="edit" type="primary" style="height: 30px;" v-text="$t('common.edit')" @click="labelUpdateCheck(item.id)" v-if="$store.state.isManage"></a-button>
         </a-badge>
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import LabelCreate from "@/components/label/LabelCreate";
-import labelService from "@/service/labelService";
+import LabelCreate from '@/components/label/LabelCreate';
+import labelService from '@/service/labelService';
 
 export default {
-  name: "LabelContent",
+  name: 'LabelContent',
 
-  components: {LabelCreate},
+  components: { LabelCreate },
 
   props: {
-    data: {type: Array, default: []},
-    searchContent: {type: String, default: ''},
+    data: { type: Array, default: () => [] },
+    searchContent: { type: String, default: '' },
   },
 
   data() {
@@ -72,13 +53,13 @@ export default {
       searchContentTemp: this.searchContent,
       labelAddVisible: false,
       labelEditVisible: {},
-    }
+    };
   },
 
   methods: {
     // 搜索
     onLabelSearch(value) {
-      this.$emit("refresh", value)
+      this.$emit('refresh', value);
     },
 
     // 新增标签验证
@@ -98,7 +79,7 @@ export default {
     // 关闭气泡框
     hideLabelVisibleFn(labelId) {
       this.labelAddVisible = false;
-      this.$set(this.labelEditVisible, labelId, false)
+      this.$set(this.labelEditVisible, labelId, false);
     },
 
     // 删除标签
@@ -106,23 +87,24 @@ export default {
       if (this.isLoginFn()) {
         this.$confirm({
           centered: true,
-          title: this.$t("common.deleteLabelTitle"),
-          content: this.$t("common.deletePrompt"),
+          title: this.$t('common.deleteLabelTitle'),
+          content: this.$t('common.deletePrompt'),
           onOk: () => {
-            labelService.labelDelete(labelId)
-                .then(res => {
-                  this.refresh();
-                })
-                .catch(err => {
-                  this.$message.error(err.desc);
-                });
+            labelService
+              .labelDelete(labelId)
+              .then(res => {
+                this.refresh();
+              })
+              .catch(err => {
+                this.$message.error(err.desc);
+              });
           },
         });
       }
     },
 
     refresh() {
-      this.$emit("refresh");
+      this.$emit('refresh');
     },
 
     isLoginFn() {
@@ -135,14 +117,14 @@ export default {
 
     // 路由到标签文章页面
     routerLabelToArticle(labelId) {
-      let routeData = this.$router.resolve("/label/" + labelId);
+      const routeData = this.$router.resolve('/label/' + labelId);
       window.open(routeData.href, '_blank');
     },
 
     updateLabelEditVisible() {
       const labelEditVisibleNew = {};
       this.data.forEach(value => {
-        labelEditVisibleNew[value.id] = false
+        labelEditVisibleNew[value.id] = false;
       });
 
       this.labelEditVisible = labelEditVisibleNew;
@@ -158,16 +140,16 @@ export default {
     data: {
       handler(newVal, oldVal) {
         this.updateLabelEditVisible();
-      }
+      },
     },
     // searchContent值改变时触发
     searchContent: {
       handler(newVal, oldVal) {
         this.searchContentTemp = newVal;
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -191,7 +173,8 @@ export default {
   background: #fff;
   border-bottom: 20px solid #f0f2f5;
 
-  .title, .avatar {
+  .title,
+  .avatar {
     cursor: pointer;
     border-radius: 0;
   }

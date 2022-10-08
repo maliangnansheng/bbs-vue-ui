@@ -94,12 +94,3 @@ export default {
   }
 }
 </style>
-
-<style lang="less">
-#markdown-toc {
-  .active,
-  .active > a {
-    color: #0366d6 !important;
-  }
-}
-</style>

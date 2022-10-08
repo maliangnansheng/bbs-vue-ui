@@ -1,5 +1,5 @@
 // 引入antd的less文件，然后最后只需在入口文件里面引入当前文件即可
-@import "~ant-design-vue/dist/antd.less";
+@import '~ant-design-vue/dist/antd.less';
 
 @colors: #fa541c #3eaf7c #13c2c2 #1869ff #722ed1 #eb2f96;
 #home,
@@ -56,5 +56,13 @@
 .org-container {
   .iconfont {
     color: @primary-color;
+  }
+}
+
+// 文章详情-目录高亮
+#markdown-toc {
+  .active,
+  .active > a {
+    color: @primary-color !important;
   }
 }

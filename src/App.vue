@@ -92,6 +92,8 @@ export default {
   created() {
     this.setLanguageAndTheme();
     this.setIsCarousel();
+    // 获取全局配置
+    this.$store.dispatch('config/getConfig');
   },
   mounted() {
     // 初始化dom，获取用户界面宽高，并且添加监听

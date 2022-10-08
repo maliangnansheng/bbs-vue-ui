@@ -116,6 +116,8 @@ export default {
 
     // 处理文章顶部导航栏页面下滑时隐藏
     handleHeaderAnimation() {
+      const { hideHeaderWhenScroll } = this.$store.state.config.config || {};
+      if (!hideHeaderWhenScroll) return;
       const { headerVisible } = this.$store.state;
       const app = document.getElementById('app');
       const scrollEventCB = ev => {

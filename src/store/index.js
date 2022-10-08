@@ -5,6 +5,8 @@ import en_US from '@/i18n/en_US';
 import userService from '@/service/userService';
 import utils from '@/config/utils';
 
+import config from './modules/config';
+
 const langs = { zh_CN, en_US };
 
 Vue.use(Vuex);
@@ -113,5 +115,7 @@ export default new Vuex.Store({
     },
   },
   actions: {},
-  modules: {},
+  modules: {
+    config,
+  },
 });

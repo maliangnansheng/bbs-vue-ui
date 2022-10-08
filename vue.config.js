@@ -3,6 +3,7 @@ const createThemeColorReplacerPlugin = require('./src/config/config');
 
 const env = process.env;
 const vueConfig = {
+  publicPath: env.BASE_URL,
   // 开发环境的跨域配置
   devServer: {
     before(app) {

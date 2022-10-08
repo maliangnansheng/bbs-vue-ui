@@ -1,138 +1,129 @@
 <template>
-  <a-layout>
-    <a-layout id="components-layout-basic">
-      <index-header class="header" @refresh="refresh" :search-content="searchContent" />
-      <a-layout-content>
-        <main class="content">
-          <a-col :span="$store.state.collapsed ? 24 : 18" :style="$store.state.collapsed ? '' : 'border-right: 20px solid #f0f2f5'">
-            <custom-empty v-if="spinning" />
-            <div v-else>
-              <!-- 轮播图 -->
-              <slide-show v-if="!$store.state.collapsed && $store.state.isCarousel" />
-              <a-row v-if="!$store.state.collapsed && $store.state.isCarousel">
-                <a-col :span="24" style="height: 2px" />
-              </a-row>
-              <!-- 管理员才需要 -->
-              <a-tabs default-active-key="approved" @change="changeTab" style="background: #fff" v-if="$store.state.isManage">
-                <a-tab-pane key="approved">
-                  <span slot="tab">
-                    {{ $t('common.approved') + '(' + total + ')' }}
-                  </span>
-                  <!-- 文章列表 -->
-                  <front-page-article
-                    v-if="!spinning && isApprovedTab"
-                    :finish="finish"
-                    :has-next="hasNext"
-                    :data="listData"
-                    :service="articleService"
-                    :is-admin-audit="true"
-                    @updateData="updateData"
-                    @updateTotal="updateTotal"
-                    @updateReviewRejectedTotal="updateReviewRejectedTotal"
-                    @refresh="refresh"
-                    style="background: #fff"
-                  />
-                </a-tab-pane>
-                <a-tab-pane key="pendingReview">
-                  <span slot="tab">
-                    {{ $t('common.pendingReview') + '(' + pendingReviewTotal + ')' }}
-                  </span>
-                  <!-- 文章列表 -->
-                  <front-page-article
-                    v-if="!spinning && isPendingReviewTab"
-                    :finish="finish"
-                    :has-next="hasNext"
-                    :data="pendingReviewData"
-                    :service="articleService"
-                    :is-admin-audit="true"
-                    @updatePendingReviewData="updatePendingReviewData"
-                    @updatePendingReviewTotal="updatePendingReviewTotal"
-                    @updateTotal="updateTotal"
-                    @updateReviewRejectedTotal="updateReviewRejectedTotal"
-                    @refresh="refresh"
-                    style="background: #fff"
-                  />
-                </a-tab-pane>
-                <a-tab-pane key="reviewRejected">
-                  <span slot="tab">
-                    {{ $t('common.reviewRejected') + '(' + reviewRejectedTotal + ')' }}
-                  </span>
-                  <!-- 文章列表 -->
-                  <front-page-article
-                    v-if="!spinning && isReviewRejectedTab"
-                    :finish="finish"
-                    :has-next="hasNext"
-                    :data="reviewRejectedData"
-                    :service="articleService"
-                    :is-admin-audit="true"
-                    @updateReviewRejectedData="updateReviewRejectedData"
-                    @updateTotal="updateTotal"
-                    @updateReviewRejectedTotal="updateReviewRejectedTotal"
-                    @refresh="refresh"
-                    style="background: #fff"
-                  />
-                </a-tab-pane>
-              </a-tabs>
-              <!-- 文章列表 -->
-              <front-page-article
-                v-if="!$store.state.isManage && !spinning"
-                :finish="finish"
-                :has-next="hasNext"
-                :data="listData"
-                :service="articleService"
-                @refresh="refresh"
-                style="background: #fff"
-              />
-            </div>
-          </a-col>
-          <a-col v-if="!$store.state.collapsed" :span="6">
-            <!-- 系统简介 -->
-            <project-intro style="background: #fff" />
-            <a-row>
-              <a-col :span="24" style="height: 10px" />
-            </a-row>
-            <!-- 作者榜 -->
-            <authors-list style="background: #fff" />
-            <a-row>
-              <a-col :span="24" style="height: 10px" />
-            </a-row>
-            <!-- 最新评论 -->
-            <latest-comment style="background: #fff" />
-            <a-row>
-              <a-col :span="24" style="height: 10px" />
-            </a-row>
-            <!-- 友情捐赠 -->
-            <friend-donate style="background: #fff" />
-            <a-row>
-              <a-col :span="24" style="height: 10px" />
-            </a-row>
-            <!-- 备案信息 -->
-            <filing-info />
-          </a-col>
-        </main>
-      </a-layout-content>
-      <footer-buttons v-if="!$store.state.collapsed" />
-    </a-layout>
-  </a-layout>
+  <a-row type="flex" justify="center" id="components-layout-basic">
+    <a-col :span="$store.state.collapsed ? 24 : 18" :style="$store.state.collapsed ? '' : 'border-right: 20px solid #f0f2f5'">
+      <custom-empty v-if="spinning" />
+      <div v-else>
+        <!-- 轮播图 -->
+        <slide-show v-if="!$store.state.collapsed && $store.state.isCarousel" />
+        <a-row v-if="!$store.state.collapsed && $store.state.isCarousel">
+          <a-col :span="24" style="height: 2px" />
+        </a-row>
+        <!-- 管理员才需要 -->
+        <a-tabs default-active-key="approved" @change="changeTab" style="background: #fff" v-if="$store.state.isManage">
+          <a-tab-pane key="approved">
+            <span slot="tab">
+              {{ $t('common.approved') + '(' + total + ')' }}
+            </span>
+            <!-- 文章列表 -->
+            <front-page-article
+              v-if="!spinning && isApprovedTab"
+              :finish="finish"
+              :has-next="hasNext"
+              :data="listData"
+              :service="articleService"
+              :is-admin-audit="true"
+              @updateData="updateData"
+              @updateTotal="updateTotal"
+              @updateReviewRejectedTotal="updateReviewRejectedTotal"
+              @refresh="refresh"
+              style="background: #fff"
+            />
+          </a-tab-pane>
+          <a-tab-pane key="pendingReview">
+            <span slot="tab">
+              {{ $t('common.pendingReview') + '(' + pendingReviewTotal + ')' }}
+            </span>
+            <!-- 文章列表 -->
+            <front-page-article
+              v-if="!spinning && isPendingReviewTab"
+              :finish="finish"
+              :has-next="hasNext"
+              :data="pendingReviewData"
+              :service="articleService"
+              :is-admin-audit="true"
+              @updatePendingReviewData="updatePendingReviewData"
+              @updatePendingReviewTotal="updatePendingReviewTotal"
+              @updateTotal="updateTotal"
+              @updateReviewRejectedTotal="updateReviewRejectedTotal"
+              @refresh="refresh"
+              style="background: #fff"
+            />
+          </a-tab-pane>
+          <a-tab-pane key="reviewRejected">
+            <span slot="tab">
+              {{ $t('common.reviewRejected') + '(' + reviewRejectedTotal + ')' }}
+            </span>
+            <!-- 文章列表 -->
+            <front-page-article
+              v-if="!spinning && isReviewRejectedTab"
+              :finish="finish"
+              :has-next="hasNext"
+              :data="reviewRejectedData"
+              :service="articleService"
+              :is-admin-audit="true"
+              @updateReviewRejectedData="updateReviewRejectedData"
+              @updateTotal="updateTotal"
+              @updateReviewRejectedTotal="updateReviewRejectedTotal"
+              @refresh="refresh"
+              style="background: #fff"
+            />
+          </a-tab-pane>
+        </a-tabs>
+        <!-- 文章列表 -->
+        <front-page-article
+          v-if="!$store.state.isManage && !spinning"
+          :finish="finish"
+          :has-next="hasNext"
+          :data="listData"
+          :service="articleService"
+          @refresh="refresh"
+          style="background: #fff"
+        />
+      </div>
+    </a-col>
+    <a-col v-if="!$store.state.collapsed" :span="6">
+      <!-- 系统简介 -->
+      <project-intro style="background: #fff" />
+      <a-row>
+        <a-col :span="24" style="height: 10px" />
+      </a-row>
+      <!-- 作者榜 -->
+      <authors-list style="background: #fff" />
+      <a-row>
+        <a-col :span="24" style="height: 10px" />
+      </a-row>
+      <!-- 最新评论 -->
+      <latest-comment style="background: #fff" />
+      <a-row>
+        <a-col :span="24" style="height: 10px" />
+      </a-row>
+      <!-- 友情捐赠 -->
+      <friend-donate style="background: #fff" />
+      <a-row>
+        <a-col :span="24" style="height: 10px" />
+      </a-row>
+      <!-- 备案信息 -->
+      <filing-info />
+    </a-col>
+  </a-row>
 </template>
 
 <script>
-import IndexHeader from '@/components/index/head/IndexHeader';
-import SlideShow from '@/components/concern/SlideShow';
+import SlideShow from './components/SlideShow';
+
 import FrontPageArticle from '@/components/article/FrontPageArticle';
 import ProjectIntro from '@/components/right/ProjectIntro';
-import articleService from '@/service/articleService';
 import AuthorsList from '@/components/right/AuthorsList';
 import FilingInfo from '@/components/right/FilingInfo';
-import FooterButtons from '@/components/utils/FooterButtons';
-import CustomEmpty from '@/components/utils/CustomEmpty';
 import LatestComment from '@/components/right/LatestComment';
 import FriendDonate from '@/components/right/FriendDonate';
+import CustomEmpty from '@/components/utils/CustomEmpty';
+
+import articleService from '@/service/articleService';
 
 export default {
+  name: 'Home',
   components: {
-    IndexHeader,
-    FooterButtons,
     SlideShow,
     FrontPageArticle,
     ProjectIntro,
@@ -342,32 +333,6 @@ export default {
 </script>
 
 <style>
-#components-layout-basic .header {
-  position: fixed;
-  z-index: 999;
-  width: 100%;
-  background: #fff;
-  border-bottom: 1px solid #00000021;
-}
-
-#components-layout-basic .content {
-  margin-top: 64px;
-  width: 1100px;
-}
-
-#components-layout-basic .ant-layout-header,
-.ant-layout-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#components-layout-basic .ant-layout-header {
-  background: #fff;
-  height: auto;
-  line-height: 2.3;
-}
-
 .index-drawer-wrap .ant-drawer-content-wrapper {
   width: 250px !important;
 }

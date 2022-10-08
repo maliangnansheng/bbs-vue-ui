@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Layout from '@/layout/index.vue';
 
 // 每次调用Vue.$router.push方法跳转路由的时候先判断是不是已经在目标路由，避免重复跳转（Vue会有警告）
 const originalPush = VueRouter.prototype.push;
@@ -10,15 +11,6 @@ VueRouter.prototype.push = function push(location) {
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: () => import('@/components/index/Index'),
-  },
-  {
-    path: '/search',
-    component: () => import('@/components/index/Index'),
-  },
   {
     path: '/recommended',
     component: () => import('@/components/index/AuthorsListIndex'),
@@ -90,6 +82,26 @@ const routes = [
   {
     path: '/500',
     component: () => import('@/components/errorPage/ServerError'),
+  },
+  {
+    path: '/',
+    name: 'Layout',
+    component: Layout,
+    redirect: '/home',
+    children: [
+      {
+        path: 'home',
+        name: 'home',
+        component: () => import('@/views/home/index.vue'),
+        meta: {
+          title: '首页',
+        },
+      },
+      {
+        path: '/search',
+        component: () => import('@/views/home/index.vue'),
+      },
+    ],
   },
   {
     path: '*',

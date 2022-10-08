@@ -1,6 +1,6 @@
 <template>
   <a-carousel class="slideshow-content" arrows>
-    <div slot="prevArrow" class="custom-slick-arrow" style="left: 10px;zIndex: 1">
+    <div slot="prevArrow" class="custom-slick-arrow" style="left: 10px; z-index: 1">
       <a-icon type="left-circle" />
     </div>
     <div slot="nextArrow" class="custom-slick-arrow" style="right: 10px">

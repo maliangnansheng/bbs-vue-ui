@@ -89,6 +89,10 @@
           code: [{validator: validateCode, trigger: 'change'}],
           newPassword: [{validator: validateNewPassword, trigger: 'change'}],
         },
+        layout: {
+          labelCol: {span: 0},
+          wrapperCol: {span: 24},
+        },
       };
     },
 

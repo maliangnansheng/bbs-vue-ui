@@ -5,7 +5,7 @@
         <h1 class="title">{{ $t('common.accountPasswordLogin') }}</h1>
         <a-form-item>
           <a-input v-decorator="['name', { rules: [{ required: true, message: $t('common.pleaseInputYourUsername') }] }]" :placeholder="$t('common.username')" size="large">
-            <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)" />
+            <a-icon slot="prefix" type="user" style="color: rgba(0, 0, 0, 0.25)" />
           </a-input>
         </a-form-item>
         <a-form-item>
@@ -15,7 +15,7 @@
             :placeholder="$t('common.password')"
             size="large"
           >
-            <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)" />
+            <a-icon slot="prefix" type="lock" style="color: rgba(0, 0, 0, 0.25)" />
           </a-input>
         </a-form-item>
         <a-form-item>

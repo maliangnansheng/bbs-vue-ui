@@ -1,5 +1,5 @@
 <template>
-  <a-layout-header class="header">
+  <a-layout-header class="header" :class="{ 'header-visible': $store.state.headerVisible }">
     <div class="main-header">
       <div class="header-left-content">
         <!-- logo -->
@@ -20,7 +20,7 @@
               <a-menu-item key="course">{{ $t('common.course') }}</a-menu-item>
             </a-tooltip>
           </a-menu>
-          <a-select class="phone-frontPage" v-if="$store.state.collapsed" :default-value="current" @change="handleChange" style="min-width: 90px; width: 100%">
+          <a-select class="phone-frontPage" v-if="$store.state.collapsed" :default-value="current" style="min-width: 90px; width: 100%">
             <a-select-option value="home" @click="refresh">{{ $t('common.home') }}</a-select-option>
             <a-select-option value="boilingPoint" @click="routerLabel">{{ $t('common.label') }}</a-select-option>
             <a-select-option value="liveStreaming" @click="routerResource">{{ $t('common.resource') }}</a-select-option>
@@ -144,13 +144,14 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex';
-import loginService from '@/service/loginService';
 import Login from '@/components/login/Login';
-import MessageBox from '@/components/index/messages/MessageBox';
-import store from '@/store';
 import Register from '@/components/login/Register';
+import MessageBox from './components/MessageBox/index.vue';
 import MobileResetPassword from '@/components/login/MobileResetPassword';
 import EmailResetPassword from '@/components/login/EmailResetPassword';
+
+import store from '@/store';
+import loginService from '@/service/loginService';
 
 import { trimString } from '@/utils/regExp';
 
@@ -249,6 +250,31 @@ export default {
       }
     },
 
+    // 处理文章顶部导航栏页面下滑时隐藏
+    handleHeaderAnimation() {
+      const { hideHeaderWhenScroll } = this.$store.state.config.config || {};
+      if (!hideHeaderWhenScroll) return;
+      const { headerVisible } = this.$store.state;
+      const app = document.getElementById('app');
+      const scrollEventCB = ev => {
+        const scrollTop = ev.target.scrollTop;
+        if (this.delta === 0) {
+          this.delta = scrollTop;
+          return;
+        }
+        if (scrollTop > this.delta && headerVisible) {
+          this.$store.commit('setHeaderVisible', false);
+        } else {
+          this.$store.commit('setHeaderVisible', true);
+        }
+        this.delta = scrollTop;
+      };
+      app.addEventListener('scroll', scrollEventCB);
+      this.$once('hook:beforeDestroy', () => {
+        app.removeEventListener('scroll', scrollEventCB);
+      });
+    },
+
     // 刷新
     refresh() {
       // 跳转到首页
@@ -304,6 +330,10 @@ export default {
       },
     },
   },
+
+  mounted() {
+    this.handleHeaderAnimation();
+  },
 };
 </script>
 
@@ -315,6 +345,12 @@ export default {
   height: auto;
   background: #fff;
   border-bottom: 1px solid #00000021;
+  transition: all 0.2s;
+  transform: translate3d(0, -100%, 0);
+}
+
+.header-visible {
+  transform: translate3d(0, 0, 0);
 }
 
 .main-header {

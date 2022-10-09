@@ -86,7 +86,7 @@ export default {
   },
 
   watch: {
-    visible: function() {
+    visible: function () {
       this.picture = this.$store.state.picture;
     },
   },

@@ -12,72 +12,32 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/recommended',
-    component: () => import('@/components/index/AuthorsListIndex'),
-  },
-  {
     path: '/write',
-    component: () => import('@/components/index/WriteArticleIndex'),
+    component: () => import('@/views/write/index.vue'),
+    meta: {
+      title: '写文章',
+    },
   },
   {
     path: '/edit/:id',
-    component: () => import('@/components/index/WriteArticleIndex'),
+    component: () => import('@/views/write/index.vue'),
+    meta: {
+      title: '编辑文章',
+    },
   },
   {
     path: '/detail/:id',
-    component: () => import('@/components/index/ArticleDetailIndex'),
+    component: () => import('@/views/detail/index.vue'),
+    meta: {
+      title: '文章详情',
+    },
   },
   {
     path: '/empty',
     component: () => import('@/components/utils/CustomEmpty'),
-  },
-  {
-    path: '/user/:id',
-    component: () => import('@/components/index/UserCenterIndex'),
-  },
-  {
-    path: '/label',
-    name: 'label',
-    component: () => import('@/components/index/LabelIndex'),
-  },
-  {
-    path: '/label/:id',
-    component: () => import('@/components/index/LabelToArticleIndex'),
-  },
-  {
-    path: '/settings',
-    component: () => import('@/components/index/SetUpIndex'),
-    children: [
-      {
-        path: '',
-        redirect: 'profile',
-      },
-      {
-        path: 'profile',
-        name: 'profile',
-        component: () => import('@/components/user/ProfileContent'),
-      },
-      {
-        path: 'account',
-        name: 'account',
-        component: () => import('@/components/user/AccountSettings'),
-      },
-    ],
-  },
-  {
-    path: '/resource',
-    name: 'resource',
-    component: () => import('@/components/index/ResourceIndex'),
-  },
-  {
-    path: '/book',
-    name: 'book',
-    component: () => import('@/components/index/Book'),
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import('@/components/index/About'),
+    meta: {
+      title: '空页面',
+    },
   },
   {
     path: '/500',
@@ -98,8 +58,84 @@ const routes = [
         },
       },
       {
-        path: '/search',
+        path: 'search',
         component: () => import('@/views/home/index.vue'),
+        meta: {
+          title: '搜索',
+        },
+      },
+      {
+        path: '/recommended',
+        component: () => import('@/views/recommended/index.vue'),
+        meta: {
+          title: '推荐',
+        },
+      },
+      {
+        path: '/user/:id',
+        component: () => import('@/views/user/index.vue'),
+        meta: {
+          title: '用户中心',
+        },
+      },
+      {
+        path: '/label',
+        name: 'label',
+        component: () => import('@/views/label/index.vue'),
+        meta: {
+          title: '标签',
+        },
+      },
+      {
+        path: '/label/:id',
+        component: () => import('@/views/label/detail/index.vue'),
+        meta: {
+          title: '标签详情',
+        },
+      },
+      {
+        path: '/settings',
+        component: () => import('@/views/settings/index.vue'),
+        redirect: '/settings/profile',
+        children: [
+          {
+            path: 'profile',
+            name: 'profile',
+            component: () => import('@/views/settings/profile/index.vue'),
+            meta: {
+              title: '个人设置',
+            },
+          },
+          {
+            path: 'account',
+            name: 'account',
+            component: () => import('@/views/settings/account/index.vue'),
+            meta: {
+              title: '账号设置',
+            },
+          },
+        ],
+      },
+      {
+        path: '/resource',
+        name: 'resource',
+        component: () => import('@/views/resource/index.vue'),
+        meta: {
+          title: '资源',
+        },
+      },
+      {
+        path: '/book',
+        name: 'book',
+        component: () => import('@/views/book/index.vue'),
+      },
+      {
+        path: '/about',
+        name: 'about',
+        component: () => import('@/views/about/index.vue'),
+        meta: {
+          title: '关于',
+        },
       },
     ],
   },

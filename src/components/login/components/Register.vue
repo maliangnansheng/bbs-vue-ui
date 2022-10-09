@@ -1,43 +1,39 @@
 <template>
-  <div>
-    <a-modal v-model="$store.state.registerVisible" @ok="handleOk" :footer="null" :width="'320px'">
-      <a-form-model ref="ruleForm" :model="ruleForm" :rules="rules" v-bind="layout" id="register-form-content">
-        <h1 class="title">{{ $t('common.userRegister') }}</h1>
-        <a-form-model-item has-feedback prop="username">
-          <a-input
-            v-model="ruleForm.username"
-            autocomplete="off"
-            :max-length="$store.state.userMaxLength"
-            :suffix="userNameNum + '/' + $store.state.userMaxLength"
-            @change="usernameChange"
-            :placeholder="$t('common.pleaseInputYourUsername')"
-            size="large"
-          >
-            <a-icon slot="prefix" type="user" style="color: rgba(0, 0, 0, 0.25)" />
-          </a-input>
-        </a-form-model-item>
-        <a-form-model-item has-feedback prop="password">
-          <a-input v-model="ruleForm.password" type="password" autocomplete="off" :placeholder="$t('common.password')" size="large">
-            <a-icon slot="prefix" type="lock" style="color: rgba(0, 0, 0, 0.25)" />
-          </a-input>
-        </a-form-model-item>
-        <a-form-model-item has-feedback prop="confirmPassword">
-          <a-input v-model="ruleForm.confirmPassword" type="password" autocomplete="off" :placeholder="$t('common.confirmPassword')" size="large">
-            <a-icon slot="prefix" type="lock" style="color: rgba(0, 0, 0, 0.25)" />
-          </a-input>
-        </a-form-model-item>
-        <a-form-model-item style="padding-top: 5px">
-          <a-button type="primary" html-type="submit" class="login-form-button" size="large" @click="submitForm('ruleForm')">
-            {{ $t('common.register') }}
-          </a-button>
-          Or
-          <a @click="login">
-            {{ $t('common.loginNow') }}
-          </a>
-        </a-form-model-item>
-      </a-form-model>
-    </a-modal>
-  </div>
+  <a-form-model ref="ruleForm" :model="ruleForm" :rules="rules" v-bind="layout" id="register-form-content">
+    <h1 class="title">{{ $t('common.userRegister') }}</h1>
+    <a-form-model-item has-feedback prop="username">
+      <a-input
+        v-model="ruleForm.username"
+        autocomplete="off"
+        :max-length="$store.state.userMaxLength"
+        :suffix="userNameNum + '/' + $store.state.userMaxLength"
+        @change="usernameChange"
+        :placeholder="$t('common.pleaseInputYourUsername')"
+        size="large"
+      >
+        <a-icon slot="prefix" type="user" style="color: rgba(0, 0, 0, 0.25)" />
+      </a-input>
+    </a-form-model-item>
+    <a-form-model-item has-feedback prop="password">
+      <a-input v-model="ruleForm.password" type="password" autocomplete="off" :placeholder="$t('common.password')" size="large">
+        <a-icon slot="prefix" type="lock" style="color: rgba(0, 0, 0, 0.25)" />
+      </a-input>
+    </a-form-model-item>
+    <a-form-model-item has-feedback prop="confirmPassword">
+      <a-input v-model="ruleForm.confirmPassword" type="password" autocomplete="off" :placeholder="$t('common.confirmPassword')" size="large">
+        <a-icon slot="prefix" type="lock" style="color: rgba(0, 0, 0, 0.25)" />
+      </a-input>
+    </a-form-model-item>
+    <a-form-model-item style="padding-top: 5px">
+      <a-button type="primary" html-type="submit" class="login-form-button" size="large" @click="submitForm('ruleForm')">
+        {{ $t('common.register') }}
+      </a-button>
+      Or
+      <a @click="login">
+        {{ $t('common.loginNow') }}
+      </a>
+    </a-form-model-item>
+  </a-form-model>
 </template>
 
 <script>
@@ -98,14 +94,11 @@ export default {
     };
   },
 
+  inject: ['show'],
+
   methods: {
     usernameChange(value) {
       this.userNameNum = value.target.value.length;
-    },
-
-    // 隐藏登录框
-    handleOk() {
-      this.$store.state.registerVisible = false;
     },
 
     submitForm(formName) {
@@ -128,8 +121,7 @@ export default {
 
     // 直接登录
     login() {
-      this.$store.state.registerVisible = false;
-      this.$store.state.loginVisible = true;
+      this.show('Login');
     },
 
     // 用户判重

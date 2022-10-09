@@ -38,24 +38,18 @@
           :placeholder="$t('common.startEditing')"
         ></mavon-editor>
       </div>
-
-      <!-- 登录Model -->
-      <login />
-      <!-- 注册Model -->
-      <register />
     </div>
   </div>
 </template>
 
 <script>
 import ArticleBasicInfo from '@/components/article/ArticleBasicInfo';
-import Login from '@/components/login/Login';
-import Register from '@/components/login/Register';
 
+import { useLogin } from '@/components/login';
 import articleService from '@/service/articleService';
 
 export default {
-  components: { ArticleBasicInfo, Login, Register },
+  components: { ArticleBasicInfo },
 
   data() {
     return {
@@ -193,11 +187,14 @@ export default {
 
     // 路由到用户中心页面
     routerUserCenter(userId) {
-      if (this.$store.state.isLogin) {
+      const cb = () => {
         const routeData = this.$router.resolve('/user/' + userId);
         window.open(routeData.href, '_blank');
+      };
+      if (this.$store.state.isLogin) {
+        cb;
       } else {
-        this.$store.state.loginVisible = true;
+        useLogin({ successCB: cb });
       }
     },
   },

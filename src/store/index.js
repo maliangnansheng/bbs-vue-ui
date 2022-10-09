@@ -4,6 +4,7 @@ import zh_CN from '@/i18n/zh_CN';
 import en_US from '@/i18n/en_US';
 import userService from '@/service/userService';
 import utils from '@/config/utils';
+import router from '@/router';
 
 import config from './modules/config';
 
@@ -113,8 +114,40 @@ export default new Vuex.Store({
     setHeaderVisible(state, visible) {
       state.headerVisible = visible;
     },
+    setUserInfo(state, userInfo) {
+      Object.assign(state, userInfo);
+    },
   },
-  actions: {},
+  actions: {
+    getAccess({ commit }) {
+      return new Promise((resolve, reject) => {
+        userService
+          .getCurrentUserAccess()
+          .then(res => {
+            // 判断当前是否在500页面刷新，如果是，刷新后如果返回{code: 200},则跳转到首页
+            // 如果当前是服务器错误（500页面），刷新后自动跳转到首页
+            if (location.href.split('/').pop() === '500') {
+              router.push({ path: '/' });
+            }
+            const userInfo = {};
+            if (res.code === 0) {
+              userInfo.userId = res.data.userId;
+              userInfo.isLogin = true;
+              res.data.roles.forEach(data => {
+                if (data.code === 'bbs-admin') {
+                  userInfo.isManage = true;
+                }
+              });
+            }
+            commit('setUserInfo', userInfo);
+            resolve(userInfo);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
+    },
+  },
   modules: {
     config,
   },

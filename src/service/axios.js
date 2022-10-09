@@ -1,5 +1,8 @@
 import axios from 'axios';
 import store from '@/store/index';
+
+import { useLogin } from '@/components/login';
+
 // 设置xhr请求超时时间和baseURL（毫秒）
 axios.defaults.timeout = 15000;
 if (process.env.NODE_ENV === 'production') {
@@ -40,7 +43,7 @@ export default (() => {
           } else if (response.data.code === 302 && response.config.url !== '/api/bbs/user/getCurrentUserRights') {
             // window.location.href = response.data.data.target;
             store.state.isLogin = false;
-            store.state.loginVisible = true;
+            useLogin();
             return Promise.reject(response.data);
           } else {
             throw response.data;

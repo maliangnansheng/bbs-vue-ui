@@ -43,7 +43,7 @@
           <a slot="title" class="username" @click.stop="routerUserCenter(item.createUser)">
             <div class="left">
               <span slot="title" style="padding-right: 2px"> {{ item.createUserName }} </span>
-              <img :src="require('@/assets/img/level/' + item.level + '.svg')" alt="" @click.stop="routerBook" />
+              <img v-if="item.level" :src="require('@/assets/img/level/' + item.level + '.svg')" alt="" @click.stop="routerBook" />
               <small style="color: #b5b9b9; padding-left: 10px" v-text="$utils.showtime(item.createTime)"></small>
               <!-- 用户中心 -->
               <div v-if="isUserCenter && ($store.state.userId === userId || $store.state.isManage)">
@@ -95,7 +95,7 @@ export default {
     finish: { type: Boolean, default: false },
     hasNext: { type: Boolean, default: false },
     isUserCenter: { type: Boolean, default: false },
-    userId: { type: Boolean, default: false },
+    userId: { type: Number, default: 0 },
     isAdminAudit: { type: Boolean, default: false },
   },
   data() {

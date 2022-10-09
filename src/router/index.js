@@ -23,6 +23,7 @@ const routes = [
     component: () => import('@/views/write/index.vue'),
     meta: {
       title: '编辑文章',
+      auth: true,
     },
   },
   {
@@ -104,6 +105,7 @@ const routes = [
             component: () => import('@/views/settings/profile/index.vue'),
             meta: {
               title: '个人设置',
+              auth: true,
             },
           },
           {
@@ -112,6 +114,7 @@ const routes = [
             component: () => import('@/views/settings/account/index.vue'),
             meta: {
               title: '账号设置',
+              auth: true,
             },
           },
         ],

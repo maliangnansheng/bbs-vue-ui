@@ -128,14 +128,6 @@
               {{ $t('common.login') }}
             </a-button>
           </div>
-          <!-- 登录Model -->
-          <login @refresh="refresh" />
-          <!-- 注册Model -->
-          <register @refresh="refresh" />
-          <!-- 手机重置密码Model -->
-          <mobile-reset-password @refresh="refresh" />
-          <!-- 邮箱重置密码Model -->
-          <email-reset-password @refresh="refresh" />
         </div>
       </div>
     </div>
@@ -144,16 +136,13 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex';
-import Login from '@/components/login/Login';
-import Register from '@/components/login/Register';
 import MessageBox from './components/MessageBox/index.vue';
-import MobileResetPassword from '@/components/login/MobileResetPassword';
-import EmailResetPassword from '@/components/login/EmailResetPassword';
 
 import store from '@/store';
 import loginService from '@/service/loginService';
 
 import { trimString } from '@/utils/regExp';
+import { useLogin } from '@/components/login';
 
 const menuKeys = {
   home: 'home',
@@ -163,7 +152,7 @@ const menuKeys = {
 };
 
 export default {
-  components: { MessageBox, Login, Register, MobileResetPassword, EmailResetPassword },
+  components: { MessageBox },
 
   data() {
     return {
@@ -226,7 +215,7 @@ export default {
 
     // 显示登录框
     showLoginModal() {
-      this.$store.state.loginVisible = true;
+      useLogin();
     },
 
     // 退出登录

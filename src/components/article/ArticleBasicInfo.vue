@@ -13,7 +13,7 @@
       <a-form-item :label="$t('common.articleCover')">
         <upload-image :article-title-map="articleTitleMap" @titleMap="titleMap" />
       </a-form-item>
-      <a-divider style="margin: 10px 0;"></a-divider>
+      <a-divider style="margin: 10px 0"></a-divider>
       <a-form-item class="form-item-submit">
         <a-button type="primary" html-type="submit">
           {{ $route.params.id ? $t('common.sureAndUpdate') : $t('common.sureAndRelease') }}
@@ -27,6 +27,9 @@
 import labelService from '@/service/labelService';
 import articleService from '@/service/articleService';
 import UploadImage from '@/components/article/UploadImage';
+
+import { useLogin } from '@/components/login';
+import { mapActions } from 'vuex';
 
 export default {
   components: { UploadImage },
@@ -65,6 +68,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['getAccess']),
     handleSubmit(e) {
       e.preventDefault();
 
@@ -94,12 +98,16 @@ export default {
           data.append('labelIds', values.lableId);
           // 地址栏有值（更新文章）才调用
           const articleId = this.$route.params.id;
-          if (articleId) {
-            data.append('id', articleId);
-            this.articleUpdate(data);
-          } else {
-            this.articleCreate(data);
-          }
+
+          const cb = () => {
+            if (articleId) {
+              data.append('id', articleId);
+              this.articleUpdate(data);
+            } else {
+              this.articleCreate(data);
+            }
+          };
+          useLogin({ successCB: cb });
         }
       });
     },
@@ -123,7 +131,12 @@ export default {
     },
 
     // 写文章
-    articleCreate(data) {
+    async articleCreate(data) {
+      let { userId } = this.$store.state;
+      if (!userId) {
+        const userInfo = await this.getAccess();
+        userId = userInfo.userId;
+      }
       articleService
         .articleCreate(data)
         .then(res => {

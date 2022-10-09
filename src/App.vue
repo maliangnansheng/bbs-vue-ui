@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import userService from './service/userService';
 import zh_CN from 'ant-design-vue/lib/locale-provider/zh_CN';
 import en_US from 'ant-design-vue/lib/locale-provider/en_US';
@@ -24,29 +24,9 @@ export default {
   },
   methods: {
     ...mapMutations(['changeColor']),
+    ...mapActions(['getAccess']),
     // 初始化获取用户权限状态
-    getAccess() {
-      userService
-        .getCurrentUserAccess()
-        .then(res => {
-          /**
-           * @function checkErrorPage 判断当前是否在500页面刷新，如果是，刷新后如果返回{code: 200},则跳转到首页
-           */
-          this.checkErrorPage(res);
-          if (res.code === 0) {
-            this.$store.state.userId = res.data.userId;
-            this.$store.state.isLogin = true;
-            res.data.roles.forEach(data => {
-              if (data.code === 'bbs-admin') {
-                this.$store.state.isManage = true;
-              }
-            });
-          }
-        })
-        .catch(err => {
-          // this.$message.error(err.desc);
-        });
-    },
+
     // 初始化页面。获取屏幕尺寸以及监听屏幕尺寸
     initDom() {
       // 在Vue中this始终指向Vue，但一些其他组件如axios中this为undefined,通过let that = this将this保存在that中，再在函数中使用that均可
@@ -60,12 +40,6 @@ export default {
         that.$store.state.height = window.innerHeight;
         // 900/1050
         that.$store.state.collapsed = window.innerWidth < 1000;
-      }
-    },
-    checkErrorPage() {
-      // 如果当前是服务器错误（500页面），刷新后自动跳转到首页
-      if (this.$route.path === '/500') {
-        this.$router.push({ path: '/' });
       }
     },
     /**

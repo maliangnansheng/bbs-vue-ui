@@ -5,6 +5,7 @@ import en_US from '@/i18n/en_US';
 import userService from '@/service/userService';
 import utils from '@/config/utils';
 import router from '@/router';
+import globalConfig from '@/config';
 
 import config from './modules/config';
 
@@ -18,14 +19,6 @@ export default new Vuex.Store({
     headerVisible: true,
     // 判断用户是否已经登录
     isLogin: false,
-    // 登录modal是否可见
-    loginVisible: false,
-    // 注册modal是否可见
-    registerVisible: false,
-    // 手机找回密码modal是否可见
-    mobileResetPasswordVisible: false,
-    // 邮箱找回密码modal是否可见
-    emailResetPasswordVisible: false,
     // 登录用户id
     userId: '',
     // 用户头像
@@ -39,7 +32,7 @@ export default new Vuex.Store({
     // 当前使能的主题色
     themeColor: '#13c2c2',
     // 是否启用跑马灯（1：启用，0：禁止）
-    isCarousel: 1,
+    isCarousel: globalConfig.isCarousel,
     // 菜单是否收缩
     collapsed: false,
     // 用户屏幕宽度

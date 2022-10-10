@@ -1,10 +1,11 @@
 import { getConfig } from '@/service/common';
+import globalConfig from '@/config';
 
 const configStore = {
   namespaced: true,
   state: {
     config: {
-      hideHeaderWhenScroll: false,
+      hideHeaderWhenScroll: globalConfig.hideHeaderWhenScroll,
     },
   },
   mutations: {
@@ -13,6 +14,7 @@ const configStore = {
     },
   },
   actions: {
+    // TODO: 从后台获取配置(预留功能，未实现)
     async getConfig({ commit }) {
       const res = await getConfig();
       commit('setConfig', res.data);

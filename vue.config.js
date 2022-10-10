@@ -6,14 +6,6 @@ const vueConfig = {
   publicPath: env.BASE_URL,
   // 开发环境的跨域配置
   devServer: {
-    before(app) {
-      // TODO: 临时拦截全局配置请求，后续后台开发好配置功能再删除(因为当前vue-router使用的是history模式，所以在开发服务器层面做一下拦截，如果是hash模式，那就不需要这一步)
-      app.get('/config', function (req, res) {
-        // 由于cmd的缓存机制，修改配置后需要重启项目才能生效
-        const configJSON = require('./public/config.json');
-        res.json(configJSON);
-      });
-    },
     proxy: {
       '/api': {
         target: env.VUE_APP_PROXY_URL || 'http://bbs.localhost.com',

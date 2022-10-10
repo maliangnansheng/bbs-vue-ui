@@ -3,20 +3,18 @@
     <div class="tabs">
       <div>
         <a-radio-group :value="size" @change="handleSizeChange" v-for="(item, index) of categoryList" :key="item.id">
-          <a-radio-button value="all" style="margin-left: 10px;" v-if="index === 0">
-            全部资源
-          </a-radio-button>
-          <a-radio-button :value="item" style="margin: 10px 0 0 10px;" v-else>
+          <a-radio-button value="all" style="margin-left: 10px" v-if="index === 0"> 全部资源 </a-radio-button>
+          <a-radio-button :value="item" style="margin: 10px 0 0 10px" v-else>
             {{ item }}
           </a-radio-button>
         </a-radio-group>
       </div>
       <a-popover v-model="resourceAddVisible" :title="$t('common.resourceAdd')" trigger="click" placement="bottomRight">
-        <div slot="content" style="width: 500px;">
+        <div slot="content" style="width: 500px">
           <resource-create @hideResourceVisibleFn="hideResourceVisibleFn" @refresh="refresh" />
         </div>
       </a-popover>
-      <a-button class="add-item" type="primary" style="height: 30px;" v-text="$t('common.add')" @click="resourceAddCheck" v-if="$store.state.isManage"></a-button>
+      <a-button class="add-item" type="primary" style="height: 30px" v-text="$t('common.add')" @click="resourceAddCheck" v-if="$store.state.isManage"></a-button>
     </div>
     <div>
       <div class="tag">
@@ -35,7 +33,7 @@
           </div>
           <div class="meta-article">{{ item.desc }}</div>
           <a-popover v-model="resourceEditVisible[item.id]" :title="$t('common.resourceEdit')" trigger="click" placement="bottom">
-            <div slot="content" style="width: 500px;">
+            <div slot="content" style="width: 500px">
               <resource-create
                 @hideResourceVisibleFn="hideResourceVisibleFn"
                 :resource-logo-init="item.logo"
@@ -48,7 +46,7 @@
               />
             </div>
           </a-popover>
-          <a-button class="edit" type="primary" style="height: 30px;" v-text="$t('common.edit')" @click.stop="resourceUpdateCheck(item.id)" v-if="$store.state.isManage"></a-button>
+          <a-button class="edit" type="primary" style="height: 30px" v-text="$t('common.edit')" @click.stop="resourceUpdateCheck(item.id)" v-if="$store.state.isManage"></a-button>
         </a-badge>
       </div>
     </div>
@@ -56,8 +54,10 @@
 </template>
 
 <script>
-import resourceService from '@/service/resourceService';
 import ResourceCreate from '@/components/resource/ResourceCreate';
+import { useLogin } from '@/components/login';
+
+import resourceService from '@/service/resourceService';
 
 export default {
   name: 'ResourceContent',
@@ -142,7 +142,7 @@ export default {
       if (this.$store.state.isLogin) {
         return true;
       } else {
-        this.$store.state.loginVisible = true;
+        useLogin();
       }
     },
 

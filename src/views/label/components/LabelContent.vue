@@ -36,6 +36,8 @@
 
 <script>
 import LabelCreate from '@/components/label/LabelCreate';
+import { useLogin } from '@/components/login';
+
 import labelService from '@/service/labelService';
 
 export default {
@@ -111,7 +113,7 @@ export default {
       if (this.$store.state.isLogin) {
         return true;
       } else {
-        this.$store.state.loginVisible = true;
+        useLogin();
       }
     },
 

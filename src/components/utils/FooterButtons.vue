@@ -30,6 +30,7 @@
 
 <script>
 import BackTop from '@/components/utils/BackTop';
+import { useLogin } from '@/components/login';
 
 export default {
   components: { BackTop },
@@ -39,7 +40,7 @@ export default {
       if (this.$store.state.isLogin) {
         window.open(this.$store.state.manageDomain + '/createFeedback', '_blank');
       } else {
-        this.$store.state.loginVisible = true;
+        useLogin();
       }
     },
 

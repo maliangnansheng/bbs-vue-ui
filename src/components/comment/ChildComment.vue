@@ -35,9 +35,10 @@
 </template>
 
 <script>
-import userService from '@/service/userService';
 import CreateComment from '@/components/comment/CreateComment';
-import store from '@/store';
+import { useLogin } from '@/components/login';
+
+import userService from '@/service/userService';
 import commentService from '@/service/commentService';
 
 export default {
@@ -105,7 +106,7 @@ export default {
         this.isShow = !this.isShow;
         this.preId = id;
       } else {
-        store.state.loginVisible = true;
+        useLogin();
       }
     },
 

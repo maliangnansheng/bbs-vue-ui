@@ -22,8 +22,9 @@
 </template>
 
 <script>
+import { useLogin } from '@/components/login';
+
 import commentService from '@/service/commentService';
-import store from '@/store';
 
 export default {
   name: 'CreateComment',
@@ -83,7 +84,7 @@ export default {
           }
         });
       } else {
-        store.state.loginVisible = true;
+        useLogin();
       }
     },
 

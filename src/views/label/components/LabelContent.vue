@@ -1,16 +1,16 @@
 <template>
-  <div id="label-content" :style="$store.state.collapsed ? 'margin: 0 10px;' : ''">
+  <div id="label-content" :style="$store.state.collapsed ? 'padding: 0 10px;' : ''">
     <!-- 搜索框 -->
     <div class="label-search">
       <a-space direction="vertical">
         <a-input-search v-model="searchContentTemp" :placeholder="$t('common.searchLabel')" style="min-width: 100px; width: 100%" @search="onLabelSearch" />
       </a-space>
-      <a-popover v-model="labelAddVisible" :title="$t('common.labelAdd')" trigger="click" placement="bottomRight">
-        <div slot="content" style="width: 500px">
+      <a-popover :title="$t('common.labelAdd')" trigger="click" placement="bottomRight">
+        <div slot="content" style="width: 26vw; min-width: 320px">
           <label-create @hideLabelVisibleFn="hideLabelVisibleFn" @refresh="refresh" />
         </div>
+        <a-button class="add-item" type="primary" style="height: 30px" v-text="$t('common.add')" @click="labelAddCheck" v-if="$store.state.isManage"></a-button>
       </a-popover>
-      <a-button class="add-item" type="primary" style="height: 30px" v-text="$t('common.add')" @click="labelAddCheck" v-if="$store.state.isManage"></a-button>
     </div>
     <a-empty v-if="data.length === 0" />
     <div>
@@ -22,12 +22,12 @@
           </div>
           <div class="title" @click="routerLabelToArticle(item.id)">{{ item.labelName }}</div>
           <div class="meta-article">{{ item.articleUseCount + ' ' + $t('common.article') }}</div>
-          <a-popover v-model="labelEditVisible[item.id]" :title="$t('common.labelEdit')" trigger="click" placement="bottom">
-            <div slot="content" style="width: 500px">
+          <a-popover :title="$t('common.labelEdit')" trigger="click" placement="bottom">
+            <div slot="content" style="width: 26vw; min-width: 320px">
               <label-create @hideLabelVisibleFn="hideLabelVisibleFn" :label-logo-init="item.logo" :label-id="item.id" :label-name="item.labelName" @refresh="refresh" />
             </div>
+            <a-button class="edit" type="primary" style="height: 30px" v-text="$t('common.edit')" @click="labelUpdateCheck(item.id)" v-if="$store.state.isManage"></a-button>
           </a-popover>
-          <a-button class="edit" type="primary" style="height: 30px" v-text="$t('common.edit')" @click="labelUpdateCheck(item.id)" v-if="$store.state.isManage"></a-button>
         </a-badge>
       </div>
     </div>
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import LabelCreate from '@/components/label/LabelCreate';
+import LabelCreate from './LabelCreate';
 import { useLogin } from '@/components/login';
 
 import labelService from '@/service/labelService';

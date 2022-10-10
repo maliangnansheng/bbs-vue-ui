@@ -6,9 +6,16 @@ import userService from '@/service/userService';
 import utils from '@/config/utils';
 import router from '@/router';
 import globalConfig from '@/config';
+import { message } from 'ant-design-vue';
 
 import config from './modules/config';
 
+let userInfo = localStorage.getItem('auth_info');
+if (userInfo) {
+  userInfo = JSON.parse(atob(userInfo));
+} else {
+  userInfo = {};
+}
 const langs = { zh_CN, en_US };
 
 Vue.use(Vuex);
@@ -18,13 +25,13 @@ export default new Vuex.Store({
     // 导航栏是否显示
     headerVisible: true,
     // 判断用户是否已经登录
-    isLogin: false,
+    isLogin: !!userInfo.isLogin,
     // 登录用户id
-    userId: '',
+    userId: userInfo.userId || '',
     // 用户头像
-    picture: '',
+    picture: userInfo.picture || '',
     // 判断用户是否是管理员
-    isManage: false,
+    isManage: !!userInfo.isManage,
     // 用户名称长度限制
     userMaxLength: 10,
     // 主题色
@@ -112,6 +119,23 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    logout({ commit }) {
+      userService
+        .logout()
+        .then(() => {
+          commit('setUserInfo', {
+            isLogin: false,
+            userId: '',
+            picture: '',
+            isManage: false,
+          });
+          localStorage.removeItem('auth_info');
+          router.go(0);
+        })
+        .catch(err => {
+          message.error(err.desc);
+        });
+    },
     getAccess({ commit }) {
       return new Promise((resolve, reject) => {
         userService
@@ -133,6 +157,7 @@ export default new Vuex.Store({
               });
             }
             commit('setUserInfo', userInfo);
+            localStorage.setItem('auth_info', btoa(JSON.stringify(userInfo)));
             resolve(userInfo);
           })
           .catch(err => {

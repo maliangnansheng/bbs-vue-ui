@@ -67,12 +67,12 @@ export default {
   created() {
     this.setLanguageAndTheme();
     this.setIsCarousel();
+    // 获取用户权限，判断用户是否是登录状态
+    this.getAccess();
   },
   mounted() {
     // 初始化dom，获取用户界面宽高，并且添加监听
     this.initDom();
-    // 获取用户权限，判断用户是否是登录状态
-    this.getAccess();
   },
 };
 </script>

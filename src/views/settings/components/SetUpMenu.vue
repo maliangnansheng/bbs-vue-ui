@@ -1,6 +1,6 @@
 <template>
   <div id="setup-menu">
-    <a-menu style="width: 256px" v-model="defaultSelectedKeys" mode="inline" @click="handleClick">
+    <a-menu style="width: 100%" v-model="defaultSelectedKeys" mode="inline" @click="handleClick">
       <a-menu-item key="profile">
         <a-icon type="user" />
         <span>{{ $t('common.personalInformation') }}</span>

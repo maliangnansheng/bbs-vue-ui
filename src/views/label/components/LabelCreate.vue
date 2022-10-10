@@ -1,5 +1,5 @@
 <template>
-  <a-form :form="form" :label-col="{ span: 5 }" :wrapper-col="{ span: 17 }" @submit="handleSubmit">
+  <a-form :form="form" :label-col="{ span: 6 }" :wrapper-col="{ span: 17 }" @submit="handleSubmit">
     <!-- 添加标签 -->
     <a-form-item :label="$t('common.labelName')">
       <a-input v-decorator="['labelName', validatorRules.label]" :placeholder="$t('common.pleaseLabel')" />
@@ -8,7 +8,7 @@
     <a-form-item :label="$t('common.labelLogo')">
       <image-upload ref="child" :label-logo="labelLogo" @labelLogoFn="labelLogoFn" />
     </a-form-item>
-    <a-divider style="margin: 10px 0;"></a-divider>
+    <a-divider style="margin: 10px 0"></a-divider>
     <a-form-item class="form-item-submit">
       <a-button type="primary" html-type="submit">{{ $t('common.sureAndAdd') }}</a-button>
     </a-form-item>
@@ -16,8 +16,9 @@
 </template>
 
 <script>
+import ImageUpload from './ImageUpload';
+
 import labelService from '@/service/labelService';
-import ImageUpload from '@/components/label/ImageUpload';
 
 export default {
   components: { ImageUpload },

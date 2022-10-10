@@ -1,6 +1,6 @@
 <template>
-  <div id="profile-content" v-if="!spinning">
-    <a-col :span="18">
+  <a-row type="flex" id="profile-content" v-if="!spinning">
+    <a-col :sm="18" :xs="24">
       <div class="left">
         <a-form-model ref="ruleForm" :model="ruleForm" :rules="rules" v-bind="layout" label-align="left">
           <p>{{ $t('common.personalInformation') }}</p>
@@ -59,7 +59,7 @@
         </a-form-model>
       </div>
     </a-col>
-    <a-col :span="6">
+    <a-col :sm="6" :xs="24">
       <div class="right">
         <a-col class="avatar-col">
           <div class="avatar">
@@ -86,7 +86,7 @@
         <upload-modal :visible="visible" @closeModal="closeModal" @refresh="refresh" />
       </div>
     </a-col>
-  </div>
+  </a-row>
 </template>
 
 <script>
@@ -329,5 +329,19 @@ export default {
 }
 #profile-content textarea.intro.ant-input {
   padding-right: 0 !important;
+}
+
+@media (max-width: 576px) {
+  #profile-content {
+    flex-direction: column-reverse;
+  }
+  #profile-content .avatar-col {
+    .avatar {
+      margin-top: 12px;
+    }
+    .avatar-tip {
+      padding: 12px 0;
+    }
+  }
 }
 </style>

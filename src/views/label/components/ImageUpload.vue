@@ -1,11 +1,9 @@
 <template>
   <div class="clearfix">
-    <a-upload list-type="picture-card" :file-list="fileList" :custom-request="uploadResourceLogo" :remove="remove" @preview="handlePreview" @change="handleChange">
+    <a-upload list-type="picture-card" :file-list="fileList" :custom-request="uploadLabelLogo" :remove="remove" @preview="handlePreview" @change="handleChange">
       <div v-if="fileList.length < 1">
         <a-icon type="plus" />
-        <div class="ant-upload-text">
-          Upload
-        </div>
+        <div class="ant-upload-text">Upload</div>
       </div>
     </a-upload>
     <a-modal :footer="null" @cancel="handleCancel">
@@ -14,7 +12,7 @@
   </div>
 </template>
 <script>
-import resourceService from '@/service/resourceService';
+import labelService from '@/service/labelService';
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -24,11 +22,10 @@ function getBase64(file) {
     reader.onerror = error => reject(error);
   });
 }
-
 export default {
   props: {
-    // 资源导航logo
-    resourceLogo: { type: String, default: null },
+    // 标签logo
+    labelLogo: { type: String, default: null },
   },
 
   data() {
@@ -40,12 +37,12 @@ export default {
   },
 
   methods: {
-    // 资源导航logo上传
-    uploadResourceLogo(info) {
+    // 标签logo上传
+    uploadLabelLogo(info) {
       // 校验图片大小（不能超过5M）
       if (info.file.size > 5 * 1024 * 1024) {
         this.$message.warning(this.$t('common.avatarSizeTip'));
-        // TODO: Bug, unknown refs.md
+        // TODO: Bug unknown refs.md
         // this.$refs.md.$img2Url(pos, null);
         return;
       }
@@ -53,12 +50,12 @@ export default {
       const data = new FormData();
       data.append('logo', info.file);
 
-      resourceService
-        .uploadResourceLogo(data)
+      labelService
+        .uploadLabelLogo(data)
         .then(res => {
           this.fileList[0].status = 'done';
           this.fileList[0].url = res.data;
-          this.$emit('resourceLogoFn', res.data);
+          this.$emit('labelLogoFn', res.data);
         })
         .catch(err => {
           this.fileList[0].status = 'error';
@@ -82,7 +79,7 @@ export default {
     },
 
     remove() {
-      this.$emit('resourceLogoFn', null);
+      this.$emit('labelLogoFn', null);
     },
 
     // 清空fileList
@@ -93,13 +90,13 @@ export default {
 
   mounted() {
     // 编辑
-    if (this.resourceLogo) {
+    if (this.labelLogo) {
       this.fileList = [
         {
           uid: '-1',
           name: 'image.png',
           status: 'done',
-          url: this.resourceLogo,
+          url: this.labelLogo,
         },
       ];
     }

@@ -1,10 +1,10 @@
 <template>
-  <div id="resource-content" :style="$store.state.collapsed ? 'margin: 0 10px;' : ''" v-if="categoryList.length !== 0 && data.length !== 0">
+  <div id="resource-content" :style="$store.state.collapsed ? 'padding: 0 10px;' : ''" v-if="categoryList.length !== 0 && data.length !== 0">
     <div class="tabs">
       <div>
         <a-radio-group :value="size" @change="handleSizeChange" v-for="(item, index) of categoryList" :key="item.id">
-          <a-radio-button value="all" style="margin-left: 10px" v-if="index === 0"> 全部资源 </a-radio-button>
-          <a-radio-button :value="item" style="margin: 10px 0 0 10px" v-else>
+          <a-radio-button value="all" v-if="index === 0"> 全部资源 </a-radio-button>
+          <a-radio-button :value="item" style="margin: 10px 0 0 9px" v-else>
             {{ item }}
           </a-radio-button>
         </a-radio-group>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import ResourceCreate from '@/components/resource/ResourceCreate';
+import ResourceCreate from './ResourceCreate';
 import { useLogin } from '@/components/login';
 
 import resourceService from '@/service/resourceService';

@@ -42,7 +42,7 @@ export default (() => {
             // 如果code是302，代表需要跳转到切页面
           } else if (response.data.code === 302 && response.config.url !== '/api/bbs/user/getCurrentUserRights') {
             // window.location.href = response.data.data.target;
-            store.state.isLogin = false;
+            store.dispatch('logout');
             useLogin();
             return Promise.reject(response.data);
           } else {

@@ -27,7 +27,7 @@
         </template>
         <!-- 标签/题图 -->
         <div slot="extra" class="label-titleMap">
-          <div slot="title">
+          <div>
             <a v-for="(label, ind) in item.labelDTOS" :key="ind" style="float: right" @click.stop="routerLabelToArticle(label.id)">
               <span class="label-name">{{ label.labelName }}</span>
               <a-divider v-if="ind !== 0" type="vertical" />
@@ -299,6 +299,11 @@ export default {
 @media screen and (max-width: 576px) {
   .ant-list-vertical .ant-list-item-extra {
     margin: 0 auto 16px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .ant-list-vertical .ant-list-item-main {
+    min-width: 200px;
   }
 }
 </style>

@@ -11,8 +11,8 @@
         <div>
           <a-menu v-if="!$store.state.collapsed" v-model="current" mode="horizontal">
             <a-menu-item key="home" @click="refresh">{{ $t('common.home') }}</a-menu-item>
-            <a-menu-item key="boilingPoint" @click="routerLabel">{{ $t('common.label') }}</a-menu-item>
-            <a-menu-item key="liveStreaming" @click="routerResource">{{ $t('common.resource') }}</a-menu-item>
+            <a-menu-item key="label" @click="routerLabel">{{ $t('common.label') }}</a-menu-item>
+            <a-menu-item key="resource" @click="routerResource">{{ $t('common.resource') }}</a-menu-item>
             <a-tooltip placement="bottom">
               <template slot="title">
                 {{ $t('common.inDevelopment') }}
@@ -22,8 +22,8 @@
           </a-menu>
           <a-select class="phone-frontPage" v-if="$store.state.collapsed" :default-value="current" style="min-width: 90px; width: 100%">
             <a-select-option value="home" @click="refresh">{{ $t('common.home') }}</a-select-option>
-            <a-select-option value="boilingPoint" @click="routerLabel">{{ $t('common.label') }}</a-select-option>
-            <a-select-option value="liveStreaming" @click="routerResource">{{ $t('common.resource') }}</a-select-option>
+            <a-select-option value="label" @click="routerLabel">{{ $t('common.label') }}</a-select-option>
+            <a-select-option value="resource" @click="routerResource">{{ $t('common.resource') }}</a-select-option>
             <a-select-option value="course">{{ $t('common.course') }}</a-select-option>
           </a-select>
         </div>
@@ -146,8 +146,8 @@ import { useLogin } from '@/components/login';
 
 const menuKeys = {
   home: 'home',
-  boilingPoint: 'boilingPoint',
-  liveStreaming: 'liveStreaming',
+  label: 'label',
+  resource: 'resource',
   course: 'course',
 };
 
@@ -220,15 +220,7 @@ export default {
 
     // 退出登录
     logout() {
-      loginService
-        .logout()
-        .then(res => {
-          // 刷新当前页面
-          this.$router.go(0);
-        })
-        .catch(err => {
-          this.$message.error(err.desc);
-        });
+      this.$store.dispatch('logout');
     },
 
     // 搜索
@@ -353,6 +345,15 @@ export default {
   align-items: center;
 }
 
+@media (max-width: 1100px) {
+  .main-header {
+    width: 100%;
+  }
+  .ant-layout-header {
+    padding: 0 10px;
+  }
+}
+
 .header-left-content {
   display: flex;
   justify-content: left;
@@ -460,7 +461,7 @@ export default {
     .header-search,
     .header-item,
     .header-item-login {
-      padding: 0 8px;
+      padding: 0 8px 0 4px;
     }
   }
 }

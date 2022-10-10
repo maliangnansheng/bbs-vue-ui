@@ -17,7 +17,7 @@
     <a-form-item :label="$t('common.resourceLogo')">
       <image-upload ref="child" :resource-logo="resourceLogo" @resourceLogoFn="resourceLogoFn" />
     </a-form-item>
-    <a-divider style="margin: 10px 0;"></a-divider>
+    <a-divider style="margin: 10px 0"></a-divider>
     <a-form-item class="form-item-submit">
       <a-button type="primary" html-type="submit">{{ $t('common.sureAndAdd') }}</a-button>
     </a-form-item>
@@ -26,7 +26,7 @@
 
 <script>
 import resourceService from '@/service/resourceService';
-import ImageUpload from '@/components/resource/ImageUpload';
+import ImageUpload from './ImageUpload';
 
 export default {
   components: { ImageUpload },

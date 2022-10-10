@@ -79,6 +79,7 @@ export const routes = [
       },
       {
         path: '/label/:id',
+        name: 'labelDetail',
         component: () => import('@/views/label/detail/index.vue'),
         meta: {
           title: '标签详情',

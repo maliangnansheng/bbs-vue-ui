@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ResourceContent from '@/components/resource/ResourceContent';
+import ResourceContent from './components/ResourceContent';
 
 import resourceService from '@/service/resourceService';
 

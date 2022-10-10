@@ -9,7 +9,7 @@
 
         <!-- 首页 -->
         <div>
-          <a-menu v-if="!$store.state.collapsed" v-model="current" mode="horizontal">
+          <a-menu v-if="!$store.state.collapsed" :value="current" :default-selected-keys="current" mode="horizontal">
             <a-menu-item key="home" @click="refresh">{{ $t('common.home') }}</a-menu-item>
             <a-menu-item key="label" @click="routerLabel">{{ $t('common.label') }}</a-menu-item>
             <a-menu-item key="resource" @click="routerResource">{{ $t('common.resource') }}</a-menu-item>

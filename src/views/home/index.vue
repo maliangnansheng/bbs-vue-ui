@@ -1,13 +1,14 @@
 <template>
-  <a-row type="flex" justify="center" id="components-layout-basic">
-    <a-col :span="$store.state.collapsed ? 24 : 18" :style="$store.state.collapsed ? '' : 'border-right: 20px solid #f0f2f5'">
+  <a-row id="components-layout-basic" type="flex" justify="center" :gutter="20">
+    <!-- 左侧文章列表 -->
+    <a-col :span="$store.state.collapsed ? 24 : 18">
       <custom-empty v-if="spinning" />
       <div v-else>
         <!-- 轮播图 -->
         <slide-show v-if="!$store.state.collapsed && $store.state.isCarousel" />
-        <a-row v-if="!$store.state.collapsed && $store.state.isCarousel">
-          <a-col :span="24" style="height: 2px" />
-        </a-row>
+
+        <div v-if="!$store.state.collapsed && $store.state.isCarousel" style="height: 2px"></div>
+
         <!-- 管理员才需要 -->
         <a-tabs default-active-key="approved" @change="changeTab" style="background: #fff" v-if="$store.state.isManage">
           <a-tab-pane key="approved">
@@ -20,12 +21,10 @@
               :finish="finish"
               :has-next="hasNext"
               :data="listData"
-              :service="articleService"
               :is-admin-audit="true"
               @updateData="updateData"
               @updateTotal="updateTotal"
               @updateReviewRejectedTotal="updateReviewRejectedTotal"
-              @refresh="refresh"
               style="background: #fff"
             />
           </a-tab-pane>
@@ -39,13 +38,11 @@
               :finish="finish"
               :has-next="hasNext"
               :data="pendingReviewData"
-              :service="articleService"
               :is-admin-audit="true"
               @updatePendingReviewData="updatePendingReviewData"
               @updatePendingReviewTotal="updatePendingReviewTotal"
               @updateTotal="updateTotal"
               @updateReviewRejectedTotal="updateReviewRejectedTotal"
-              @refresh="refresh"
               style="background: #fff"
             />
           </a-tab-pane>
@@ -59,51 +56,33 @@
               :finish="finish"
               :has-next="hasNext"
               :data="reviewRejectedData"
-              :service="articleService"
               :is-admin-audit="true"
               @updateReviewRejectedData="updateReviewRejectedData"
               @updateTotal="updateTotal"
               @updateReviewRejectedTotal="updateReviewRejectedTotal"
-              @refresh="refresh"
               style="background: #fff"
             />
           </a-tab-pane>
         </a-tabs>
         <!-- 文章列表 -->
-        <front-page-article
-          v-if="!$store.state.isManage && !spinning"
-          :finish="finish"
-          :has-next="hasNext"
-          :data="listData"
-          :service="articleService"
-          @refresh="refresh"
-          style="background: #fff"
-        />
+        <front-page-article v-if="!$store.state.isManage && !spinning" :finish="finish" :has-next="hasNext" :data="listData" style="background: #fff" />
       </div>
     </a-col>
+
+    <!-- 右侧列表 -->
     <a-col v-if="!$store.state.collapsed" :span="6">
-      <!-- 系统简介 -->
-      <project-intro style="background: #fff" />
-      <a-row>
-        <a-col :span="24" style="height: 10px" />
-      </a-row>
-      <!-- 作者榜 -->
-      <authors-list style="background: #fff" />
-      <a-row>
-        <a-col :span="24" style="height: 10px" />
-      </a-row>
-      <!-- 最新评论 -->
-      <latest-comment style="background: #fff" />
-      <a-row>
-        <a-col :span="24" style="height: 10px" />
-      </a-row>
-      <!-- 友情捐赠 -->
-      <friend-donate style="background: #fff" />
-      <a-row>
-        <a-col :span="24" style="height: 10px" />
-      </a-row>
-      <!-- 备案信息 -->
-      <filing-info />
+      <a-space direction="vertical" :size="10" style="vertical-align: top">
+        <!-- 系统简介 -->
+        <project-intro style="background: #fff" />
+        <!-- 作者榜 -->
+        <authors-list style="background: #fff" />
+        <!-- 最新评论 -->
+        <latest-comment style="background: #fff" />
+        <!-- 友情捐赠 -->
+        <friend-donate style="background: #fff" />
+        <!-- 备案信息 -->
+        <filing-info />
+      </a-space>
     </a-col>
   </a-row>
 </template>
@@ -141,7 +120,6 @@ export default {
       isReviewRejectedTab: false,
       // 加载中...
       spinning: true,
-      articleService,
       listData: [],
       pendingReviewData: [],
       reviewRejectedData: [],
@@ -151,7 +129,6 @@ export default {
       hasNext: true,
       finish: false,
       params: { currentPage: 1, pageSize: 12 },
-      searchContent: '',
     };
   },
 
@@ -245,12 +222,6 @@ export default {
         });
     },
 
-    // 刷新列表
-    refresh() {
-      this.params = { currentPage: 1, pageSize: 10 };
-      this.getArticleList(this.params);
-    },
-
     // tab切换回调
     changeTab(activeKey) {
       if (activeKey === 'approved') {
@@ -308,13 +279,13 @@ export default {
 
   mounted() {
     const query = this.$route.query.query;
-    this.searchContent = query;
     this.params.title = query;
     this.getArticleList(this.params);
     if (this.$store.state.isManage) {
       this.getPendingReviewArticles(this.params);
       this.getDisabledArticles(this.params);
     }
+    // TODO 这里用mixins更好些，但最好还是将这个滚动加载操作落实到列表组件，暂时不改
     // 监听滚动，做滚动加载
     this.$utils.scroll.call(this, document.querySelector('#app'));
   },
@@ -324,7 +295,6 @@ export default {
     $route() {
       // 跳转到该页面后需要进行的操作
       const query = this.$route.query.query;
-      this.searchContent = query;
       this.params.title = query;
       this.getArticleList(this.params);
     },

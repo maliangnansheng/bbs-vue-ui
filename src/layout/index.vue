@@ -24,10 +24,11 @@ export default {
 <style lang="less" scoped>
 .ant-layout-content {
   padding: 64px 0 32px;
+  display: flex;
+  justify-content: center;
 }
 .content {
   width: 1100px;
-  margin: 0 auto;
 }
 @media (max-width: 1100px) {
   .content {

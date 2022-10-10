@@ -22,6 +22,18 @@ export default {
       },
     };
   },
+
+  created() {
+    this.setLanguageAndTheme();
+    this.setIsCarousel();
+    // 获取用户权限，判断用户是否是登录状态
+    this.getAccess();
+  },
+  mounted() {
+    // 初始化dom，获取用户界面宽高，并且添加监听
+    this.initDom();
+  },
+
   methods: {
     ...mapMutations(['changeColor']),
     ...mapActions(['getAccess']),
@@ -29,18 +41,22 @@ export default {
 
     // 初始化页面。获取屏幕尺寸以及监听屏幕尺寸
     initDom() {
-      // 在Vue中this始终指向Vue，但一些其他组件如axios中this为undefined,通过let that = this将this保存在that中，再在函数中使用that均可
-      const that = this;
-      // 利用window.onresize事件监听页面大小变化
-      window.onload = setWidth;
-      window.onresize = setWidth;
+      // 箭头函数中的this指向词法上下文
+      const setWidth = () => {
+        const sizeInfo = {
+          width: document.documentElement.clientWidth,
+          height: document.documentElement.clientHeight,
+          collapsed: window.innerWidth < 1000,
+        };
+        this.$store.commit('setWidth', sizeInfo);
+      };
 
-      function setWidth() {
-        that.$store.state.width = window.innerWidth;
-        that.$store.state.height = window.innerHeight;
-        // 900/1050
-        that.$store.state.collapsed = window.innerWidth < 1000;
-      }
+      window.onload = setWidth;
+      // 监听屏幕尺寸变化，规范写法，及时清除监听
+      window.addEventListener('resize', setWidth);
+      this.$once('hook:beforeDestroy', () => {
+        window.removeEventListener('resize', setWidth);
+      });
     },
     /**
      * @function setLanguageAndTheme 设置语言和主题色（尝试从localStorage获取，没有就使用默认值）
@@ -63,16 +79,6 @@ export default {
         this.$store.state.isCarousel = 1;
       }
     },
-  },
-  created() {
-    this.setLanguageAndTheme();
-    this.setIsCarousel();
-    // 获取用户权限，判断用户是否是登录状态
-    this.getAccess();
-  },
-  mounted() {
-    // 初始化dom，获取用户界面宽高，并且添加监听
-    this.initDom();
   },
 };
 </script>

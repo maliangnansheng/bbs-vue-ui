@@ -117,6 +117,9 @@ export default new Vuex.Store({
     setUserInfo(state, userInfo) {
       Object.assign(state, userInfo);
     },
+    setWidth(state, sizeInfo) {
+      Object.assign(state, sizeInfo);
+    },
   },
   actions: {
     logout({ commit }) {

@@ -121,7 +121,6 @@ export default {
         userService
           .updateLikeState({ articleId: articleId })
           .then(() => {
-            // this.$emit("refresh");
             const isLike = this.tempData[index].articleCountDTO.isLike;
             // 取消点赞操作
             if (isLike) {

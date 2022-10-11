@@ -3,218 +3,98 @@ import axios from 'axios';
 export default {
   // 获取当前用户权限
   getCurrentUserAccess() {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('/api/bbs/user/getCurrentUserRights')
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.get('/api/bbs/user/getCurrentUserRights');
   },
   // 更新点赞状态
   updateLikeCommentState(params) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('/api/bbs/user/updateLikeCommentState', { params })
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.get('/api/bbs/user/updateLikeCommentState', { params });
   },
   // 更新评论点赞状态
   updateLikeState(params) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('/api/bbs/user/updateLikeState', { params })
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.get('/api/bbs/user/updateLikeState', { params });
   },
   // 获取热门作者列表
   getHotAuthorsList(params) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('/api/bbs/user/getHotAuthorsList', { params })
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.get('/api/bbs/user/getHotAuthorsList', { params });
   },
   // 获取关注的用户信息
   getFollowUsers(params) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('/api/bbs/user/getFollowUsers', { params })
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.get('/api/bbs/user/getFollowUsers', { params });
   },
   // 获取作者信息
   getUserInfo(params) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('/api/bbs/user/getUserInfo', { params })
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.get('/api/bbs/user/getUserInfo', { params });
   },
   // 获取关注/粉丝数量
   getFollowCount(params) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('/api/bbs/user/getFollowCount', { params })
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.get('/api/bbs/user/getFollowCount', { params });
   },
   // 更新关注状态
   updateFollowState(params) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('/api/bbs/user/updateFollowState', { params })
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.get('/api/bbs/user/updateFollowState', { params });
   },
   // 上传用户头像（更新）
   uploadUserPicture(data) {
-    return new Promise((resolve, reject) => {
-      axios
-        .post('/api/bbs/user/uploadUserPicture', data)
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.post('/api/bbs/user/uploadUserPicture', data);
   },
   // 更新用户基本信息
   updateUserBasicInfo(data) {
-    return new Promise((resolve, reject) => {
-      axios
-        .post('/api/bbs/user/updateUserBasicInfo', data)
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.post('/api/bbs/user/updateUserBasicInfo', data);
   },
   // 发送短信验证码
   sendSmsVerifyCode(params) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('/api/bbs/user/sendSmsVerifyCode', { params })
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.get('/api/bbs/user/sendSmsVerifyCode', { params });
   },
   // 发送邮件验证码
   sendEmailVerifyCode(params) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('/api/bbs/user/sendEmailVerifyCode', { params })
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.get('/api/bbs/user/sendEmailVerifyCode', { params });
   },
   // 绑定手机
   bindPhone(data) {
-    return new Promise((resolve, reject) => {
-      axios
-        .post('/api/bbs/user/bindPhone', data)
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.post('/api/bbs/user/bindPhone', data);
   },
   // 解绑手机
   untiePhone(data) {
-    return new Promise((resolve, reject) => {
-      axios
-        .post('/api/bbs/user/untiePhone', data)
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.post('/api/bbs/user/untiePhone', data);
   },
   // 绑定邮箱
   bindEmail(data) {
-    return new Promise((resolve, reject) => {
-      axios
-        .post('/api/bbs/user/bindEmail', data)
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.post('/api/bbs/user/bindEmail', data);
   },
   // 解绑邮箱
   untieEmail(data) {
-    return new Promise((resolve, reject) => {
-      axios
-        .post('/api/bbs/user/untieEmail', data)
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.post('/api/bbs/user/untieEmail', data);
   },
   // 更新密码
   updatePassword(data) {
-    return new Promise((resolve, reject) => {
-      axios
-        .post('/api/bbs/user/updatePassword', data)
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.post('/api/bbs/user/updatePassword', data);
   },
   // 邮箱判重
   isValidEmail(params) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('/api/bbs/user/isValidEmail', { params })
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.get('/api/bbs/user/isValidEmail', { params });
   },
   // 手机判重
   isValidPhone(params) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('/api/bbs/user/isValidPhone', { params })
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.get('/api/bbs/user/isValidPhone', { params });
   },
   // 用户判重
   isValidUser(params) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('/api/bbs/user/isValidUser', { params })
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.get('/api/bbs/user/isValidUser', { params });
   },
   // 判断手机是否已经绑定
   isPhoneExist(data) {
-    return new Promise((resolve, reject) => {
-      axios
-        .post('/api/bbs/user/isPhoneExist/' + data)
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.post('/api/bbs/user/isPhoneExist/' + data);
   },
   // 判断email是否已经绑定
   isEmailExist(data) {
-    return new Promise((resolve, reject) => {
-      axios
-        .post('/api/bbs/user/isEmailExist/' + data)
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.post('/api/bbs/user/isEmailExist/' + data);
   },
   // 手机重置密码
   phoneResetPassword(data) {
-    return new Promise((resolve, reject) => {
-      axios
-        .post('/api/bbs/user/phoneResetPassword', data)
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.post('/api/bbs/user/phoneResetPassword', data);
   },
   // 邮箱重置密码
   emailResetPassword(data) {
-    return new Promise((resolve, reject) => {
-      axios
-        .post('/api/bbs/user/emailResetPassword', data)
-        .then(res => resolve(res))
-        .catch(err => reject(err));
-    });
+    return axios.post('/api/bbs/user/emailResetPassword', data);
   },
 };

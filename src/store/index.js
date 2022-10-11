@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import zh_CN from '@/i18n/zh_CN';
 import en_US from '@/i18n/en_US';
 import userService from '@/service/userService';
+import loginService from '@/service/loginService';
 import utils from '@/config/utils';
 import router from '@/router';
 import globalConfig from '@/config';
@@ -123,7 +124,7 @@ export default new Vuex.Store({
   },
   actions: {
     logout({ commit }) {
-      userService
+      loginService
         .logout()
         .then(() => {
           commit('setUserInfo', {

@@ -111,6 +111,9 @@ export default new Vuex.Store({
       window.localStorage.themeColor = color;
       state.themeColor = color;
     },
+    setCarousel(state, isCarousel) {
+      state.isCarousel = isCarousel;
+    },
     // 导航栏显示/隐藏
     setHeaderVisible(state, visible) {
       state.headerVisible = visible;

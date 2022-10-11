@@ -1,7 +1,7 @@
 <template>
   <a-form-model ref="ruleForm" :model="ruleForm" :rules="rules" id="mobileResetPassword-form-content">
     <h1 class="title">{{ $t('common.mobileResetPassword') }}</h1>
-    <a-form-model-item has-feedback prop="phone">
+    <a-form-model-item has-feedback prop="phone" v-bind="layout">
       <a-input v-model="ruleForm.phone" :placeholder="$t('common.phone')" size="large">
         <a-icon slot="prefix" type="phone" style="color: rgba(0, 0, 0, 0.25)" />
       </a-input>
@@ -80,6 +80,10 @@ export default {
         phone: [{ validator: validatePhone, trigger: 'change' }],
         code: [{ validator: validateCode, trigger: 'change' }],
         newPassword: [{ validator: validateNewPassword, trigger: 'change' }],
+      },
+      layout: {
+        labelCol: { span: 0 },
+        wrapperCol: { span: 24 },
       },
     };
   },

@@ -14,7 +14,7 @@ import '@/assets/icon/iconfont.css';
 import '@/service/axios';
 import moment from 'moment';
 import './assets/css/main.less';
-import utils from './utils/utils';
+import * as utils from './utils';
 import mavonEditor from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
 

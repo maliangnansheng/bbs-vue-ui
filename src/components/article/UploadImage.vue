@@ -2,7 +2,7 @@
   <div class="img-container">
     <label for="avatarFile">
       <img v-if="!articlePicture" style="width: 100%" src="@/assets/img/avatar-bg.png" alt="" />
-      <img v-else style="width: 100%;" :src="articlePicture" alt="" />
+      <img v-else style="width: 100%" :src="articlePicture" alt="" />
     </label>
     <input style="display: none" accept=".jpg, .jpeg, .png" @change="onFileChange" type="file" name="avatarFile" id="avatarFile" />
   </div>

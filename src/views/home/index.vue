@@ -10,62 +10,36 @@
         <div v-if="!$store.state.collapsed && $store.state.isCarousel" style="height: 2px"></div>
 
         <!-- 管理员才需要 -->
-        <a-tabs default-active-key="approved" @change="changeTab" style="background: #fff" v-if="$store.state.isManage">
-          <a-tab-pane key="approved">
+        <a-tabs v-if="$store.state.isManage" v-model="curTab" @change="changeTab" style="background: #fff">
+          <!-- 已审核通过 -->
+          <a-tab-pane :key="tabKeys.approved">
             <span slot="tab">
               {{ $t('common.approved') + '(' + total + ')' }}
             </span>
             <!-- 文章列表 -->
-            <front-page-article
-              v-if="!spinning && isApprovedTab"
-              :finish="finish"
-              :has-next="hasNext"
-              :data="listData"
-              :is-admin-audit="true"
-              @updateData="updateData"
-              @updateTotal="updateTotal"
-              @updateReviewRejectedTotal="updateReviewRejectedTotal"
-              style="background: #fff"
-            />
+            <front-page-article v-if="!spinning && curTab === tabKeys.approved" :finish="finish" :has-next="hasNext" :data="listData" is-admin-audit />
           </a-tab-pane>
-          <a-tab-pane key="pendingReview">
+
+          <!-- 待审核 -->
+          <a-tab-pane :key="tabKeys.pendingReview">
             <span slot="tab">
               {{ $t('common.pendingReview') + '(' + pendingReviewTotal + ')' }}
             </span>
             <!-- 文章列表 -->
-            <front-page-article
-              v-if="!spinning && isPendingReviewTab"
-              :finish="finish"
-              :has-next="hasNext"
-              :data="pendingReviewData"
-              :is-admin-audit="true"
-              @updatePendingReviewData="updatePendingReviewData"
-              @updatePendingReviewTotal="updatePendingReviewTotal"
-              @updateTotal="updateTotal"
-              @updateReviewRejectedTotal="updateReviewRejectedTotal"
-              style="background: #fff"
-            />
+            <front-page-article v-if="!spinning && curTab === tabKeys.pendingReview" :finish="finish" :has-next="hasNext" :data="listData" is-admin-audit />
           </a-tab-pane>
-          <a-tab-pane key="reviewRejected">
+
+          <!-- 已拒绝 -->
+          <a-tab-pane :key="tabKeys.reviewRejected">
             <span slot="tab">
               {{ $t('common.reviewRejected') + '(' + reviewRejectedTotal + ')' }}
             </span>
             <!-- 文章列表 -->
-            <front-page-article
-              v-if="!spinning && isReviewRejectedTab"
-              :finish="finish"
-              :has-next="hasNext"
-              :data="reviewRejectedData"
-              :is-admin-audit="true"
-              @updateReviewRejectedData="updateReviewRejectedData"
-              @updateTotal="updateTotal"
-              @updateReviewRejectedTotal="updateReviewRejectedTotal"
-              style="background: #fff"
-            />
+            <front-page-article v-if="!spinning && curTab === tabKeys.reviewRejected" :finish="finish" :has-next="hasNext" :data="listData" is-admin-audit />
           </a-tab-pane>
         </a-tabs>
         <!-- 文章列表 -->
-        <front-page-article v-if="!$store.state.isManage && !spinning" :finish="finish" :has-next="hasNext" :data="listData" style="background: #fff" />
+        <front-page-article v-if="!$store.state.isManage && !spinning" :finish="finish" :has-next="hasNext" :data="listData" />
       </div>
     </a-col>
 
@@ -73,13 +47,13 @@
     <a-col v-if="!$store.state.collapsed" :span="6">
       <a-space direction="vertical" :size="10" style="vertical-align: top">
         <!-- 系统简介 -->
-        <project-intro style="background: #fff" />
+        <project-intro />
         <!-- 作者榜 -->
-        <authors-list style="background: #fff" />
+        <authors-list />
         <!-- 最新评论 -->
-        <latest-comment style="background: #fff" />
+        <latest-comment />
         <!-- 友情捐赠 -->
-        <friend-donate style="background: #fff" />
+        <friend-donate />
         <!-- 备案信息 -->
         <filing-info />
       </a-space>
@@ -98,6 +72,7 @@ import LatestComment from '@/components/right/LatestComment';
 import FriendDonate from '@/components/right/FriendDonate';
 import CustomEmpty from '@/components/utils/CustomEmpty';
 
+import { loadMoreWhenScroll } from '@/mixins/loadMoreWhenScroll';
 import articleService from '@/service/articleService';
 
 export default {
@@ -114,15 +89,15 @@ export default {
   },
   data() {
     return {
-      // 是否在审批通过tab下
-      isApprovedTab: true,
-      isPendingReviewTab: false,
-      isReviewRejectedTab: false,
+      tabKeys: {
+        approved: 'approved',
+        pendingReview: 'pendingReview',
+        reviewRejected: 'reviewRejected',
+      },
+      curTab: 'approved',
       // 加载中...
       spinning: true,
       listData: [],
-      pendingReviewData: [],
-      reviewRejectedData: [],
       total: 0,
       pendingReviewTotal: 0,
       reviewRejectedTotal: 0,
@@ -132,22 +107,37 @@ export default {
     };
   },
 
+  mixins: [loadMoreWhenScroll],
+
+  provide() {
+    return {
+      auditManage: {
+        updateData: this.updateData,
+        updateTotal: this.updateTotal,
+        updateReviewRejectedTotal: this.updateReviewRejectedTotal,
+        updatePendingReviewData: this.updatePendingReviewData,
+        updatePendingReviewTotal: this.updatePendingReviewTotal,
+        updateReviewRejectedData: this.updateReviewRejectedData,
+      },
+    };
+  },
+
   methods: {
-    // 加载更多（滚动加载）
+    /** 加载更多（滚动加载，mixins内调用） */
     loadMore() {
       this.params.currentPage++;
-      if (this.isApprovedTab) {
+      if (this.curTab === this.tabKeys.approved) {
         this.getArticleList(this.params, true);
       }
-      if (this.isPendingReviewTab) {
+      if (this.curTab === this.tabKeys.pendingReview) {
         this.getPendingReviewArticles(this.params, true);
       }
-      if (this.isReviewRejectedTab) {
+      if (this.curTab === this.tabKeys.reviewRejected) {
         this.getDisabledArticles(this.params, true);
       }
     },
 
-    // 获取文章列表信息
+    /** 获取文章列表信息 */
     getArticleList(params, isLoadMore) {
       if (!isLoadMore) {
         this.params.currentPage = 1;
@@ -163,6 +153,9 @@ export default {
             this.listData = res.data.list;
           }
           this.total = res.data.total;
+          if (this.total === this.listData.length) {
+            this.hasNext = false;
+          }
           this.spinning = false;
           this.finish = true;
         })
@@ -172,7 +165,7 @@ export default {
         });
     },
 
-    // 获取待审核的文章
+    /** 获取待审核的文章 */
     getPendingReviewArticles(params, isLoadMore) {
       if (!isLoadMore) {
         this.params.currentPage = 1;
@@ -182,12 +175,15 @@ export default {
         .getPendingReviewArticles(params)
         .then(res => {
           if (isLoadMore) {
-            this.pendingReviewData = this.pendingReviewData.concat(res.data.list);
+            this.listData = this.listData.concat(res.data.list);
             this.hasNext = res.data.list.length !== 0;
           } else {
-            this.pendingReviewData = res.data.list;
+            this.listData = res.data.list;
           }
           this.pendingReviewTotal = res.data.total;
+          if (this.pendingReviewTotal === this.listData.length) {
+            this.hasNext = false;
+          }
           this.spinning = false;
           this.finish = true;
         })
@@ -197,7 +193,7 @@ export default {
         });
     },
 
-    // 获取禁用的文章
+    /** 获取禁用的文章 */
     getDisabledArticles(params, isLoadMore) {
       if (!isLoadMore) {
         this.params.currentPage = 1;
@@ -207,12 +203,15 @@ export default {
         .getDisabledArticles(params)
         .then(res => {
           if (isLoadMore) {
-            this.reviewRejectedData = this.reviewRejectedData.concat(res.data.list);
+            this.listData = this.listData.concat(res.data.list);
             this.hasNext = res.data.list.length !== 0;
           } else {
-            this.reviewRejectedData = res.data.list;
+            this.listData = res.data.list;
           }
           this.reviewRejectedTotal = res.data.total;
+          if (this.reviewRejectedTotal === this.listData.length) {
+            this.hasNext = false;
+          }
           this.spinning = false;
           this.finish = true;
         })
@@ -222,34 +221,18 @@ export default {
         });
     },
 
-    // tab切换回调
+    /** tab切换回调 */
     changeTab(activeKey) {
-      if (activeKey === 'approved') {
-        this.isApprovedTab = true;
-        this.isPendingReviewTab = false;
-        this.isReviewRejectedTab = false;
-        this.hasNext = true;
+      this.hasNext = true;
+      this.listData = [];
+      if (activeKey === this.tabKeys.approved) {
         this.getArticleList(this.params);
-        // 监听滚动，做滚动加载
-        this.$utils.scroll.call(this, document.querySelector('#app'));
       }
-      if (activeKey === 'pendingReview') {
-        this.isApprovedTab = false;
-        this.isPendingReviewTab = true;
-        this.isReviewRejectedTab = false;
-        this.hasNext = true;
+      if (activeKey === this.tabKeys.pendingReview) {
         this.getPendingReviewArticles(this.params);
-        // 监听滚动，做滚动加载
-        this.$utils.scroll.call(this, document.querySelector('#app'));
       }
-      if (activeKey === 'reviewRejected') {
-        this.isApprovedTab = false;
-        this.isPendingReviewTab = false;
-        this.isReviewRejectedTab = true;
-        this.hasNext = true;
+      if (activeKey === this.tabKeys.reviewRejected) {
         this.getDisabledArticles(this.params);
-        // 监听滚动，做滚动加载
-        this.$utils.scroll.call(this, document.querySelector('#app'));
       }
     },
 
@@ -266,14 +249,14 @@ export default {
       this.reviewRejectedTotal += count;
     },
     updateReviewRejectedData(tempData) {
-      this.reviewRejectedData = tempData;
+      this.listData = tempData;
     },
     // 待审核
     updatePendingReviewTotal(count) {
       this.pendingReviewTotal += count;
     },
     updatePendingReviewData(tempData) {
-      this.pendingReviewData = tempData;
+      this.listData = tempData;
     },
   },
 
@@ -282,12 +265,11 @@ export default {
     this.params.title = query;
     this.getArticleList(this.params);
     if (this.$store.state.isManage) {
-      this.getPendingReviewArticles(this.params);
-      this.getDisabledArticles(this.params);
+      // BUG 这里应该加个获取全部tab分类数据总数的接口
     }
     // TODO 这里用mixins更好些，但最好还是将这个滚动加载操作落实到列表组件，暂时不改
     // 监听滚动，做滚动加载
-    this.$utils.scroll.call(this, document.querySelector('#app'));
+    this.scroll(document.querySelector('#app'));
   },
 
   watch: {
@@ -296,7 +278,12 @@ export default {
       // 跳转到该页面后需要进行的操作
       const query = this.$route.query.query;
       this.params.title = query;
+      this.hasNext = true;
+      this.curTab = this.tabKeys.approved;
       this.getArticleList(this.params);
+      if (this.$store.state.isManage) {
+        // BUG 这里应该加个获取全部tab分类数据总数的接口
+      }
     },
   },
 };

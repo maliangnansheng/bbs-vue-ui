@@ -83,6 +83,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import userService from '@/service/userService';
 import articleService from '@/service/articleService';
@@ -108,6 +109,9 @@ export default {
       ],
     };
   },
+
+  // 文章审核相关的操作方法
+  inject: ['auditManage'],
 
   methods: {
     // 浏览点赞评论按钮的点击操作
@@ -176,46 +180,48 @@ export default {
               this.tempData = this.tempData.filter(article => article.id !== articleId);
               // 待审核
               if (state === -1) {
-                this.$emit('updatePendingReviewData', this.tempData);
+                this.auditManage.updatePendingReviewData(this.tempData);
                 // 通过
                 if (toState === 1) {
-                  this.$emit('updatePendingReviewTotal', -1);
-                  this.$emit('updateTotal', 1);
-                  this.$emit('updateReviewRejectedTotal', -1);
+                  this.auditManage.updatePendingReviewTotal(-1);
+                  this.auditManage.updateTotal(1);
+                  this.auditManage.updateReviewRejectedTotal(-1);
                 }
                 // 拒绝
                 if (toState === 0) {
-                  this.$emit('updatePendingReviewTotal', -1);
-                  this.$emit('updateTotal', -1);
-                  this.$emit('updateReviewRejectedTotal', 1);
+                  this.auditManage.updatePendingReviewTotal(-1);
+                  this.auditManage.updateTotal(-1);
+                  this.auditManage.updateReviewRejectedTotal(-1);
                 }
               }
               // 审核拒绝
               if (state === 0) {
-                this.$emit('updateReviewRejectedData', this.tempData);
+                this.auditManage.updateReviewRejectedData(this.tempData);
+
                 // 通过
                 if (toState === 1) {
-                  this.$emit('updateTotal', 1);
-                  this.$emit('updateReviewRejectedTotal', -1);
+                  this.auditManage.updateTotal(1);
+                  this.auditManage.updateReviewRejectedTotal(-1);
                 }
                 // 拒绝
                 if (toState === 0) {
-                  this.$emit('updateTotal', -1);
-                  this.$emit('updateReviewRejectedTotal', 1);
+                  this.auditManage.updateTotal(-1);
+                  this.auditManage.updateReviewRejectedTotal(1);
                 }
               }
               // 审核通过
               if (state === 1) {
-                this.$emit('updateData', this.tempData);
+                this.auditManage.updateData(this.tempData);
+
                 // 通过
                 if (toState === 1) {
-                  this.$emit('updateTotal', 1);
-                  this.$emit('updateReviewRejectedTotal', -1);
+                  this.auditManage.updateTotal(1);
+                  this.auditManage.updateReviewRejectedTotal(-1);
                 }
                 // 拒绝
                 if (toState === 0) {
-                  this.$emit('updateTotal', -1);
-                  this.$emit('updateReviewRejectedTotal', 1);
+                  this.auditManage.updateTotal(-1);
+                  this.auditManage.updateReviewRejectedTotal(1);
                 }
               }
               this.$message.success(this.$t('common.approvalSuccessed'));
@@ -227,8 +233,6 @@ export default {
       });
     },
   },
-
-  mounted() {},
 
   watch: {
     // data值改变时触发
@@ -242,6 +246,9 @@ export default {
 </script>
 
 <style lang="less">
+#main-article-content {
+  background-color: #fff;
+}
 #main-article-content .label-titleMap {
   display: flex;
   flex-direction: column;

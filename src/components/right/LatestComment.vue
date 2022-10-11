@@ -1,7 +1,7 @@
 <template>
   <div id="latest-comment" v-if="data.length !== 0">
     <header class="user-block-header">{{ $t('common.latestComment') }}</header>
-    <a-divider style="margin: 10px 0 0 0;" />
+    <a-divider style="margin: 10px 0 0 0" />
     <a-list item-layout="horizontal" :data-source="data" :split="false">
       <a-list-item slot="renderItem" slot-scope="item" @click="routerArticleDetail(item.articleId)">
         <a-list-item-meta :description="item.content">
@@ -51,6 +51,7 @@ export default {
 <style scoped>
 #latest-comment {
   padding-bottom: 10px;
+  background-color: #fff;
 }
 
 #latest-comment .user-block-header {

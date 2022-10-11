@@ -6,10 +6,10 @@
     </div>
     <a-col :span="$store.state.collapsed ? 24 : 18" :style="$store.state.collapsed ? '' : 'border-right: 20px solid #f0f2f5'">
       <!-- 文章详情 -->
-      <article-detail @initLabelIds="initLabelIds" style="background: #fff" />
+      <article-detail @initLabelIds="initLabelIds" />
       <br />
       <!-- 文章评论 -->
-      <article-comment @refresh="refresh" style="background: #fff" />
+      <article-comment @refresh="refresh" />
       <a-row>
         <a-col :span="24" style="height: 10px" />
       </a-row>
@@ -26,7 +26,7 @@
         <a-col :span="24" style="height: 10px" />
       </a-row>
       <!-- 作者榜 -->
-      <authors-list style="background: #fff" />
+      <authors-list />
       <a-row>
         <a-col :span="24" style="height: 10px" />
       </a-row>

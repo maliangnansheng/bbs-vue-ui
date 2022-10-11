@@ -73,11 +73,8 @@ export default {
     },
     setIsCarousel() {
       // 禁用
-      if (Number(window.localStorage.isCarousel) === 0) {
-        this.$store.state.isCarousel = 0;
-      } else {
-        this.$store.state.isCarousel = 1;
-      }
+      const isCarousel = Number(window.localStorage.isCarousel);
+      this.$store.commit('setCarousel', isCarousel);
     },
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <div id="article-comment" :style="`padding: ${$store.state.collapsed ? '60px 10px 10px' : '60px 20px 20px'};margin-top: -60px`">
+  <div id="article-comment" :style="`padding: ${$store.state.collapsed ? '60px 10px 10px' : '60px 20px 20px'}`">
     <p class="text">{{ $t('common.comment') }}</p>
     <create-comment @refresh="refresh" />
     <p class="text">{{ $t('common.hotComment') }}</p>
@@ -53,6 +53,10 @@ export default {
 </script>
 
 <style scoped>
+#article-comment {
+  background-color: #fff;
+}
+
 #article-comment .text {
   font-size: 18px;
   line-height: 30px;

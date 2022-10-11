@@ -1,7 +1,7 @@
 <template>
   <a-form-model ref="ruleForm" :model="ruleForm" :rules="rules" id="emailResetPassword-form-content">
     <h1 class="title">{{ $t('common.emailResetPassword') }}</h1>
-    <a-form-model-item has-feedback prop="email">
+    <a-form-model-item has-feedback prop="email" v-bind="layout">
       <a-input v-model="ruleForm.email" :placeholder="$t('common.email')" size="large">
         <a-icon slot="prefix" type="mail" style="color: rgba(0, 0, 0, 0.25)" />
       </a-input>
@@ -80,6 +80,10 @@ export default {
         email: [{ validator: validateEmail, trigger: 'change' }],
         code: [{ validator: validateCode, trigger: 'change' }],
         newPassword: [{ validator: validateNewPassword, trigger: 'change' }],
+      },
+      layout: {
+        labelCol: { span: 0 },
+        wrapperCol: { span: 24 },
       },
     };
   },

@@ -1,20 +1,20 @@
 <template>
   <div id="authors-list" v-if="data.length !== 0">
     <header class="user-block-header">🎖️ {{ $t('common.authorList') }}</header>
-    <a-divider style="margin: 10px 0 0 0;" />
+    <a-divider style="margin: 10px 0 0 0" />
     <a-list item-layout="horizontal" :data-source="data" :split="false">
       <a-list-item slot="renderItem" slot-scope="item" @click="routerUserCenter(item.id)">
         <a-list-item-meta :description="item.intro">
           <span class="username" slot="title">
-            <span style="padding-right: 2px;">{{ item.name }}</span>
+            <span style="padding-right: 2px">{{ item.name }}</span>
             <img :src="require('@/assets/img/level/' + item.level + '.svg')" alt="" />
           </span>
           <a-avatar slot="avatar" :src="item.picture ? item.picture : require('@/assets/img/default-avatar.png')" />
         </a-list-item-meta>
       </a-list-item>
     </a-list>
-    <a-divider style="margin: 0;" />
-    <div class="full-list" @click="recommended" style="text-align: center; padding: 10px 0;">
+    <a-divider style="margin: 0" />
+    <div class="full-list" @click="recommended" style="text-align: center; padding: 10px 0">
       <a>
         <span>{{ $t('common.fullList') }}</span>
         <a-icon type="right" />
@@ -68,6 +68,9 @@ export default {
 </script>
 
 <style scoped>
+#authors-list {
+  background-color: #fff;
+}
 #authors-list .user-block-header {
   padding: 15px 10px 0 15px;
 }

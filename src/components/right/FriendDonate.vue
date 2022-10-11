@@ -1,7 +1,7 @@
 <template>
   <div id="friend-donate">
     <header class="user-block-header">{{ $t('common.friendDonate') }}</header>
-    <a-divider style="margin: 10px 0 0 0;" />
+    <a-divider style="margin: 10px 0 0 0" />
     <p>
       <small class="text-warning">{{ $t('common.donateContent1') }}</small>
       <br />
@@ -27,7 +27,7 @@
           <!--10元-->
           <div role="tabpanel" class="tab-pane active" id="rmb-10">
             <img src="http://76.nanshengbbs.top/donate-zhifubao-10.jpg" alt="支付宝" style="width: 100%" />
-            <a-divider style="margin: 5px;" />
+            <a-divider style="margin: 5px" />
             <img src="http://76.nanshengbbs.top/donate-weixin-10.png" alt="微信" style="width: 100%" />
           </div>
         </a-tab-pane>
@@ -35,7 +35,7 @@
           <!--20元-->
           <div role="tabpanel" class="tab-pane" id="rmb-20">
             <img src="http://76.nanshengbbs.top/donate-zhifubao-20.jpg" alt="支付宝" style="width: 100%" />
-            <a-divider style="margin: 5px;" />
+            <a-divider style="margin: 5px" />
             <img src="http://76.nanshengbbs.top/donate-weixin-20.png" alt="微信" style="width: 100%" />
           </div>
         </a-tab-pane>
@@ -43,7 +43,7 @@
           <!--我是土豪-->
           <div role="tabpanel" class="tab-pane" id="rmb-99">
             <img src="http://76.nanshengbbs.top/donate-zhifubao-99.jpg" alt="支付宝" style="width: 100%" />
-            <a-divider style="margin: 5px;" />
+            <a-divider style="margin: 5px" />
             <img src="http://76.nanshengbbs.top/donate-weixin-99.png" alt="微信" style="width: 100%" />
           </div>
         </a-tab-pane>
@@ -51,7 +51,7 @@
           <!--我是土豪-->
           <div role="tabpanel" class="tab-pane" id="rmb-custom">
             <img src="http://76.nanshengbbs.top/donate-zhifubao-custom.jpg" alt="支付宝" style="width: 100%" />
-            <a-divider style="margin: 5px;" />
+            <a-divider style="margin: 5px" />
             <img src="http://76.nanshengbbs.top/donate-weixin-custom.png" alt="微信" style="width: 100%" />
           </div>
         </a-tab-pane>
@@ -65,6 +65,7 @@
 <style lang="less">
 #friend-donate {
   padding-bottom: 10px;
+  background-color: #fff;
 
   .user-block-header {
     padding: 15px 10px 0 15px;

@@ -25,7 +25,7 @@
           </i>
         </a>
       </span>
-      <create-comment v-if="isShow" :pre-id="preId" auto-focus @refresh="getCommentByArticleId" @hidden="isShow = false" />
+      <create-comment v-if="isShow" :pre-id="preId" auto-focus @refresh="getCommentByArticleId" />
       <div v-if="data.depth < 2 && childComment.length" class="sub-comment">
         <child-comment v-for="(item, index) of childComment" :data="item" :key="index" @getCommentByArticleId="getCommentByArticleId" />
         <span v-if="showMore" class="load-more" @click="handleLoadMore">{{ loading ? '加载中…' : '加载更多' }}</span>
@@ -120,6 +120,7 @@ export default {
           commentService
             .deleteComment(commentId)
             .then(() => {
+              this.isShow = false;
               this.$emit('getCommentByArticleId');
             })
             .catch(err => {

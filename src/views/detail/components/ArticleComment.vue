@@ -30,7 +30,9 @@ export default {
     getCommentByArticleId() {
       commentService
         .getCommentByArticleId({ articleId: this.$route.params.id })
-        .then(res => {
+        .then(async res => {
+          this.comments = [];
+          await this.$nextTick();
           this.comments = res.data;
         })
         .catch(err => {

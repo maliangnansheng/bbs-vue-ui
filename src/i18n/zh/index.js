@@ -1,4 +1,4 @@
-import common from './zh/common';
+import common from './common';
 
 export default {
   menu: {

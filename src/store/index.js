@@ -1,15 +1,16 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import zh_CN from '@/i18n/zh_CN';
-import en_US from '@/i18n/en_US';
 import userService from '@/service/userService';
 import loginService from '@/service/loginService';
 import utils from '@/config/utils';
 import router from '@/router';
 import globalConfig from '@/config';
 import { message } from 'ant-design-vue';
+import { getDefaultLang } from '@/i18n/utils';
 
 import config from './modules/config';
+
+const locale = getDefaultLang(); // default locale
 
 let userInfo = localStorage.getItem('auth_info');
 if (userInfo) {
@@ -17,7 +18,6 @@ if (userInfo) {
 } else {
   userInfo = {};
 }
-const langs = { zh_CN, en_US };
 
 Vue.use(Vuex);
 
@@ -48,32 +48,13 @@ export default new Vuex.Store({
     // 用户屏幕高度
     height: 0,
     // 语言
-    locale: 'zh_CN',
+    locale,
     // 系统通知数量
     systemNotifyCount: 0,
     // 任务提醒数量
     taskNotifyCount: 0,
     // 南生运营域名
     manageDomain: 'http://manage-test.nanshengbbs.top',
-    // 国际化方法
-    translate: function (val) {
-      // 国际化方法
-      if (!val) {
-        return '';
-      }
-      const arr = val.split('.');
-      const l = arr.length;
-      let re;
-      try {
-        re = langs[this.locale];
-        for (let i = 0; i < l; i++) {
-          re = re[arr[i]];
-        }
-      } catch (err) {
-        re = arr[l - 1];
-      }
-      return re || arr[l - 1];
-    },
   },
   getters: {
     formCol(state) {

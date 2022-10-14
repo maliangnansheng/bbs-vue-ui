@@ -138,9 +138,6 @@
 import { mapMutations, mapState } from 'vuex';
 import MessageBox from './components/MessageBox/index.vue';
 
-import store from '@/store';
-import loginService from '@/service/loginService';
-
 import { trimString } from '@/utils/regExp';
 import { useLogin } from '@/components/login';
 
@@ -189,6 +186,7 @@ export default {
     changeLanguage({ key }) {
       this.$store.state.locale = key;
       localStorage.language = key;
+      this.$i18n.locale = key;
     },
 
     // 点击菜单根据点击的key做出相应

@@ -5,6 +5,7 @@
     "mikestead.dotenv",
     "ant-design-vue.vscode-ant-design-vue-helper",
     "octref.vetur",
-    "editorconfig.editorconfig"
+    "editorconfig.editorconfig",
+    "lokalise.i18n-ally"
   ]
 }

@@ -17,20 +17,20 @@ import './assets/css/main.less';
 import * as utils from './utils';
 import mavonEditor from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
+import i18n from './i18n';
 
 Vue.config.productionTip = false;
 
 // 引入自定义工具模块
 Vue.prototype.$utils = utils;
 Vue.prototype.$moment = moment;
-// 将国际化添加为Vue的原型上的方法
-Vue.prototype.$t = store.state.translate.bind(store.state);
 
 Vue.use(Antd);
 Vue.use(mavonEditor);
 
 export default new Vue({
   router,
+  i18n,
   store,
   render: h => h(App),
 }).$mount('#app');

@@ -40,6 +40,8 @@
 
 [如何获取南生论坛设计文档？](http://bbs.nanshengbbs.top/detail/76)
 
+[南生论坛日常迭代](http://bbs.nanshengbbs.top/detail/122)
+
 ## 项目部署教程
 
 `本地部署：`

@@ -9,9 +9,6 @@
 >
 > 如果觉得不错麻烦帮忙点一次`Star⭐️`
 
-## [南生论坛项目宣传视频](https://www.bilibili.com/video/BV1ZY4y1N7W8/?vd_source=d0a5d07985a7fbbfb889c874632343c6)
-> 作者亲自制作 [点我观看](https://www.bilibili.com/video/BV1ZY4y1N7W8/?vd_source=d0a5d07985a7fbbfb889c874632343c6)
-
 ## 仓库说明
 
 > 本仓库`bbs-vue-ui`是【南生论坛3.0.0】前后端分离项目的**前端项目**
@@ -33,7 +30,7 @@
   Vue、Axios、Vue Router、Ant Design of Vue、Webpack、Less、Vuex、ES6、Node.js、mavonEditor、ECharts、...
 
 ## 联系作者
-> **商用** or **毕设** 需要联系作者授权**南生运营**
+> **商用** 需要联系作者授权**南生运营**(学习使用不需要授权)
 1. 在线联系作者：去 [南生闲聊](http://chat.nanshengbbs.top/)（`使用南生论坛注册的账号密码即可登录`） 聊天，问题反馈在“南生论坛”群聊或者加“马亮南生”私聊都行
 2. 加作者QQ：924818949
 3. 加作者微信：maliangnansheng
@@ -42,6 +39,8 @@
 [南生论坛使用指南](https://www.bilibili.com/video/BV1he4y1C7rk?share_source=copy_web&vd_source=1f88041e3a02d90ecf98d311908d3d8b)
 
 [如何获取南生论坛设计文档？](http://bbs.nanshengbbs.top/detail/76)
+
+[南生论坛日常迭代](http://bbs.nanshengbbs.top/detail/122)
 
 ## 项目部署教程
 
@@ -65,23 +64,23 @@
 
 - 用户系统-功能结构图
 
-  ![](http://76.nanshengbbs.top/%E5%8D%97%E7%94%9F%E8%AE%BA%E5%9D%9B%E5%8A%9F%E8%83%BD%E7%BB%93%E6%9E%84%E5%9B%BE.png)
+  ![](http://76.nanshengbbs.top/%E5%8D%97%E7%94%9F%E8%AE%BA%E5%9D%9B%E5%8A%9F%E8%83%BD%E7%BB%93%E6%9E%84%E5%9B%BE002.png)
 
   `注：发布的帖子需要管理员“审核通”过后才能在首页显示，可以在“我的主页”查看帖子状态`
 
 - 管理系统-功能结构图
 
-  ![](http://76.nanshengbbs.top/%E5%8D%97%E7%94%9F%E8%BF%90%E8%90%A5%E5%8A%9F%E8%83%BD%E7%BB%93%E6%9E%84%E5%9B%BE2.png)
+  ![](http://76.nanshengbbs.top/%E5%8D%97%E7%94%9F%E8%BF%90%E8%90%A5%E5%8A%9F%E8%83%BD%E7%BB%93%E6%9E%84%E5%9B%BE002.png)
 
 ## 项目结构
 
 ### 后端项目结构（SpringBoot）
 
-![](http://76.nanshengbbs.top/ns-bbs-springboot.png)
+![](http://76.nanshengbbs.top/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/idea002.png)
 
 ### 前端项目结构（Vue）
 
-![](http://76.nanshengbbs.top/ns-bbs-vue.png)
+![](http://76.nanshengbbs.top/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/idea012.png)
 
 ## 版本更新
 

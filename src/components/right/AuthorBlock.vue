@@ -7,7 +7,7 @@
       </div>
       <div class="intro">
         <span class="name" style="font-size: 17px;">{{ data.name }} </span>
-        <img :src="require('@/assets/img/level/' + data.level + '.svg')" alt=""/>
+        <img :src="require('@/assets/img/level/' + data.level + '.svg')" alt="" @click.stop="routerBook"/>
         <div v-if="data.intro">{{ data.intro }}</div>
       </div>
     </div>
@@ -63,7 +63,13 @@
       routerUserCenter(userId) {
         let routeData = this.$router.resolve("/user/" + userId);
         window.open(routeData.href, '_blank');
-      }
+      },
+
+      // 路由到Book说明页面
+      routerBook() {
+        let routeData = this.$router.resolve("/book");
+        window.open(routeData.href, '_blank');
+      },
     },
 
     mounted() {

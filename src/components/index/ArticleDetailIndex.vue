@@ -7,7 +7,9 @@
         <main class="content" :style="$store.state.collapsed ? 'width: 100%;' : 'width: 1100px;'">
           <div class="article-left-buttons">
             <!-- 左边浮着的那些按钮 -->
-            <LeftButtons ref="child"/>
+            <LeftButtons
+                @articleCommentCountFn="articleCommentCountFn"
+                ref="child"/>
           </div>
           <a-col :span="$store.state.collapsed ? 24 : 18"
                  :style="$store.state.collapsed ? '' : 'border-right: 20px solid #f0f2f5'">
@@ -19,6 +21,8 @@
             <!-- 文章评论 -->
             <ArticleComment
                 @refresh="refresh"
+                :articleUserId="userId"
+                :articleCommentCount="articleCommentCount"
                 style="background: #fff"/>
             <a-row>
               <a-col :span="24" style="height: 10px;"/>
@@ -94,7 +98,10 @@
         articleHtml: '',
         finishArticleDetail: false,
         labelIds: [],
+        // 当前文章的作者
         userId: 0,
+        // 文章总的评论数
+        articleCommentCount: 0,
       };
     },
 
@@ -110,6 +117,10 @@
       refresh() {
         // 获取文章一些统计数据
         this.$refs.child.getArticleCountById()
+      },
+
+      articleCommentCountFn(commentCount) {
+        this.articleCommentCount = commentCount;
       }
     }
 

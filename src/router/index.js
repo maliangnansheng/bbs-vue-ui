@@ -42,6 +42,12 @@ const routes = [
     {
         path: "/user/:id",
         component: () => import("@/components/index/UserCenterIndex"),
+        children: [
+            {
+                path: ":userCenterTab",
+                component: () => import("@/components/index/UserCenterIndex")
+            },
+        ]
     },
     {
         path: "/label",

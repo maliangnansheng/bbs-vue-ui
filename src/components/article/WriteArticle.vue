@@ -5,6 +5,7 @@
       <a-popover v-model="visible" :title="$t('common.releaseArticle')" trigger="click" placement="bottomRight">
         <div slot="content" style="width: 500px;">
           <ArticleBasicInfo
+              :articleUser="articleUser"
               :articleLabel="articleLabel"
               :articleTitleMap="articleTitleMap"
               :articleTitle="articleTitle"
@@ -30,6 +31,8 @@
                     :toolbars="toolbars"
                     toolbarsBackground="#f4f4f4"
                     codeStyle="obsidian"
+                    :tabSize=4
+                    :xssOptions=false
                     boxShadowStyle=""
                     :placeholder="$t('common.startEditing')"></mavon-editor>
     </div>
@@ -52,6 +55,8 @@ export default {
 
   data() {
     return {
+      // 文章创建者
+      articleUser: 0,
       // 文章标签
       articleLabel: [],
       // 题图
@@ -160,6 +165,11 @@ export default {
     getArticleById() {
       articleService.getArticleById({id: this.$route.params.id})
           .then(res => {
+            this.articleUser = res.data.createUser;
+            if (this.$store.state.userId !== this.articleUser) {
+              this.$message.warning("你无权编辑他人撰写的文章");
+              return;
+            }
             // 标题
             this.articleTitle = res.data.title;
             // 内容

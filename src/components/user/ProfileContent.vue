@@ -1,6 +1,6 @@
 <template>
   <div id="profile-content" v-if="!spinning">
-    <a-col :span="18">
+    <a-col :span="$store.state.collapsed ? 24 :18" style="background: #fff;">
       <div class="left">
         <a-form-model ref="ruleForm" :model="ruleForm" :rules="rules" v-bind="layout" labelAlign="left">
           <p>{{ $t('common.personalInformation') }}</p>
@@ -61,7 +61,7 @@
         </a-form-model>
       </div>
     </a-col>
-    <a-col :span="6">
+    <a-col :span="$store.state.collapsed ? 24 :6" style="background: #fff;">
       <div class="right">
         <a-col class="avatar-col">
           <div class="avatar">
@@ -122,7 +122,18 @@
               });
         }
       };
+
+      // 验证个人主页地址
+      let validateHomePage = (rule, value, callback) => {
+        if (value !== '' && !this.urlReg.test(value)) {
+          callback(new Error(this.$t('common.homePageUrl')));
+        } else {
+          callback();
+        }
+      };
+
       return {
+        urlReg: /^(?=^.{3,255}$)(http(s)?:\/\/)?(www\.)?[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+(:\d+)*(\/\w+\.\w+)*$/,
         // 加载中...
         spinning: true,
         visible: false,
@@ -148,10 +159,11 @@
         },
         rules: {
           username: [{validator: validateUsername, trigger: 'change'}],
+          homePage: [{validator: validateHomePage, trigger: 'change'}],
         },
         layout: {
-          labelCol: {span: 3},
-          wrapperCol: {span: 21},
+          labelCol: {span: this.$store.state.collapsed ? 24 : 3},
+          wrapperCol: {span: this.$store.state.collapsed ? 24 : 21},
         },
       }
     },
@@ -164,14 +176,19 @@
               this.spinning = false;
               this.ruleForm.username = res.data.name,
               this.ruleForm.userNameNum = res.data.name.length;
-              this.ruleForm.position = res.data.position;
+
+              this.ruleForm.position = res.data.position ? res.data.position : '';
               this.ruleForm.positionNum = res.data.position ? res.data.position.length : 0;
-              this.ruleForm.company = res.data.company;
+
+              this.ruleForm.company = res.data.company ? res.data.company : '';
               this.ruleForm.companyNum = res.data.company ? res.data.company.length : 0;
-              this.ruleForm.homePage = res.data.homePage;
+
+              this.ruleForm.homePage = res.data.homePage ? res.data.homePage : '';
               this.ruleForm.homePageNum = res.data.homePage ? res.data.homePage.length : 0;
+
               this.ruleForm.intro = res.data.intro;
               this.ruleForm.introNum = res.data.intro ? res.data.intro.length : 0;
+
               this.ruleForm.orgId = res.data.orgId;
             })
             .catch(err => {
@@ -183,6 +200,7 @@
       updateUserBasicInfo(data) {
         userService.updateUserBasicInfo(data)
             .then(res => {
+              this.$message.success(this.$t('common.saveSuccessed'));
               this.getUserInfo();
             })
             .catch(err => {
@@ -194,7 +212,7 @@
         this.$refs[formName].validate(valid => {
           if (valid) {
             const data = {
-              id: this.ruleForm.userId,
+              // id: this.ruleForm.userId,
               name: this.ruleForm.username,
               position: this.ruleForm.position,
               company: this.ruleForm.company,

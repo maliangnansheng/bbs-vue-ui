@@ -37,6 +37,8 @@ export default {
   components: {UploadImage},
 
   props: {
+    // 文章创建者
+    articleUser: {type: Number, default: 0},
     // 文章标签
     articleLabel: {type: Array, default: []},
     // 题图
@@ -130,7 +132,7 @@ export default {
     articleCreate(data) {
       articleService.articleCreate(data)
           .then(res => {
-            this.$router.push("/user/" + this.$store.state.userId);
+            this.$router.push("/user/" + this.$store.state.userId + "/article");
           })
           .catch(err => {
             this.$message.error(err.desc);
@@ -139,6 +141,10 @@ export default {
 
     // 更新文章
     articleUpdate(data) {
+      if (this.$store.state.userId !== this.articleUser) {
+        this.$message.warning("你无权编辑他人撰写的文章");
+        return;
+      }
       articleService.articleUpdate(data)
           .then(res => {
             // 返回上一页

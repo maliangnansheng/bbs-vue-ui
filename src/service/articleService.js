@@ -97,5 +97,21 @@ export default {
                 .catch((err) => reject(err));
         });
     },
+    // 文章置顶/取消置顶
+    articleTop(params) {
+        return new Promise((resolve, reject) => {
+            axios.get("/api/bbs/article/articleTop", {params})
+                .then((res) => resolve(res))
+                .catch((err) => reject(err));
+        });
+    },
+    //删除文章
+    articleDelete(data) {
+        return new Promise((resolve, reject) => {
+            axios.post("/api/bbs/article/delete/" + data)
+                .then((res) => resolve(res))
+                .catch((err) => reject(err));
+        });
+    },
 
 };

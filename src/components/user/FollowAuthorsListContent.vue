@@ -21,12 +21,12 @@
             </div>
           </div>
           <a-button class="follow-btn" v-if="!item.isFollow"
-                    @click="updateFollowState(getBigCow ? item.toUser : item.fromUser)"
+                    @click="updateFollowState(getBigCow ? item.toUser : item.fromUser, index)"
                     :style="{color: $store.state.themeColor, border: '1px solid' + $store.state.themeColor}">
             {{ $t("common.follow") }}
           </a-button>
           <a-button class="follow-btn-close" v-if="item.isFollow"
-                    @click="updateFollowState(getBigCow ? item.toUser : item.fromUser)">
+                    @click="updateFollowState(getBigCow ? item.toUser : item.fromUser, index)">
             {{ $t("common.haveFollowed") }}
           </a-button>
         </div>
@@ -49,10 +49,10 @@
 
     methods: {
       // 更新关注状态
-      updateFollowState(toUser) {
+      updateFollowState(toUser, index) {
         userService.updateFollowState({toUser: toUser})
             .then(() => {
-              this.$emit("refresh");
+              this.data[index].isFollow = !this.data[index].isFollow;
             })
             .catch(err => {
               this.$message.error(err.desc);

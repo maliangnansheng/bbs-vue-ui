@@ -104,6 +104,13 @@ export default {
   width: 1100px;
 }
 
+@media screen and (max-width: 576px) {
+  #article-detail-index .content {
+    margin-top: 64px;
+    width: 100%;
+  }
+}
+
 #article-detail-index .ant-layout-header {
   display: flex;
   align-items: center;

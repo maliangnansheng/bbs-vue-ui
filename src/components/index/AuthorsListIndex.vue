@@ -8,7 +8,7 @@
           <AuthorsListContent v-else
                               :finish="finish"
                               :hasNext="hasNext"
-                              :data="{ list: listData }"
+                              :data="listData"
                               @refresh="refresh"
                               style="background: #fff;"/>
         </a-col>

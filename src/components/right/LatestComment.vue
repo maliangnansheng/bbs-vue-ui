@@ -3,8 +3,9 @@
     <header class="user-block-header">{{ $t("common.latestComment") }}</header>
     <a-divider style="margin: 10px 0 0 0;"/>
     <a-list item-layout="horizontal" :data-source="data" :split="false">
-      <a-list-item slot="renderItem" slot-scope="item, index" @click="routerArticleDetail(item.articleId)">
-        <a-list-item-meta :description="item.content">
+      <a-list-item slot="renderItem" slot-scope="item, index" @click="routerArticleDetail(item.articleId, item.id)">
+        <a-list-item-meta>
+          <span slot="description" v-html="item.content">{{ item.content }}</span>
           <a-avatar slot="avatar"
                     :src="item.picture ? item.picture : require('@/assets/img/default-avatar.png')"/>
         </a-list-item-meta>
@@ -35,9 +36,9 @@ export default {
           });
     },
 
-    // 路由到文章详情页面（评论处）
-    routerArticleDetail(articleId) {
-      let routeData = this.$router.resolve("/detail/" + articleId + "#article-comment");
+    // 路由到文章详情页面（某一条评论处）
+    routerArticleDetail(articleId, commentId) {
+      let routeData = this.$router.resolve("/detail/" + articleId + "#reply-" + commentId);
       window.open(routeData.href, '_blank');
     },
   },

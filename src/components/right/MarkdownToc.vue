@@ -96,6 +96,13 @@
         position: relative;
       }
 
+      // 目录标题高亮功能
+      ul > .active > a {
+        color: #0366d6;
+        font-size: 18px;
+        font-weight: 900;
+      }
+
       ul > ul > li > a {
         line-height: 20px;
         font-size: 14px;

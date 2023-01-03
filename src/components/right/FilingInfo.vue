@@ -5,7 +5,7 @@
         <template slot="title">
           {{ $t("common.getTheWord") }}
         </template>
-        <a-col class="user_agreement" :span="6">{{ $t("common.designDocument") }}</a-col>
+        <a-col class="user_agreement" :span="6" @click="designDocument">{{ $t("common.designDocument") }}</a-col>
       </a-tooltip>
       <a-col class="user_guidance" :span="6">
         <a href="https://www.bilibili.com/video/BV1he4y1C7rk?spm_id_from=333.999.0.0&vd_source=d0a5d07985a7fbbfb889c874632343c6" target="_blank">{{ $t("common.userGuidance") }}</a>
@@ -27,6 +27,18 @@ export default {
   name: "FilingInfo",
 
   methods: {
+    designDocument() {
+      window.open('http://76.nanshengbbs.top/doc/%E5%8D%97%E7%94%9F%E8%AE%BA%E5%9D%9B%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.doc', '_blank');
+      // this.$message.warning(this.$t("common.excuseMe"));
+      // this.$confirm({
+      //   centered: true,
+      //   title: this.$t("common.learnHowToGetNanshengPoints"),
+      //   content: this.$t("common.excuseMe"),
+      //   onOk: () => {
+      //     this.routerBook();
+      //   },
+      // });
+    },
 
     // 路由到Book说明页面
     routerBook() {

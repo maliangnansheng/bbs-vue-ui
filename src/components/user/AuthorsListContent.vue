@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="user-list" v-for="(item, index) in data.list">
+    <div class="user-list" v-for="(item, index) in data">
       <div class="item">
         <div class="link">
           <img :src="item.picture ? item.picture : require('@/assets/img/default-avatar.png')" alt=""
@@ -8,7 +8,7 @@
           <div class="info-box" style="flex: 1 1 auto; min-width: 0;">
             <a target="_blank" rel="" class="username" @click="routerUserCenter(item.id)">
               <span class="name" style="padding-right: 2px;" v-text="item.name"></span>
-              <img :src="require('@/assets/img/level/' + item.level + '.svg')" alt=""/>
+              <img :src="require('@/assets/img/level/' + item.level + '.svg')" alt="" @click.stop="routerBook"/>
             </a>
             <div class="detail" v-text="item.intro"></div>
             <div class="describe">
@@ -18,11 +18,11 @@
               <span> {{ item.readCount + ' ' + $t("common.read") }}</span>
             </div>
           </div>
-          <a-button class="follow-btn" v-if="!item.isFollow" @click="updateFollowState(item.id)"
+          <a-button class="follow-btn" v-if="!item.isFollow" @click="updateFollowState(item.id, index)"
                     :style="{color: $store.state.themeColor, border: '1px solid' + $store.state.themeColor}">
             {{ $t("common.follow") }}
           </a-button>
-          <a-button class="follow-btn-close" v-if="item.isFollow" @click="updateFollowState(item.id)">
+          <a-button class="follow-btn-close" v-if="item.isFollow" @click="updateFollowState(item.id, index)">
             {{ $t("common.haveFollowed") }}
           </a-button>
         </div>
@@ -37,17 +37,17 @@
 
   export default {
     props: {
-      data: {type: Object, default: () => ({})},
+      data: {type: Array, default: []},
       finish: {type: Boolean, default: false},
       hasNext: {type: Boolean, default: false},
     },
 
     methods: {
       // 更新关注状态
-      updateFollowState(toUser) {
+      updateFollowState(toUser, index) {
         userService.updateFollowState({toUser: toUser})
             .then(() => {
-              this.$emit("refresh");
+              this.data[index].isFollow = !this.data[index].isFollow;
             })
             .catch(err => {
               this.$message.error(err.desc);
@@ -58,7 +58,13 @@
       routerUserCenter(userId) {
         let routeData = this.$router.resolve("/user/" + userId);
         window.open(routeData.href, '_blank');
-      }
+      },
+
+      // 路由到Book说明页面
+      routerBook() {
+        let routeData = this.$router.resolve("/book");
+        window.open(routeData.href, '_blank');
+      },
     },
 
     mounted() {

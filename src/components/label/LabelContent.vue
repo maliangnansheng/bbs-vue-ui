@@ -26,8 +26,6 @@
         <a-badge class="info-box"
                  :style="$store.state.collapsed ? 'width:100%;' : 'width:20%;border-right: 20px solid #f0f2f5;'"
                  v-for="item of data" :key="item.id">
-          <a-icon slot="count" type="close-circle" style="color: red; cursor: pointer" @click="labelDelete(item.id)"
-                  v-if="$store.state.isManage"/>
           <div>
             <a-avatar class="avatar" :size="60" :src="item.logo" @click="routerLabelToArticle(item.id)"/>
           </div>
@@ -44,10 +42,22 @@
                   @refresh="refresh"/>
             </div>
           </a-popover>
-          <a-button class="edit" type="primary" style="height: 30px;" v-text="$t('common.edit')"
-                    @click="labelUpdateCheck(item.id)" v-if="$store.state.isManage"></a-button>
+          <!-- 管理员操作 -->
+          <a-dropdown :trigger="['click']">
+            <a-menu slot="overlay">
+              <a-menu-item key="labelEdit" @click="labelUpdateCheck(item.id)">
+                {{ ' ' + $t("common.edit") }}
+              </a-menu-item>
+              <a-menu-item key="labelDel" @click="labelDelete(item.id)">
+                <span style="color: red">{{ ' ' + $t("common.delete") }}</span>
+              </a-menu-item>
+            </a-menu>
+            <div class="options">
+              <a-icon slot="count" type="ellipsis" style="cursor: pointer; color: #909090"
+                      v-if="$store.state.isManage"/>
+            </div>
+          </a-dropdown>
         </a-badge>
-
       </div>
     </div>
   </div>

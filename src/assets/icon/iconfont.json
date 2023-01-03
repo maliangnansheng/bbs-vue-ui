@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1200236",
+      "name": "动态",
+      "font_class": "dynamic",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
       "icon_id": "10299108",
       "name": "待审核",
       "font_class": "pendingReview",

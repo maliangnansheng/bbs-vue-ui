@@ -4,6 +4,8 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    /*全局置灰*/
+    /*filter:grayscale(100%)*/
 }
 
 .main-header .iconfont {

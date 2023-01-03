@@ -1,16 +1,17 @@
 <template>
   <div id="child-comment">
-    <a-comment>
-      <a class="username" slot="author">
+    <a-comment :id="'reply-' + data.id">
+      <a class="username" slot="author" @click="routerUserCenter(data.commentUser)">
         {{ data.commentUserName }}
-        <img :src="require('@/assets/img/level/' + data.level + '.svg')" alt=""/>
+        <img :src="require('@/assets/img/level/' + data.level + '.svg')" alt="" @click.stop="routerBook"/>
         <small class="time" slot="title" style="color: #b5b9b9" v-text="$utils.showtime(data.createTime)"></small>
       </a>
-      <a-avatar slot="avatar" :src="data.picture ? data.picture : require('@/assets/img/default_avatar.png')"/>
+      <a-avatar slot="avatar" :src="data.picture ? data.picture : require('@/assets/img/default_avatar.png')"
+                @click="routerUserCenter(data.commentUser)"/>
       <p class="comment-content" slot="content">
-        <span>{{ data.content }}</span>
-        <span class="del" v-if="data.commentUser === $store.state.userId"
-              @click="deleteComment(data.id)">{{ $t("common.delete") }}</span>
+        <span v-html="data.content" style="width: 100%">{{ data.content }}</span>
+<!--        <span class="del" v-if="data.commentUser === $store.state.userId"-->
+<!--              @click="deleteComment(data.id)">{{ $t("common.delete") }}</span>-->
       </p>
       <span slot="content">
         <a class="operate comment-like">
@@ -26,6 +27,19 @@
             <small> {{ data.repliesCount }}</small>
           </i>
         </a>
+        <!-- 自己的评论 or 自己的文章  都可以删除对应评论信息 -->
+        <b v-if="data.commentUser === $store.state.userId || articleUserId === $store.state.userId">
+          <a-dropdown :placement="'bottomCenter'" :trigger="['click']">
+            <a-menu slot="overlay">
+              <a-menu-item key="delete" @click="deleteComment(data.id)">
+                <span style="color: red">{{ ' ' + $t("common.delete") }}</span>
+              </a-menu-item>
+            </a-menu>
+            <span class="options comment-operate">
+              <a-icon type="ellipsis" style="cursor: pointer"/>
+            </span>
+          </a-dropdown>
+        </b>
       </span>
       <CreateComment v-show="isShow"
                      :preId="preId"
@@ -34,6 +48,7 @@
                     v-for="(item, index) of data.child"
                     :data="item"
                     :key="index"
+                    :articleUserId="articleUserId"
                     @getCommentByArticleId="getCommentByArticleId"/>
     </a-comment>
   </div>
@@ -52,6 +67,8 @@ export default {
 
   props: {
     data: {type: Object, default: () => ({})},
+    // 当前文章的作者
+    articleUserId: {type: Number, default: 0},
   },
 
   data() {
@@ -106,11 +123,40 @@ export default {
       });
     },
 
+    // 路由到用户中心页面
+    routerUserCenter(userId) {
+      let routeData = this.$router.resolve("/user/" + userId);
+      window.open(routeData.href, '_blank');
+    },
+
+    // 路由到Book说明页面
+    routerBook() {
+      let routeData = this.$router.resolve("/book");
+      window.open(routeData.href, '_blank');
+    },
+
   },
 }
 </script>
 
 <style lang="less">
+#child-comment {
+  /* 背景色逐渐消失-start */
+  @keyframes myAnimation {
+    from {
+      background-color: rgba(19,194,194,0.15);
+    }
+    to {
+      background-color: transparent;
+    }
+  }
+  .selectedComment {
+    animation: myAnimation 8s running;
+    transition: background-color 8s;
+  }
+  /* 背景色逐渐消失-end */
+}
+
 #child-comment .ant-comment-content-author-name {
   width: 100%;
 
@@ -135,6 +181,16 @@ export default {
   align-items: center;
   margin-bottom: 5px;
 
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    //-webkit-line-clamp: 3;
+    /* 实现长英文字母自动换行*/
+    word-break: break-all;
+  }
+
   .del {
     cursor: pointer;
     color: red;
@@ -142,7 +198,7 @@ export default {
   }
 }
 
-#child-comment .comment-comment {
+#child-comment .comment-comment, .comment-operate {
   margin-left: 16px;
 }
 

@@ -10,15 +10,22 @@
               <span>{{ $t('common.backPersonalHomepage') }}</span>
             </span>
           </div>
-          <a-row>
-            <a-col :span="24" style="height: 20px;"/>
+          <!-- 小屏幕 -->
+          <a-row v-if="$store.state.collapsed">
+            <br/>
+            <SetUpMenu style="background: #fff;"/>
+            <router-view style="background: #fff;"></router-view>
           </a-row>
-          <a-col :span="6" style="border-right: 20px solid #f0f2f5; height: 600px; background: #fff">
-            <SetUpMenu/>
-          </a-col>
-          <a-col :span="18" style="background: #fff; height: 600px;">
-            <router-view></router-view>
-          </a-col>
+          <!-- 大屏幕 -->
+          <a-row v-else>
+            <a-col :span="24" style="height: 20px;"/>
+            <a-col :span="6" style="border-right: 20px solid #f0f2f5; height: 635px; background: #fff">
+              <SetUpMenu/>
+            </a-col>
+            <a-col :span="18" style="background: #fff; height: 635px;">
+              <router-view></router-view>
+            </a-col>
+          </a-row>
         </main>
       </a-layout-content>
       <FooterButtons v-if="!$store.state.collapsed"/>

@@ -17,9 +17,9 @@
               {{ $t("common.unBind") }}
             </a-button>
           </a-popconfirm>
-          <a-button v-else @click="toggleBindPhone" type="primary" size="small">
-            {{ $t("common.bind") }}
-          </a-button>
+          <a v-else @click="toggleBindPhone">
+            <a-icon type="plus"/>{{ $t("common.bindPhone") }}
+          </a>
         </div>
       </section>
       <a-divider/>
@@ -37,8 +37,9 @@
               {{ $t("common.unBind") }}
             </a-button>
           </a-popconfirm>
-          <a-button v-else @click="toggleBindEmail" type="primary" size="small">{{ $t("common.bind") }}
-          </a-button>
+          <a v-else @click="toggleBindEmail">
+            <a-icon type="plus"/>{{ $t("common.bindEmail") }}
+          </a>
         </div>
       </section>
       <a-divider/>

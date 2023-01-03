@@ -3,7 +3,7 @@
     <a-menu
         style="width: 256px"
         v-model="defaultSelectedKeys"
-        mode="inline"
+        :mode="$store.state.collapsed ? 'horizontal' : 'inline'"
         @click="handleClick"
     >
       <a-menu-item key="profile">

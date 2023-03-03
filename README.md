@@ -1,6 +1,6 @@
 # Nan's BBS 南生论坛（SpringBoot+Vue）
 
-[![](https://img.shields.io/badge/Author-马亮南生-orange.svg)](http://blog.nanshengbbs.top/)
+[![](https://img.shields.io/badge/Author-马亮南生-orange.svg)](http://bbs.nanshengbbs.top/user/1640)
 [![](https://img.shields.io/badge/version-3.0.0-brightgreen.svg)](https://github.com/maliangnansheng/bbs-vue-ui)
 [![GitHub stars](https://img.shields.io/github/stars/maliangnansheng/bbs-vue-ui.svg?style=social&label=Stars)](https://github.com/maliangnansheng/bbs-vue-ui)
 [![GitHub forks](https://img.shields.io/github/forks/maliangnansheng/bbs-vue-ui.svg?style=social&label=Fork)](https://github.com/maliangnansheng/bbs-vue-ui)

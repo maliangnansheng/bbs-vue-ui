@@ -132,6 +132,26 @@ export default {
       }
     },
 
+    // 获取用户操作数量（文章、关注、点赞等）
+    getUserOperateCount() {
+      let tempParams = {userId: this.userId};
+      // 不是管理员
+      if (!this.$store.state.isManage) {
+        // 只看启用的文章
+        tempParams.articleStateEnum = "enable";
+      }
+      userService.getUserOperateCount(tempParams)
+          .then(res => {
+            this.writeArticleTotal = res.data.articleCount;
+            this.likeArticleTotal = res.data.likeCount;
+            this.followedTotal = res.data.followCount;
+            this.fanTotal = res.data.fanCount;
+          })
+          .catch(err => {
+            this.$message.error(err.desc);
+          });
+    },
+
     // 获取动态
     getDynamicList(params, isLoadMore) {
       if (!isLoadMore) {
@@ -310,10 +330,7 @@ export default {
   },
 
   mounted() {
-    this.getDynamicList(this.params);
-    this.getPersonalArticles({currentPage: 1, pageSize: 1});
-    this.getLikesArticle({currentPage: 1, pageSize: 1});
-    this.getFollowCount();
+    this.getUserOperateCount();
     // 监听滚动，做滚动加载
     this.$utils.scroll.call(this, document.querySelector('#app'));
   },

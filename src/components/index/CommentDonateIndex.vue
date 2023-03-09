@@ -4,12 +4,13 @@
       <IndexHeader class="header"/>
       <a-layout-content>
         <main class="content">
-          <div style="padding-top: 100px">
-            <img src="@/assets/img/404.svg" style="width: 100%"/>
-          </div>
-          <a-button @click="backHome" type="dashed">
-            {{ $t("common.backHome") }}
-          </a-button>
+          <!-- 最新评论 -->
+          <LatestComment style="background: #fff;"/>
+          <a-row>
+            <a-col :span="24" style="height: 10px;"/>
+          </a-row>
+          <!-- 友情捐赠 -->
+          <FriendDonate style="background: #fff;"/>
         </main>
       </a-layout-content>
       <FooterButtons v-if="!$store.state.collapsed"/>
@@ -20,19 +21,20 @@
 <script>
   import IndexHeader from "@/components/index/head/IndexHeader";
   import FooterButtons from "@/components/utils/FooterButtons";
+  import LatestComment from "@/components/right/LatestComment";
+  import FriendDonate from "@/components/right/FriendDonate";
 
   export default {
     name: "",
 
-    components: {IndexHeader, FooterButtons,},
-
-    methods: {
-      // 跳转首页方法
-      backHome() {
-        this.$router.push({path: "/"});
-      },
+    components: {
+      IndexHeader,
+      FooterButtons,
+      LatestComment,
+      FriendDonate,
     },
-  };
+
+  }
 </script>
 
 <style scoped>
@@ -47,11 +49,7 @@
   #components-layout-basic .content {
     margin-top: 64px;
     width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    max-width: 400px;
   }
 
   #components-layout-basic .ant-layout-header, .ant-layout-content {

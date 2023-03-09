@@ -88,6 +88,14 @@ export default {
       labelService.getLabelList({id: this.labelId, currentPage: 1, pageSize: 10})
           .then(res => {
             this.labelData = res.data.list[0];
+            // 没有该标签
+            if (this.labelData === undefined) {
+              this.$router.push({
+                name: '404',
+                // 保留当前路径并删除第一个字符，以避免目标 URL 以 `//` 开头。
+                params: { pathMatch: this.$route.path.substring(1).split('/') },
+              })
+            }
           })
           .catch(err => {
             this.$message.error(err.desc);

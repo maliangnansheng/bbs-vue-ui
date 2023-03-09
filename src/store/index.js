@@ -27,6 +27,8 @@ export default new Vuex.Store({
         picture: "",
         // 判断用户是否是管理员
         isManage: false,
+        // 文章审核（enable、disabled、pendingReview）
+        articleCheck: "enable",
         // 用户名称长度限制
         userMaxLength: 10,
         // 主题色
@@ -37,6 +39,8 @@ export default new Vuex.Store({
         isCarousel: 1,
         // 菜单是否收缩
         collapsed: false,
+        // 比collapsed大一点
+        collapsedMax: false,
         // 用户屏幕宽度
         width: 0,
         // 用户屏幕高度

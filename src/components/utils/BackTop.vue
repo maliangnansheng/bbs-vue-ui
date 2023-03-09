@@ -1,9 +1,14 @@
 <template>
   <div id="components-back-top-demo-custom">
     <a-back-top :visibilityHeight="600" :target="targetFn">
-      <div class="ant-back-top-inner" :style="{background: $store.state.themeColor}">
-        <i class="iconfont icon-backTop"></i>
-      </div>
+      <a-tooltip placement="left">
+        <template slot="title">
+          {{ $t("common.backToTop") }}
+        </template>
+        <div class="ant-back-top-inner" style="background: #fff">
+          <i class="iconfont icon-backTop" :style="{color: $store.state.themeColor}"></i>
+        </div>
+      </a-tooltip>
     </a-back-top>
   </div>
 </template>
@@ -23,7 +28,8 @@
 <style scoped>
   #components-back-top-demo-custom .ant-back-top {
     /* 44px */
-    bottom: 184px;
+    bottom: 228px;
+    right: auto;
   }
   #components-back-top-demo-custom .ant-back-top-inner {
     height: 34px;

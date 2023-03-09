@@ -88,6 +88,7 @@
         list-style: none;
       }
 
+      /* h1 */
       ul > li > a {
         font-size: 14px;
         color: #333333;
@@ -95,20 +96,52 @@
         font-weight: 500;
         position: relative;
       }
-
-      // 目录标题高亮功能
-      ul > .active > a {
-        color: #0366d6;
-        font-size: 18px;
-        font-weight: 900;
-      }
-
+      /* h2 */
       ul > ul > li > a {
         line-height: 20px;
         font-size: 14px;
         color: #333333;
         padding-left: 30px;
         font-weight: normal;
+      }
+      /* h3 */
+      ul > ul > ul > li > a {
+        line-height: 20px;
+        font-size: 14px;
+        color: #333333;
+        padding-left: 45px;
+        font-weight: normal;
+      }
+      /* h4 */
+      ul > ul > ul > ul > li > a {
+        line-height: 20px;
+        font-size: 14px;
+        color: #333333;
+        padding-left: 60px;
+        font-weight: normal;
+      }
+      /* h5 */
+      ul > ul > ul > ul > ul > li > a {
+        line-height: 20px;
+        font-size: 14px;
+        color: #333333;
+        padding-left: 75px;
+        font-weight: normal;
+      }
+      /* h6 */
+      ul > ul > ul >ul > ul > ul > li > a {
+        line-height: 20px;
+        font-size: 14px;
+        color: #333333;
+        padding-left: 90px;
+        font-weight: normal;
+      }
+
+      // 目录标题高亮功能
+      ul > .active > a {
+        color: #0366d6;
+        font-size: 18px;
+        font-weight: 900;
       }
 
       a {

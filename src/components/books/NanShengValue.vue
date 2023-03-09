@@ -54,7 +54,7 @@
           <td>
             <img src="@/assets/img/level/badge-Lv2.svg" alt="" /> 麒麟儿
           </td>
-          <td>获得南生论坛的<span style="color: red;">源码讲解视频</span></td>
+          <td>今年必<span style="color: red;">脱单</span></td>
         </tr>
         <tr>
           <td>
@@ -65,7 +65,7 @@
           <td>
             <img src="@/assets/img/level/badge-Lv3.svg" alt="" /> 三好学生
           </td>
-          <td>获得南生论坛的<span style="color: red;">word设计文档（16000字/50页左右）</span></td>
+          <td>年入<span style="color: red;">百万</span></td>
         </tr>
         <tr>
           <td>
@@ -76,7 +76,7 @@
           <td>
             <img src="@/assets/img/level/badge-Lv4.svg" alt="" /> 技术贡献者
           </td>
-          <td>出管理员可以置顶文章外，自己也可<span style="color: red;">置顶自己的文章</span>（首页置顶展示）</td>
+          <td>可<span style="color: red;">置顶自己的文章</span>（首页置顶展示）</td>
         </tr>
         <tr>
           <td>
@@ -87,7 +87,7 @@
           <td>
             <img src="@/assets/img/level/badge-Lv5.svg" alt="" /> 优秀作者
           </td>
-          <td><span style="color: red;">自动</span>推荐至首页，成为南生论坛<span style="color: red;">优秀作者</span></td>
+          <td>拥有<span style="color: red;">维护标签，维护资源导航</span>的权限</td>
         </tr>
         <tr>
           <td>
@@ -98,7 +98,7 @@
           <td>
             <img src="@/assets/img/level/badge-Lv6.svg" alt="" /> 共建者
           </td>
-          <td>维护标签，维护资源导航，成为南生论坛共建者<span style="color: red;">(享受南生系列所有项目的免费源码更新)</span></td>
+          <td>成为南生论坛共建者<span style="color: red;">(这就是你的项目)</span></td>
         </tr>
         </tbody>
       </table>

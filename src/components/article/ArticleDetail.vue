@@ -5,7 +5,8 @@
       <div class="article-title">
         <h1>{{ data.title }}</h1>
         <!-- 待审核 -->
-        <span class="iconfont icon-pendingReview" v-if="data.state === -1" style="color: #faad14; font-size: 38px;"></span>
+        <span class="iconfont icon-pendingReview" v-if="data.state === -1"
+              style="color: #faad14; font-size: 38px;"></span>
         <!-- 审核拒绝 -->
         <span class="iconfont icon-reviewRejected" v-if="data.state === 0" style="color: red; font-size: 38px;"></span>
       </div>
@@ -104,13 +105,27 @@
                 setTimeout(() => {
                   // 设置标题目录追踪滚动高亮当前标题
                   this.monitorScrollForTopicHighlight();
+                  // 代码块复制
+                  this.$nextTick(() => {
+                    clearInterval(this.timer);
+                    this.getCodes();
+                  });
                 }, 800);
               }
 
             })
             .catch(err => {
               this.finish = true;
-              this.$message.error(err.desc);
+              // 没有该文章
+              if (err.code === 4) {
+                this.$router.push({
+                  name: '404',
+                  // 保留当前路径并删除第一个字符，以避免目标 URL 以 `//` 开头。
+                  params: {pathMatch: this.$route.path.substring(1).split('/')},
+                })
+              } else {
+                this.$message.error(err.desc);
+              }
             });
       },
 
@@ -223,6 +238,67 @@
         window.open(routeData.href, '_blank');
       },
 
+
+      // 为什么要这么写呢？
+      // 是因为mavon-editor需要获取到katex.min.js等文件
+      // 然后又是cdn获取的，所以有些时候请求慢
+      // 导致dom先加载，然后才加载js、css这些mavon-editor所需要的文件
+      // 因此需要写setInterval去等katex.min.js等文件加载完成
+      // 这样才能获取到offsetHeight的问题。
+      // 不然你可以试试去掉这段代码
+      // 你的offsetHeight一直为0，没有代码块序号。
+      getCodes() {
+        this.codes = document.querySelectorAll("pre code");
+        if (this.codes.length > 0) {
+          for (let i = 0; i < this.codes.length; i++) {
+            if (this.codes[i].offsetHeight !== 0) {
+              return this.init();
+            } else {
+              this.timer = setInterval(() => {
+                for (let j = 0; j < this.codes.length; j++) {
+                  if (this.codes[j].offsetHeight !== 0) {
+                    clearInterval(this.timer);
+                    return this.init();
+                  }
+                }
+              }, 500);
+              return;
+            }
+          }
+        }
+      },
+
+      init() {
+        let thisTemp = this;
+        this.$nextTick(() => {
+          clearInterval(this.timer);
+          this.codes.forEach((item) => {
+            // 取出 code 的父元素 pre（后面方便使用）
+            let pre = item.parentElement;
+            let icon =
+                `<div class="code-icon">` +
+                `<i class="iconfont icon-copy copy-button"></i>` +
+                `</div>`;
+
+            pre.insertAdjacentHTML("afterbegin", icon);
+            // 获取复制元素
+            let copyButton = pre.firstElementChild.getElementsByClassName("copy-button")[0];
+            copyButton.onclick = function () {
+              thisTemp.$copyText(pre.lastElementChild.innerText).then(() => {
+                thisTemp.$message.success(
+                    'copy成功',
+                    1,
+                );
+              }).catch(() => {
+                thisTemp.$message.error(
+                    'copy失败',
+                    1,
+                );
+              });
+            };
+          });
+        });
+      },
     },
 
     mounted() {
@@ -230,13 +306,15 @@
     },
 
     watch: {
-      data: function() {
+      data: function () {
         this.$nextTick(() => {
           // 锁定位置
           let hash = location.hash;
           if (hash) {
             this.$nextTick(() => {
               setTimeout(() => {
+                // querySelector是按css规范来实现的，所以它传入的字符串中第一个字符不能是数字、特殊字符，修改成用属性匹配即可解决
+                hash = "[id='" + hash.substring(1, hash.length) + "']"
                 if (!hash.includes('reply-')) {
                   document.querySelector(hash).scrollIntoView({behavior: "smooth"});
                 } else {
@@ -289,10 +367,12 @@
   #article-detail .article-titleMap {
     padding-top: 20px;
   }
+
   #article-detail .article-content {
     padding-top: 20px;
 
     /* 优化文章标题锚点跳转时被顶部导航栏遮挡 */
+
     h1 > a,
     h2 > a,
     h3 > a,
@@ -348,12 +428,32 @@
   #article-detail .v-note-wrapper .v-note-panel .v-note-show .v-show-content, .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
     padding: 0;
   }
+
   #article-detail .v-note-wrapper {
     z-index: 900;
   }
+
   /* 设置mavon-editor的最小高度 */
   #article-detail .v-note-wrapper.markdown-body.shadow {
     min-height: 0;
   }
+
   /* mavon-editor整体样式--end */
+
+  /* 代码块-复制按钮 */
+  .code-icon {
+    .copy-button {
+      padding: 2px 8px;
+      color: #ffffff;
+      border-radius: 5px;
+      float: right;
+    }
+
+    .copy-button:hover {
+      cursor: pointer;
+      background-color: black;
+    }
+  }
+
+  /* 代码块-复制按钮 */
 </style>

@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "88609",
+      "name": "copy",
+      "font_class": "copy",
+      "unicode": "e706",
+      "unicode_decimal": 59142
+    },
+    {
+      "icon_id": "15168276",
+      "name": "404",
+      "font_class": "NotFound",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "26267572",
+      "name": "gitee",
+      "font_class": "gitee",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "11121526",
+      "name": "功能角色权限管理",
+      "font_class": "applyManage",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "28521170",
+      "name": "IT基础账号权限申请流程-03",
+      "font_class": "rightsApply",
+      "unicode": "e9a7",
+      "unicode_decimal": 59815
+    },
+    {
       "icon_id": "1200236",
       "name": "动态",
       "font_class": "dynamic",

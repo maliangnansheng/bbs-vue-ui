@@ -113,5 +113,12 @@ export default {
                 .catch((err) => reject(err));
         });
     },
-
+    // 文章审核数据量
+    getArticleCheckCount(params) {
+        return new Promise((resolve, reject) => {
+            axios.get("/api/bbs/article/getArticleCheckCount", {params})
+                .then((res) => resolve(res))
+                .catch((err) => reject(err));
+        });
+    },
 };

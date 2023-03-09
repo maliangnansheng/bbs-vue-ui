@@ -77,7 +77,16 @@ export default {
             this.data = res.data;
           })
           .catch(err => {
-            this.$message.error(err.desc);
+            // 没有找到用户
+            if (err.code === 4) {
+              this.$router.push({
+                name: '404',
+                // 保留当前路径并删除第一个字符，以避免目标 URL 以 `//` 开头。
+                params: { pathMatch: this.$route.path.substring(1).split('/') },
+              })
+            } else {
+              this.$message.error(err.desc);
+            }
           });
     },
   },
@@ -101,7 +110,8 @@ export default {
 
 #article-detail-index .content {
   margin-top: 64px;
-  width: 1100px;
+  width: 100%;
+  max-width: 1100px;
 }
 
 @media screen and (max-width: 576px) {

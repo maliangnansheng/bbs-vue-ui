@@ -63,7 +63,8 @@
 
   #components-layout-basic .content {
     margin-top: 64px;
-    width: 1100px;
+    width: 100%;
+    max-width: 1100px;
 
     .return {
       display: flex;

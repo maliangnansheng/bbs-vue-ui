@@ -21,6 +21,7 @@ const routes = [
     },
     {
         path: "/recommended",
+        name: "recommended",
         component: () => import("@/components/index/AuthorsListIndex"),
     },
     {
@@ -33,6 +34,7 @@ const routes = [
     },
     {
         path: "/detail/:id",
+        name: "detail",
         component: () => import("@/components/index/ArticleDetailIndex"),
     },
     {
@@ -94,11 +96,19 @@ const routes = [
         component: () => import("@/components/index/About"),
     },
     {
+        path: "/commentDonate",
+        name: "commentDonate",
+        component: () => import("@/components/index/CommentDonateIndex"),
+    },
+    {
         path: "/500",
+        name: '500',
         component: () => import("@/components/errorPage/ServerError")
     },
     {
-        path: "*",
+        // 将匹配所有内容并将其放在 `$route.params.pathMatch` 下
+        path: "/:pathMatch(.*)*",
+        name: '404',
         component: () => import("@/components/errorPage/NotFound")
     }
 ];

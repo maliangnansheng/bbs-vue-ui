@@ -182,7 +182,16 @@ export default {
             this.articleTitleMap = res.data.titleMap;
           })
           .catch(err => {
-            this.$message.error(err.desc);
+            // 没有该文章
+            if (err.code === 4) {
+              this.$router.push({
+                name: '404',
+                // 保留当前路径并删除第一个字符，以避免目标 URL 以 `//` 开头。
+                params: { pathMatch: this.$route.path.substring(1).split('/') },
+              })
+            } else {
+              this.$message.error(err.desc);
+            }
           });
     },
 

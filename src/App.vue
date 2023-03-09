@@ -35,7 +35,8 @@ export default {
               this.$store.state.userId = res.data.userId;
               this.$store.state.isLogin = true;
               res.data.roles.forEach(data => {
-                if (data.code === 'bbs-admin') {
+                // 是超级管理员
+                if (data.grade === 'NS_SUPER_ADMIN_ROLE') {
                   this.$store.state.isManage = true;
                 }
               })
@@ -58,6 +59,7 @@ export default {
         that.$store.state.height = window.innerHeight;
         // 900/1050
         that.$store.state.collapsed = window.innerWidth < 1000;
+        that.$store.state.collapsedMax = window.innerWidth < 1300;
       }
     },
     checkErrorPage() {

@@ -55,7 +55,7 @@ export default {
             this.$emit("articleCommentCountFn", res.data.commentCount);
           })
           .catch(err => {
-            this.$message.error(err.desc);
+            // this.$message.error(err.desc);
           });
     },
 

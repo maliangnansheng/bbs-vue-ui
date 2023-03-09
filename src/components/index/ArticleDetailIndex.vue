@@ -4,7 +4,7 @@
       <IndexHeader class="header"/>
       <a-layout-content>
         <!-- 解决手机端mavonEditor代码块code布局问题 -->
-        <main class="content" :style="$store.state.collapsed ? 'width: 100%;' : 'width: 1100px;'">
+        <main class="content" :style="$store.state.collapsed ? 'width: 100%;' : 'width: 100%;max-width: 1100px;'">
           <div class="article-left-buttons">
             <!-- 左边浮着的那些按钮 -->
             <LeftButtons

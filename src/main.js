@@ -18,6 +18,8 @@ import utils from "./utils/utils"
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
+import VueClipboards from 'vue-clipboard2'
+
 Vue.config.productionTip = false;
 
 // 引入自定义工具模块
@@ -28,6 +30,7 @@ Vue.prototype.$t = store.state.translate.bind(store.state)
 
 Vue.use(Antd);
 Vue.use(mavonEditor)
+Vue.use(VueClipboards);
 
 export default new Vue({
     router,

@@ -193,4 +193,12 @@ export default {
                 .catch((err) => reject(err));
         });
     },
+    // 获取用户操作数量（文章、关注、点赞等）
+    getUserOperateCount(params) {
+        return new Promise((resolve, reject) => {
+            axios.get("/api/bbs/user/getUserOperateCount", {params})
+                .then((res) => resolve(res))
+                .catch((err) => reject(err));
+        });
+    },
 };

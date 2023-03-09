@@ -32,8 +32,9 @@ export default {
        * @property hasNext 列表是否还有没加载完的（是否已经加载完最后一项），是后台返回的结果
        * @property finish 上个请求是否完成，完成后才可以进行下个请求
        * @function loadMore 加载下一页的方法
+       * 100 可不加
        */
-      if (this.hasNext && this.finish && scrollHeight - scrollTop <= clientHeight) {
+      if (this.hasNext && this.finish && scrollHeight - scrollTop <= clientHeight + 100) {
         this.loadMore();
       }
     };

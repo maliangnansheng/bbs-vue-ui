@@ -17,6 +17,9 @@
 >
 > 对应的**后端项目**仓库移步至：[bbs-springboot](https://github.com/maliangnansheng/bbs-springboot)
 
+## 项目架构
+![](http://76.nanshengbbs.top/ns-jiagou.png)
+
 ## 关于项目
 
 - 南生论坛基于`SpringBoot+Vue`框架实现前后端分离，自适应手机端和电脑端，界面简洁美观，功能完善，性能高效。分为[用户系统](http://bbs.nanshengbbs.top)和[管理系统](http://manage.nanshengbbs.top)两部分
@@ -36,9 +39,6 @@
 1. 在线联系作者：去 [南生闲聊](http://chat.nanshengbbs.top/)（`使用南生论坛注册的账号密码即可登录`） 聊天，问题反馈在“南生论坛”群聊或者加“马亮南生”私聊都行
 2. 加作者QQ：924818949
 3. 加作者微信：maliangnansheng
-
-## APP
-![](http://76.nanshengbbs.top/app/nanshengbbs_image2.png)
 
 ## 使用指南and代码讲解and设计文档
 [01 南生论坛使用指南](https://www.bilibili.com/video/BV1he4y1C7rk?share_source=copy_web&vd_source=1f88041e3a02d90ecf98d311908d3d8b)、 [02 南生论坛代码讲解](https://www.bilibili.com/video/BV1pK411C7T4/?vd_source=d0a5d07985a7fbbfb889c874632343c6)、 [03 如何获取南生论坛设计文档？](http://bbs.nanshengbbs.top/detail/76)、 [04南生论坛日常迭代](http://bbs.nanshengbbs.top/detail/122)

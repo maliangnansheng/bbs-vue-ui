@@ -20,7 +20,7 @@
 > 对应的**后端项目**仓库移步至：[bbs-springboot](https://github.com/maliangnansheng/bbs-springboot)
 
 ## 项目架构
-![](https://76.nanshengbbs.top/ns-jiagou.png)
+![](https://76.nanshengbbs.top/github/ns-jiagou.png)
 
 ## 关于项目
 

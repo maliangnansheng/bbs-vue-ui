@@ -3,8 +3,8 @@
     <a-layout id="about-index">
       <IndexHeader class="header"/>
       <a-layout-content>
-        <main class="content" :style="$store.state.collapsed ? 'width: 100%;' : 'width: 800px;'">
-          <div style="background: #fff">
+        <main class="about_content" :style="$store.state.collapsed ? 'width: 100%;' : 'width: 800px;'">
+          <div style="background: #fff; margin-bottom: 10px">
             <section class="mission">
               <div class="inner">
                 <div class="mission-content">
@@ -22,88 +22,87 @@
                 <div class="author-content">
                   <div class="title">作者</div>
                   <div class="sub">马亮南生（maliangnansheng）</div>
-                  <img title="微信" src="http://76.nanshengbbs.top/wx-mlns.png" width="50%"/>
-                  <img title="QQ" src="http://76.nanshengbbs.top/qq-mlns.jpg" width="50%"/>
+                  <img title="微信" src="https://76.nanshengbbs.top/bbs_ssm/wx-mlns.png" width="50%"/>
+                  <img title="QQ" src="https://76.nanshengbbs.top/bbs_ssm/qq-mlns.jpg" width="50%"/>
                 </div>
                 <div class="code-content">
                   <div class="title">源码地址</div>
-                  <div class="sub">后端源码(GitHub)：<a target="_blank" href="https://github.com/maliangnansheng/bbs-springboot">bbs-springboot</a></div>
-                  <div class="sub">前端源码(GitHub)：<a target="_blank" href="https://github.com/maliangnansheng/bbs-vue-ui">bbs-vue-ui</a></div>
-                  <div class="sub">后端源码(Gitee)：<a target="_blank" href="https://gitee.com/maliangnansheng/bbs-springboot">bbs-springboot</a></div>
-                  <div class="sub">前端源码(Gitee)：<a target="_blank" href="https://gitee.com/maliangnansheng/bbs-vue-ui">bbs-vue-ui</a></div>
+                  <div class="sub">后端源码(GitHub)：<a target="_blank"
+                                                   href="https://github.com/maliangnansheng/bbs-springboot">bbs-springboot</a>
+                  </div>
+                  <div class="sub">前端源码(GitHub)：<a target="_blank" href="https://github.com/maliangnansheng/bbs-vue-ui">bbs-vue-ui</a>
+                  </div>
+                  <div class="sub">后端源码(Gitee)：<a target="_blank"
+                                                  href="https://gitee.com/maliangnansheng/bbs-springboot">bbs-springboot</a>
+                  </div>
+                  <div class="sub">前端源码(Gitee)：<a target="_blank" href="https://gitee.com/maliangnansheng/bbs-vue-ui">bbs-vue-ui</a>
+                  </div>
                 </div>
                 <div class="code-content">
                   <div class="title">学习路线</div>
                   <div class="sub">
-                    <a target="_blank" href="http://bbs.nanshengbbs.top/detail/158">Java学习路线</a>
+                    <a target="_blank" href="https://bbs.nanshengbbs.top/detail/158">Java学习路线</a>
                     <br>
-                    <a target="_blank" href="http://bbs.nanshengbbs.top/detail/158">前端学习路线</a>
+                    <a target="_blank" href="https://bbs.nanshengbbs.top/detail/159">前端学习路线</a>
                   </div>
                 </div>
                 <div class="code-content">
                   <div class="title">信息统一整理</div>
                   <div class="sub">
-                    不想替换settings.xml的童鞋自取：
-                    <br>
-                    <a target="_blank" href="http://76.nanshengbbs.top/jar/manage-auth-facade-1.0.0-SNAPSHOT.jar">http://76.nanshengbbs.top/jar/manage-auth-facade-1.0.0-SNAPSHOT.jar</a>
-                    <br>
-                    <a target="_blank" href="http://76.nanshengbbs.top/jar/manage-concern-facade-1.0.0-SNAPSHOT.jar">http://76.nanshengbbs.top/jar/manage-concern-facade-1.0.0-SNAPSHOT.jar</a>
-                    <br>
-                    <a target="_blank" href="http://76.nanshengbbs.top/jar/nansheng-common-1.0.0-SNAPSHOT.jar">http://76.nanshengbbs.top/jar/nansheng-common-1.0.0-SNAPSHOT.jar</a>
-                    <br>
-                    <a target="_blank" href="http://76.nanshengbbs.top/jar/nansheng-mybatis-generator-1.0.0-SNAPSHOT.jar">http://76.nanshengbbs.top/jar/nansheng-mybatis-generator-1.0.0-SNAPSHOT.jar</a>
+                    设计文档(论文)：
+                    <a target="_blank"
+                       href="https://76.nanshengbbs.top/doc/%E5%8D%97%E7%94%9F%E8%AE%BA%E5%9D%9B%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.doc">南生论坛设计文档</a>
                   </div>
                   <div class="sub">
-                    南生论坛设计文档开源下载地址：
-                    <br>
-                    <a target="_blank" href="http://76.nanshengbbs.top/doc/%E5%8D%97%E7%94%9F%E8%AE%BA%E5%9D%9B%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0.doc">南生论坛设计文档</a>
+                    日常迭代：
+                    <a target="_blank" href="https://bbs.nanshengbbs.top/detail/122">南生论坛日常迭代</a>
                   </div>
-                  <div class="sub">
-                    南生闲聊：
-                    <br>
-                    <a target="_blank" href="http://76.nanshengbbs.top/jar/chat/ns-chat.zip">南生闲聊项目源码</a>
-                    <br>
-                    <a target="_blank" href="http://bbs.nanshengbbs.top/detail/71">南生闲聊教程</a>
-                  </div>
-                  <div class="sub">
-                    视频教程：
-                    <br>
-                    <a target="_blank" href="https://www.bilibili.com/video/BV1pK411C7T4/?spm_id_from=333.999.0.0&vd_source=d0a5d07985a7fbbfb889c874632343c6">南生论坛代码讲解视频</a>
-                    <br>
-                    <a target="_blank" href="https://www.bilibili.com/video/BV1he4y1C7rk/?spm_id_from=333.999.0.0&vd_source=d0a5d07985a7fbbfb889c874632343c6">南生论坛使用指南视频</a>
+                  <div class="sub" style="color: #cb2222">
+                    【商用】需看：
+                    <a target="_blank" href="https://bbs.nanshengbbs.top/detail/171">南生运营的理念</a>
                   </div>
                   <div class="sub">
                     安装部署教程：
                     <br>
-                    <a target="_blank" href="http://bbs.nanshengbbs.top/detail/44">【后端】安装部署教程</a>
+                    <a target="_blank" href="https://bbs.nanshengbbs.top/detail/44">【后端】安装部署教程</a>
                     <br>
-                    <a target="_blank" href="http://bbs.nanshengbbs.top/detail/45">【前端】安装部署教程</a>
+                    <a target="_blank" href="https://bbs.nanshengbbs.top/detail/45">【前端】安装部署教程</a>
                   </div>
                   <div class="sub">
-                    日常迭代：
+                    视频教程：
                     <br>
-                    <a target="_blank" href="http://bbs.nanshengbbs.top/detail/122">南生论坛日常迭代</a>
+                    <a target="_blank"
+                       href="https://www.bilibili.com/video/BV1pK411C7T4/?spm_id_from=333.999.0.0&vd_source=d0a5d07985a7fbbfb889c874632343c6">南生论坛代码讲解视频</a>
+                    <br>
+                    <a target="_blank"
+                       href="https://www.bilibili.com/video/BV1he4y1C7rk/?spm_id_from=333.999.0.0&vd_source=d0a5d07985a7fbbfb889c874632343c6">南生论坛使用指南视频</a>
+                  </div>
+                  <div class="sub">
+                    南生闲聊：
+                    <br>
+                    <a target="_blank" href="https://76.nanshengbbs.top/jar/chat/ns-chat.zip">南生闲聊项目源码</a>
+                    <br>
+                    <a target="_blank" href="https://bbs.nanshengbbs.top/detail/71">南生闲聊教程</a>
                   </div>
                 </div>
               </div>
             </section>
           </div>
-          <a-row>
-            <a-col :span="24" style="height: 10px;"/>
-          </a-row>
         </main>
       </a-layout-content>
+      <FooterButtons v-if="!$store.state.collapsed"/>
     </a-layout>
   </a-layout>
 </template>
 
 <script>
 import IndexHeader from "@/components/index/head/IndexHeader";
+import FooterButtons from "@/components/utils/FooterButtons";
 
 export default {
   name: "About",
 
-  components: {IndexHeader},
+  components: {IndexHeader, FooterButtons},
 
   mounted() {
     // 滚动条恢复初始位置的方法
@@ -128,7 +127,7 @@ export default {
     border-bottom: 1px solid #00000021;
   }
 
-  .content {
+  .about_content {
     margin-top: 64px;
   }
 

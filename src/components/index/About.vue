@@ -22,8 +22,8 @@
                 <div class="author-content">
                   <div class="title">作者</div>
                   <div class="sub">马亮南生（maliangnansheng）</div>
-                  <img title="微信" src="https://76.nanshengbbs.top/bbs_ssm/wx-mlns.png" width="50%"/>
-                  <img title="QQ" src="https://76.nanshengbbs.top/bbs_ssm/qq-mlns.jpg" width="50%"/>
+                  <img title="微信" src="https://aid.nanshengbbs.top/default/wx-mlns.png" width="50%"/>
+                  <img title="QQ" src="https://aid.nanshengbbs.top/default/qq-mlns.jpg" width="50%"/>
                 </div>
                 <div class="code-content">
                   <div class="title">源码地址</div>

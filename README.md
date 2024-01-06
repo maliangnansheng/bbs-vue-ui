@@ -1,4 +1,4 @@
-# Nan's BBS 南生论坛（SpringBoot+Vue）
+# Nan's BBS 南生论坛（SpringBoot+Vue2）
 
 [![](https://img.shields.io/badge/Author-马亮南生-orange.svg)](https://bbs.nanshengbbs.top/user/1640)
 [![](https://img.shields.io/badge/version-3.0.0-brightgreen.svg)](https://github.com/maliangnansheng/bbs-vue-ui)
@@ -12,6 +12,9 @@
 > [**未经授权**](https://bbs.nanshengbbs.top/detail/171#_62)的情况下严禁公司使用或者商用(个人学习使用不限制)
 > 
 > [加载太慢or图片加载不出来 **点我**](https://bbs.nanshengbbs.top/detail/172)
+
+## 我要学习Vue3版本
+[Vue3版本（bbs-vue3-ui）](https://github.com/maliangnansheng/bbs-vue3-ui)
 
 ## 仓库说明
 

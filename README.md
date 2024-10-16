@@ -74,6 +74,20 @@
 
 管理系统：[https://manage.nanshengbbs.top](https://manage.nanshengbbs.top) 
 
+## 桌面应用
+
+### Windows
+> Windows桌面应用效果图
+
+![](https://76.nanshengbbs.top/logo/zmxt.png)
+
+下载地址：[https://76.nanshengbbs.top/app/ns-bbs.msi](https://76.nanshengbbs.top/app/ns-bbs.msi)
+
+### Mac
+> 作者没有苹果电脑，同学们自行下载安装体验
+
+下载地址：[https://76.nanshengbbs.top/app/ns-bbs.dmg](https://76.nanshengbbs.top/app/ns-bbs.dmg)
+
 ## 加入南生论坛交流圈🥇
 > 如果你想拥有一个涵盖主流Java技术栈➕Vue技术栈的完整项目经验，提高自己独立开发一个项目的能力的话，欢迎加入南生论坛交流圈
 

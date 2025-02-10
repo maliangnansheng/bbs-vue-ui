@@ -74,20 +74,6 @@
 
 管理系统：[https://manage.nanshengbbs.top](https://manage.nanshengbbs.top) 
 
-## 桌面应用
-
-### Windows
-> Windows桌面应用效果图
-
-![](https://76.nanshengbbs.top/logo/zmxt.png)
-
-下载地址：[https://76.nanshengbbs.top/app/ns-bbs.msi](https://76.nanshengbbs.top/app/ns-bbs.msi)
-
-### Mac
-> 作者没有苹果电脑，同学们自行下载安装体验
-
-下载地址：[https://76.nanshengbbs.top/app/ns-bbs.dmg](https://76.nanshengbbs.top/app/ns-bbs.dmg)
-
 ## 功能结构
 
 - 用户系统-功能结构图
@@ -102,11 +88,11 @@
 
 ### 后端项目结构（SpringBoot）
 
-![](https://76.nanshengbbs.top/github/idea002.png)
+![](https://76.nanshengbbs.top/github/idea003.png)
 
 ### 前端项目结构（Vue）
 
-![](https://76.nanshengbbs.top/github/idea012.png)
+![](https://76.nanshengbbs.top/github/idea013.png)
 
 ## 项目源码
 
@@ -133,7 +119,7 @@
 
 - **话题**
 
-  ![image](https://76.nanshengbbs.top/github/ns-bbs-topic.png)
+  ![image](https://76.nanshengbbs.top/github/ns-bbs-topic3.png)
 
 - **文章详情**
 
@@ -157,7 +143,11 @@
 
 - **个人资料**
 
-  ![](https://76.nanshengbbs.top/github/ns-bbs-personalinfo.png)
+  ![](https://76.nanshengbbs.top/github/ns-bbs-personalinfo2.png)
+
+  - **切换主题**
+
+  ![](https://76.nanshengbbs.top/github/ns-bbs-theme.png)
 
 
 ### 管理系统
@@ -185,3 +175,17 @@
 - **通知管理**
 
   ![](https://76.nanshengbbs.top/github/ns-manage-notify.png)
+
+## 桌面应用
+
+### Windows
+> Windows桌面应用效果图
+
+![](https://76.nanshengbbs.top/logo/zmxt.png)
+
+下载地址：[https://76.nanshengbbs.top/app/ns-bbs.msi](https://76.nanshengbbs.top/app/ns-bbs.msi)
+
+### Mac
+> 作者没有苹果电脑，同学们自行下载安装体验
+
+下载地址：[https://76.nanshengbbs.top/app/ns-bbs.dmg](https://76.nanshengbbs.top/app/ns-bbs.dmg)

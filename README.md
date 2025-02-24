@@ -1,4 +1,4 @@
-# Nan's BBS 南生论坛（SpringBoot+Vue）
+# Nan's BBS 南生论坛（SpringBoot+Vue2）
 
 [![](https://img.shields.io/badge/Author-马亮南生-orange.svg)](https://bbs.nanshengbbs.top/user/1640)
 [![](https://img.shields.io/badge/version-3.0.0-brightgreen.svg)](https://github.com/maliangnansheng/bbs-springboot)

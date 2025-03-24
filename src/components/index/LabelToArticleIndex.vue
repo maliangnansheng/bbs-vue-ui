@@ -3,8 +3,7 @@
     <IndexHeader class="header"/>
     <a-layout-content>
       <main class="content">
-<!--        <CustomEmpty v-if="spinning"/>-->
-        <div v-if="!spinning">
+        <div style="width: 100%;" v-if="!spinning">
           <div class="top">
             <div class="left">
               <a-avatar class="avatar" :size="100" :src="labelData.logo"/>

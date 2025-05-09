@@ -3,7 +3,7 @@ import store from "@/store/index";
 // 设置xhr请求超时时间和baseURL（毫秒）
 axios.defaults.timeout = 15000;
 if (process.env.NODE_ENV === "production") {
-  // axios.defaults.baseURL = "http://bbs.nanshengbbs.top";
+  // axios.defaults.baseURL = "http://bbs.nansin.top";
 }
 export default (() => {
 

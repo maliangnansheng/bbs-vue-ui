@@ -23,7 +23,7 @@
         </div>
 
         <!-- 写文章 -->
-        <div v-if="!$store.state.collapsed" class="header-item" @click="routerWrite">
+        <div v-if="$store.state.isLogin && !$store.state.collapsed" class="header-item" @click="routerWrite">
           <div class="options">
             <span>{{ $t("common.writeArticle") }}</span>
           </div>

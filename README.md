@@ -19,9 +19,9 @@
 
 ## 部署效果
 
-开源版演示地址：[https://open.nansin.top](https://open.nansin.top)（管理员：`椿/123456`-你们可以使用我进行一些管理员相关的操作）
+开源版演示地址：[https://open.nansin.top](https://open.nansin.top)（普通用户：`自己注册就行`；管理员：`椿/123456`）
 
-商业版演示地址：[https://bbs.nansin.top](https://bbs.nansin.top)（普通用户：`椿/123456`；管理员：`测试管理员/123456`-能看到管理员界面，但没有实权）
+商业版演示地址：[https://bbs.nansin.top](https://bbs.nansin.top)（普通用户：`椿/123456`；管理员：`测试管理员/123456`）
 
 开源版部署教程：[【后端】安装部署教程](https://bbs.nansin.top/detail/44)、[【前端】安装部署教程](https://bbs.nansin.top/detail/45)
 
@@ -84,13 +84,21 @@
 
 ### 用户系统
 
-- **文章（`管理员视角`）**
+- **论坛管理（`管理员权限`）**
 
-  ![image](https://76.nansin.top/github/ns-bbs-home-admin.png)
+  ![image](https://76.nansin.top/github/bbs-manage.png)
+  
+- **文章**
+
+  ![image](https://76.nansin.top/github/bbs-article.png)
+
+- **问答**
+
+  ![image](https://76.nansin.top/github/bbs-issue.png)
 
 - **话题**
 
-  ![image](https://76.nansin.top/github/ns-bbs-topic3.png)
+  ![image](https://76.nansin.top/github/bbs-topic.png)
 
 - **文章详情**
 
@@ -103,10 +111,6 @@
 - **私信**
 
   ![image](https://76.nansin.top/github/bbs_chat.png)
-
-- **标签（`管理员视角`）**
-
-  ![](https://76.nansin.top/github/ns-bbs-label2.png)
 
 - **个人主页**
 

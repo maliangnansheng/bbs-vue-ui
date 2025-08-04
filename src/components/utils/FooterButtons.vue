@@ -53,7 +53,7 @@ export default {
 
     // 点击底部按钮跳转到闲聊页面
     routerChat() {
-      window.open('http://chat.nansin.top', '_blank');
+      window.open('https://chat.nansin.top', '_blank');
     },
 
     // 点击底部按钮跳转到源码页面

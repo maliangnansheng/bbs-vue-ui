@@ -56,6 +56,8 @@
 ## 视频教程
 [https://www.bilibili.com/video/BV19cYXzMETV](https://www.bilibili.com/video/BV19cYXzMETV)
 
+![](https://76.nansin.top/github/bilibili.png)
+
 ## 联系作者
 
 > **商用** 需要联系作者[**授权**](https://bbs.nansin.top/detail/600)(学习使用不需要授权)

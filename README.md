@@ -5,14 +5,16 @@
 [![GitHub stars](https://img.shields.io/github/stars/maliangnansheng/bbs-springboot.svg?style=social&label=Stars)](https://github.com/maliangnansheng/bbs-springboot)
 [![GitHub forks](https://img.shields.io/github/forks/maliangnansheng/bbs-springboot.svg?style=social&label=Fork)](https://github.com/maliangnansheng/bbs-springboot)
 
-> 本项目完全开源！如果觉得不错麻烦帮忙点一次`Star⭐️`
+> [!TIP]
+> 本项目基于 AGPL 3.0 协议完全开源，使用此项目时请遵守开源协议，如果觉得不错麻烦帮忙点一次`Star⭐️`
 >
-> [**未经授权**](https://bbs.nansin.top/detail/600)的情况下严禁公司使用或者商用(个人学习使用不限制)
->
-> [加载太慢or图片加载不出来 **点我**](https://bbs.nansin.top/detail/172)
+> 个人学习使用不限制（公司使用或者商用需要 [**获取授权**](https://bbs.nansin.top/detail/600)）
+> 
+> 加载太慢or图片加载不出来 [**点我**](https://bbs.nansin.top/detail/172)
 
 ## 仓库说明
 
+> [!NOTE]
 > 本仓库`bbs-vue-ui`是【南生论坛3.0.0】前后端分离项目的**前端项目**
 >
 > 对应的**后端项目**仓库移步至：[bbs-springboot](https://github.com/maliangnansheng/bbs-springboot)

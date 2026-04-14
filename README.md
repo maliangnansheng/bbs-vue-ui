@@ -23,7 +23,7 @@
 
 开源版演示地址：[https://open.nansin.top](https://open.nansin.top)（普通用户：`自己注册就行`；管理员：`椿/123456`）
 
-商业版演示地址：[https://bbs.nansin.top](https://bbs.nansin.top)（普通用户：`椿/123456`；管理员：`测试管理员/123456`）
+商业版演示地址：[https://bbs-corp.nansin.top](https://bbs-corp.nansin.top)（超管：`马亮南生/123456`，体验完整的权限控制）
 
 开源版部署教程：[【后端】安装部署教程](https://bbs.nansin.top/detail/44)、[【前端】安装部署教程](https://bbs.nansin.top/detail/45)
 
@@ -37,7 +37,7 @@
 
 ## 关于项目
 
-- 南生论坛基于`SpringBoot+Vue`框架实现（商业版也提供[SpringCloud版本](https://bbs.nansin.top/detail/453)）
+- 多种技术方案可供选择：[「SpringBoot2 / SpringBoot3 / Spring Cloud Alibaba」与「Vue2 + Antd / Vue3 + Element Plus」](https://bbs.nansin.top/detail/641)
 - 分为[用户系统（南生论坛）](https://bbs.nansin.top)和[管理系统（南生运营）](https://manage.nansin.top)两部分
 - 大厂微服务架构，仿掘金风格，前后端分离，多端适配，界面优雅，功能全面，性能高效
 

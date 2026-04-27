@@ -23,7 +23,7 @@
 
 开源版演示地址：[https://open.nansin.top](https://open.nansin.top)（普通用户：`自己注册就行`；管理员：`椿/123456`）
 
-商业版演示地址：[https://bbs.nansin.top](https://bbs.nansin.top)（普通用户：`椿/123456`；管理员：`测试管理员/123456`）
+商业版演示地址：[https://bbs-corp.nansin.top](https://bbs-corp.nansin.top)（超管：`马亮南生/123456`，体验完整的权限控制）
 
 开源版部署教程：[【后端】安装部署教程](https://bbs.nansin.top/detail/44)、[【前端】安装部署教程](https://bbs.nansin.top/detail/45)
 
@@ -33,20 +33,17 @@
 
 ## 项目架构
 
-![](https://76.nansin.top/github/ns-jiagou2.png)
+![](https://76.nansin.top/github/ns-jiagou2026.png)
 
 ## 关于项目
 
-- 南生论坛基于`SpringBoot+Vue`框架实现（商业版也提供[SpringCloud版本](https://bbs.nansin.top/detail/453)）
+- 多种技术方案可供选择：[「SpringBoot2 / SpringBoot3 / Spring Cloud Alibaba」与「Vue2 + Antd / Vue3 + Element Plus」](https://bbs.nansin.top/detail/641)
 - 分为[用户系统（南生论坛）](https://bbs.nansin.top)和[管理系统（南生运营）](https://manage.nansin.top)两部分
 - 大厂微服务架构，仿掘金风格，前后端分离，多端适配，界面优雅，功能全面，性能高效
 
 ## 技术栈
 
-- **后端：**
-  程序架构：[SpringBoot](https://spring.io/projects/spring-boot)、RPC：[Dubbo](https://cn.dubbo.apache.org/zh-cn/overview/what/)、注册中心：[Zookeeper](https://zookeeper.apache.org/)、消息队列：[RocketMQ](https://rocketmq.apache.org/zh/)、缓存：[Redis](https://redis.io/)、持久层框架：[MyBatis](https://mybatis.org/mybatis-3/zh_CN/index.html)、数据库：[MySQL](https://www.mysql.com/)、大数据存储：[MongoDB](https://www.mongodb.com/zh-cn)、实时交互：[WebSocket](https://websocket.org/)、权限管理：[Shiro](https://shiro.apache.org/)、对象存储：[七牛云](https://www.qiniu.com/) 等
-- **前端：**
-  前端框架：[Vue](https://vuejs.org/)、HTTP客户端：[Axios](https://axios-http.com/)、路由管理：[Vue Router](https://router.vuejs.org/)、UI组件库：[Ant Design of Vue](https://www.antdv.com/docs/vue/introduce-cn/)、打包工具：[Webpack](https://webpack.js.org/)、CSS预处理器：[Less](http://lesscss.org/)、状态管理：[Vuex](https://vuex.vuejs.org/)、JavaScript版本：[ES6](https://es6.ruanyifeng.com/)、服务端语言：[Node.js](https://nodejs.org/)、Markdown编辑器：[mavonEditor](https://github.com/hinesboy/mavonEditor)、富文本编辑器：[wangEditor](https://github.com/wangeditor-team/wangeditor)、数据可视化：[ECharts](https://echarts.apache.org/) 等
+[前后端技术栈选择](https://bbs.nansin.top/detail/641)
 
 ## 为什么做这个项目？
 - 企业一般都需要一个内部社区供开发者学习、分享、交流（本项目参考了稀土掘金、哔哩哔哩等部分功能）。

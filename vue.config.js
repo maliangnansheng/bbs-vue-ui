@@ -4,7 +4,21 @@ const createThemeColorReplacerPlugin = require("./src/config/config");
 const vueConfig = {
     // 开发环境的跨域配置
     devServer: {
-        // proxy: "http://bbs.localhost.com",
+        proxy: {
+            "/api": {
+                target: "http://localhost:7010",
+                ws: true,
+                changeOrigin: true,
+                router: function(req) {
+                    const host = req.headers.host;
+                    if (host) {
+                        const hostname = host.split(":")[0];
+                        return "http://" + hostname + ":7010";
+                    }
+                    return "http://localhost:7010";
+                }
+            }
+        },
         disableHostCheck: true,
         port: 8082
     },
